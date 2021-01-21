@@ -1248,6 +1248,14 @@ input[type="search"].search-bar-expand:focus {
   height: 4px;
 }
 
+.vertical-border {
+  height: 100%;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  border: 0;
+  border-left: 1px solid $secondary-200;
+}
+
 $float-action-buttons-height: 48px;
 
 .float-action-buttons {

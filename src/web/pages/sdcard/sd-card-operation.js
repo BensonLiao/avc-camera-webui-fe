@@ -8,7 +8,7 @@ import CustomTooltip from '../../../core/components/tooltip';
 import i18n from '../../../i18n';
 import {useContextState} from '../../stateProvider';
 
-const SDCardOperation = ({sdEnabled, sdStatus, callApi, isEnableAuth}) => {
+const SDCardOperation = ({sdEnabled, sdStatus, callApi, isEnableAuth, isWaitingApiCall}) => {
   const {isApiProcessing} = useContextState();
   const [isShowConfirmModal, setIsShowConfirmModal] = useState({
     isShowFormatModal: false,
@@ -36,7 +36,7 @@ const SDCardOperation = ({sdEnabled, sdStatus, callApi, isEnableAuth}) => {
                   <button
                     className="btn btn-outline-primary rounded-pill px-5 mr-3"
                     type="button"
-                    disabled={sdEnabled}
+                    disabled={sdEnabled || isApiProcessing || isWaitingApiCall}
                     style={sdEnabled ? {pointerEvents: 'none'} : {}}
                     onClick={showModal('isShowFormatModal')}
                   >
@@ -49,7 +49,7 @@ const SDCardOperation = ({sdEnabled, sdStatus, callApi, isEnableAuth}) => {
                   <button
                     className="btn btn-outline-primary rounded-pill px-5"
                     type="button"
-                    disabled={sdEnabled || isApiProcessing}
+                    disabled={sdEnabled || isApiProcessing || isWaitingApiCall}
                     style={sdEnabled ? {pointerEvents: 'none'} : {}}
                     onClick={sdStatus ? () => (callApi('mountSDCard')) : showModal('isShowUnmountModal')}
                   >
@@ -94,7 +94,7 @@ const SDCardOperation = ({sdEnabled, sdStatus, callApi, isEnableAuth}) => {
                 <CustomTooltip show={!isEnableAuth} title={i18n.t('sdCard.tooltip.disabledNotificationButton')}>
                   <div className="custom-control custom-switch float-right">
                     <Field
-                      disabled={!isEnableAuth}
+                      disabled={!isEnableAuth || isWaitingApiCall}
                       name="sdAlertEnabled"
                       type="checkbox"
                       style={isEnableAuth ? {} : {pointerEvents: 'none'}}
@@ -121,7 +121,8 @@ SDCardOperation.propTypes = {
   sdEnabled: PropTypes.bool.isRequired,
   sdStatus: PropTypes.number.isRequired,
   callApi: PropTypes.func.isRequired,
-  isEnableAuth: PropTypes.bool.isRequired
+  isEnableAuth: PropTypes.bool.isRequired,
+  isWaitingApiCall: PropTypes.bool.isRequired
 };
 
 export default SDCardOperation;

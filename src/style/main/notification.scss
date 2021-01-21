@@ -168,13 +168,6 @@
 }
 
 .modal.notification-card {
-  .modal-content {
-    .modal-body {
-      max-height: calc(100vh - 280px);
-      overflow: auto;
-    }
-  }
-
   .title {
     line-height: 40px;
     font-size: 20px;
@@ -251,6 +244,13 @@
     border-bottom-left-radius: 0;
     width: 260px;
     flex: 0 0 auto;
+  }
+
+  .cards-form-subject-tab {
+    height: calc(100vh - 380px);
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 }
 

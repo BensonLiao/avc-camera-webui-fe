@@ -16,14 +16,13 @@ import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 const wrapperClassName = 'col-sm-6';
 const labelClassName = 'col-form-label col-sm-6';
 
-const SDCardRecording = ({streamSettings, formValues, setFieldValue, sdCardRecordingSettings, onSubmit}) => {
+const SDCardRecording = ({streamSettings, formValues, setFieldValue, sdCardRecordingSettings, onSubmit, isWaitingApiCall}) => {
   const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
 
   const processOptions = (() => {
     return {
       type: SDCardRecordingType.all().map(x => i18nUtils.getSDCardRecordingType(x)),
-      // filter is temporary, REMOVE when ready
-      stream: SDCardRecordingStream.all().filter(x => x !== '2').map(x => {
+      stream: SDCardRecordingStream.all().map(x => {
         const {value, label} = i18nUtils.getSDCardRecordingStream(x);
         let channel = x === '1' ? 'channelA' : 'channelB';
         return {
@@ -45,16 +44,22 @@ const SDCardRecording = ({streamSettings, formValues, setFieldValue, sdCardRecor
       setFieldValue('sdRecordingDuration', SDCardRecordingDuration[4]);
       setFieldValue('sdPrerecordingDuration', SDCardPrerecordingDuration[4]);
       setFieldValue('sdRecordingLimit', SDCardRecordingLimit.stop);
+      setFieldValue('frameRate', streamSettings.channelA.frameRate);
+      setFieldValue('codec', streamSettings.channelA.codec);
     } else if (recordingType === SDCardRecordingType.event) {
       setFieldValue('sdRecordingStream', SDCardRecordingStream[1]);
       setFieldValue('sdRecordingDuration', SDCardRecordingDuration[4]);
       setFieldValue('sdPrerecordingDuration', SDCardPrerecordingDuration[4]);
       setFieldValue('sdRecordingLimit', SDCardRecordingLimit.override);
+      setFieldValue('frameRate', streamSettings.channelA.frameRate);
+      setFieldValue('codec', streamSettings.channelA.codec);
     } else if (recordingType === SDCardRecordingType.continuous) {
       setFieldValue('sdRecordingStream', SDCardRecordingStream[1]);
       setFieldValue('sdRecordingDuration', SDCardRecordingDuration.max);
       setFieldValue('sdPrerecordingDuration', SDCardPrerecordingDuration[0]);
       setFieldValue('sdRecordingLimit', SDCardRecordingLimit.override);
+      setFieldValue('frameRate', streamSettings.channelA.frameRate);
+      setFieldValue('codec', streamSettings.channelA.codec);
     }
   };
 
@@ -71,6 +76,8 @@ const SDCardRecording = ({streamSettings, formValues, setFieldValue, sdCardRecor
     }
   };
 
+  const isDisableField = formValues.sdRecordingEnabled === false || formValues.sdEnabled === false || isWaitingApiCall;
+
   return (
     <Tab.Content>
       <Tab.Pane eventKey="tab-sdcard-recording">
@@ -82,8 +89,9 @@ const SDCardRecording = ({streamSettings, formValues, setFieldValue, sdCardRecor
               type="checkbox"
               className="custom-control-input"
               id="switch-recording"
+              disabled={formValues.sdEnabled === false || isWaitingApiCall}
             />
-            <label className={classNames('custom-control-label', {'custom-control-label-disabled': false})} htmlFor="switch-recording">
+            <label className={classNames('custom-control-label', {'custom-control-label-disabled': formValues.sdEnabled === false || isWaitingApiCall})} htmlFor="switch-recording">
               <span>{i18n.t('common.button.on')}</span>
               <span>{i18n.t('common.button.off')}</span>
             </label>
@@ -94,7 +102,7 @@ const SDCardRecording = ({streamSettings, formValues, setFieldValue, sdCardRecor
             <div className="form-group pr-3">
               <SelectField
                 row
-                readOnly={formValues.sdRecordingEnabled === false}
+                readOnly={isDisableField}
                 wrapperClassName={wrapperClassName}
                 labelClassName={labelClassName}
                 labelName={i18n.t('sdCard.basic.recordingType')}
@@ -107,7 +115,7 @@ const SDCardRecording = ({streamSettings, formValues, setFieldValue, sdCardRecor
               </SelectField>
               <SelectField
                 row
-                readOnly={formValues.sdRecordingEnabled === false}
+                readOnly={isDisableField}
                 wrapperClassName={wrapperClassName}
                 labelClassName={labelClassName}
                 labelName={i18n.t('sdCard.basic.recordingResolution')}
@@ -145,7 +153,7 @@ const SDCardRecording = ({streamSettings, formValues, setFieldValue, sdCardRecor
               </div>
               <SelectField
                 row
-                readOnly={formValues.sdRecordingEnabled === false}
+                readOnly={isDisableField}
                 wrapperClassName={wrapperClassName}
                 labelClassName={labelClassName}
                 labelName={i18n.t('sdCard.basic.recordingDuration')}
@@ -157,7 +165,7 @@ const SDCardRecording = ({streamSettings, formValues, setFieldValue, sdCardRecor
               </SelectField>
               <SelectField
                 row
-                readOnly={formValues.sdRecordingEnabled === false}
+                readOnly={isDisableField}
                 wrapperClassName={wrapperClassName}
                 labelClassName={labelClassName}
                 labelName={i18n.t('sdCard.basic.prerecordingDuration')}
@@ -169,7 +177,7 @@ const SDCardRecording = ({streamSettings, formValues, setFieldValue, sdCardRecor
               </SelectField>
               <SelectField
                 row
-                readOnly={formValues.sdRecordingEnabled === false}
+                readOnly={isDisableField}
                 wrapperClassName={wrapperClassName}
                 labelClassName={labelClassName}
                 labelName={i18n.t('sdCard.basic.recordingLimit')}
@@ -199,11 +207,11 @@ const SDCardRecording = ({streamSettings, formValues, setFieldValue, sdCardRecor
             JSON.stringify({
               sdRecordingStatus: formValues.sdRecordingStatus,
               sdRecordingEnabled: formValues.sdRecordingEnabled,
-              sdRecordingStream: formValues.sdRecordingStream,
-              sdRecordingType: formValues.sdRecordingType,
-              sdRecordingDuration: formValues.sdRecordingDuration,
-              sdRecordingLimit: formValues.sdRecordingLimit,
-              sdPrerecordingDuration: formValues.sdPrerecordingDuration
+              sdRecordingStream: Number(formValues.sdRecordingStream),
+              sdRecordingType: Number(formValues.sdRecordingType),
+              sdRecordingDuration: Number(formValues.sdRecordingDuration),
+              sdRecordingLimit: Number(formValues.sdRecordingLimit),
+              sdPrerecordingDuration: Number(formValues.sdPrerecordingDuration)
             })}
           type="button"
           onClick={() => setIsShowConfirmModal(true)}
@@ -245,7 +253,8 @@ SDCardRecording.propTypes = {
     sdRecordingType: PropTypes.number.isRequired,
     sdPrerecordingDuration: PropTypes.number.isRequired
   }).isRequired,
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
+  isWaitingApiCall: PropTypes.bool.isRequired
 };
 
 export default SDCardRecording;

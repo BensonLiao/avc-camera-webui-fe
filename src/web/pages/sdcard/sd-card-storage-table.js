@@ -1,7 +1,8 @@
 import classNames from 'classnames';
 import filesize from 'filesize';
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import {connectForm} from '../../../core/components/form-connect';
 import CheckboxBody from '../../../core/components/fields/checkbox-body';
 import CheckboxHeader from '../../../core/components/fields/checkbox-header';
 import CustomTooltip from '../../../core/components/tooltip';
@@ -11,27 +12,25 @@ import {SDCARD_STORAGE_DATE_FORMAT} from '../../../core/constants';
 import TableWithCheckBox from '../../../core/components/checkbox-table';
 import CheckboxTablePopoverAction from '../../../core/components/checkbox-table-popover-action';
 
-const SDCardStorageTable = ({
+const SDCardStorageTable = connectForm(({
+  formik,
   currentDate,
-  form,
-  formikRef,
   pageNumber,
   confirmDelete,
   downloadFiles
 }) => {
   return (
     <TableWithCheckBox
-      formikRef={formikRef}
       pageNumber={pageNumber}
       popoverAction={(
         <CheckboxTablePopoverAction
-          items={form.values.flat().filter(value => value.isChecked).length}
+          items={formik.values.flat().filter(value => value.isChecked).length}
           actions={[
             {
               id: 1,
               icon: <i className="fas fa-download"/>,
               text: i18n.t('common.tooltip.download'),
-              func: () => downloadFiles(formikRef.current.values)
+              func: () => downloadFiles(formik.values)
             },
             {
               id: 2,
@@ -45,7 +44,7 @@ const SDCardStorageTable = ({
     >
       <thead>
         <tr className="shadow">
-          <CheckboxHeader formikForm={form}/>
+          <CheckboxHeader/>
           <th style={{width: '15%'}}>{i18n.t('sdCard.storage.files.date')}</th>
           <th style={{width: '25%'}}>{i18n.t('sdCard.storage.files.name')}</th>
           <th style={{width: '25%'}}>{i18n.t('sdCard.storage.files.size')}</th>
@@ -54,16 +53,16 @@ const SDCardStorageTable = ({
       </thead>
       <tbody>
         {
-          form.values.length && form.values[pageNumber].length ? (
-            form.values[pageNumber] && form.values[pageNumber].map((pageData, index) => {
+          formik.values.length && formik.values[pageNumber].length ? (
+            formik.values[pageNumber] && formik.values[pageNumber].map((pageData, index) => {
               return (
                 <tr
                   key={pageData.path}
                   className={classNames(
                     {
-                      checked: form.values[pageNumber] &&
-                          form.values[pageNumber][index] &&
-                          form.values[pageNumber][index].isChecked
+                      checked: formik.values[pageNumber] &&
+                      formik.values[pageNumber][index] &&
+                      formik.values[pageNumber][index].isChecked
                     }
                   )}
                 >
@@ -117,12 +116,10 @@ const SDCardStorageTable = ({
       </tbody>
     </TableWithCheckBox>
   );
-};
+});
 
 SDCardStorageTable.propTypes = {
   currentDate: PropTypes.object.isRequired,
-  form: PropTypes.object.isRequired,
-  formikRef: PropTypes.object.isRequired,
   pageNumber: PropTypes.number.isRequired,
   confirmDelete: PropTypes.func.isRequired,
   downloadFiles: PropTypes.func.isRequired

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import React, {useContext} from 'react';
+import React from 'react';
 import classnames from 'classnames';
-import {CheckboxFunctionContext} from './checkbox-table';
+import {useContextState} from '../../web/stateProvider';
 import CustomTooltip from './tooltip';
 import i18n from '../../i18n';
 
@@ -14,7 +14,7 @@ import i18n from '../../i18n';
  */
 const CheckboxTablePopoverAction = ({items, actions}) => {
   const numberOfTopDisplayActions = 2;
-  const {deselectAllHandler} = useContext(CheckboxFunctionContext);
+  const {deselectAllHandler} = useContextState();
   return (
     <div className={classnames('float-action-buttons bottom center', {'show mb-8x': items > 0})}>
       {items > 0 && (

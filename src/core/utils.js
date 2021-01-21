@@ -1,3 +1,5 @@
+
+const {useEffect, useRef} = require('react');
 const Cookies = require('js-cookie');
 const {getRouter} = require('@benson.liao/capybara-router');
 const dayjs = require('dayjs');
@@ -625,4 +627,39 @@ module.exports.getPaginatedData = (data, size = 10) => {
   }
 
   return pageData;
+};
+
+/**
+ * This hook gets called only when the dependencies change but not during initial render.
+ *
+ * @param {EffectCallback} effect The `useEffect` callback function.
+ * @param {DependencyList} deps An array of dependencies.
+ * @return {Function} deps An array of dependencies.
+ *
+ * @example
+ * ```
+ *  useNonInitialEffect(()=>{
+ *      alert("Dependency changed!");
+ * },[dependency]);
+ * ```
+ */
+module.exports.useNonInitialEffect = (effect, deps) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const initialRender = useRef(true);
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    let effectReturns = () => {};
+
+    if (initialRender.current) {
+      initialRender.current = false;
+    } else {
+      effectReturns = effect();
+    }
+
+    if (effectReturns && typeof effectReturns === 'function') {
+      return effectReturns;
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
 };

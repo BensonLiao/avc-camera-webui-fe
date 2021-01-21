@@ -8,6 +8,11 @@
         "deselectall": "すべての選択を解除"
       }
     },
+    "tooltip": {
+      "more": "もっと",
+      "delete": "削除",
+      "download": "ダウンロード"
+    },
     "modal": {
       "pleaseWait": "しばらくお待ちください",
       "sessionExpire": {
@@ -46,9 +51,9 @@
       "stats": "{{0}}-{{1}}個データ、合計: {{2}}"
     },
     "volumeBar": {
-      "freeSpace": "",
-      "total": "",
-      "sdStorageStatus": "{{0}} 使用可能 (合計 {{1}})",
+      "freeSpace": "使用可能:",
+      "total": "合計:",
+      "sdStorageStatus": "使用可能: {{0}} , 合計: {{1}}",
       "used": "{{0}} 使用されています",
       "free": "{{0}} 使用可能"
     },
@@ -95,9 +100,9 @@
       "Invalid Key": "無効なライセンスキー",
       "Duplicate Key": "アクティベーションに失敗しました。ライセンスキーが重複してます",
       "Cannot Support Database Downgrade from 30,000 to 3000 People": "顔認証メンバー上限を30,000人から3,000人に下げることに対応していません",
-      "DEVICE_CONNECTION_FAIL": "",
+      "DEVICE_CONNECTION_FAIL": "デバイス接続に失敗しました",
       "DEVICE_LOGIN_FAIL": "",
-      "DUPLICATE_DEVICE_IP": "",
+      "DUPLICATE_DEVICE_IP": "デバイスのIPアドレスが重複しています",
       "INVALID_DEVICE_ID": "",
       "DHCP Test Failed": "DHCPテストに失敗しました"
     },
@@ -115,11 +120,6 @@
       "tooltip": {
         "disabledButton": "ファイルを選択してください"
       }
-    },
-    "tooltip": {
-      "download": "ダウンロード",
-      "delete": "削除",
-      "more": "もっと"
     }
   },
   "userManagement": {
@@ -168,21 +168,32 @@
           "hostPlaceholder": "",
           "port": "ポート",
           "portPlaceholder": "例えば8080",
-          "addDeviceApiProcessingModal": "",
-          "editDeviceApiProcessingModal": "",
-          "confirmDeleteTitle": "",
-          "confirmDeleteBody": "",
-          "deleteDeviceApiProcessingModal": ""
+          "addDeviceApiProcessingModal": "デバイスの追加",
+          "editDeviceApiProcessingModal": "デバイスの追加",
+          "cancelDeviceApiProcessingModal": "",
+          "refreshDeviceApiProcessingModal": "",
+          "numberOfDevices": "",
+          "confirmMultipleDeleteBody": "",
+          "confirmDeleteBody": "デバイスを削除してもよろしいですか？",
+          "deleteDeviceApiProcessingModal": "",
+          "confirmDeleteTitle": ""
         }
       },
       "tooltip": {
         "photoLimitExceeded": "写真数の上限に達しました",
         "uploadPrimaryFirst": "最初はメイン写真をアップロードして下さい",
         "groupLimitExceeded": "グループ数の上限に達しました",
-        "connected": "接続済み",
         "notConnected": "接続されていません",
+        "loginFailed": "",
+        "exportFailed": "",
+        "unzipFailed": "",
+        "wrongPassword": "",
+        "databaseOverLimit": "",
+        "connected": "接続済み",
         "invalidSelection": "",
+        "maxSelectedDeviceReached": "",
         "noDevice": "デバイスを選択します",
+        "maxDeviceReached": "",
         "editGroupWithName": "グループを編集する：{{0}}",
         "createGroup": "グループを追加する",
         "deleteGroupWithName": "グループを削除する：{{0}}",
@@ -204,31 +215,37 @@
       "importDB": "データベースのインポート",
       "import": "インポート",
       "toast": {
-        "connectSuccessTitle": "",
-        "connectSuccessBody": "",
-        "connectFailTitle": "",
-        "connectFailBody": "",
-        "syncSuccessTitle": "",
-        "syncSuccessBody": ""
+        "connectSuccessTitle": "接続の成功",
+        "connectSuccessBody": "デバイスが正常に接続されました",
+        "connectFailTitle": "接続に失敗しました",
+        "connectFailBody": "デバイスを接続できません"
       },
       "host": "ホスト",
+      "failed": "",
+      "cancelledByUser": "",
       "syncing": "",
       "done": "",
-      "failed": "",
       "lastUpdated": "",
+      "synchronize": "同期する",
       "deviceName": "デバイス名",
       "status": "ステータス",
       "actions": "操作",
-      "noDevice": "",
-      "synchronize": "",
+      "noDevice": "最初に[追加]をクリックして、デバイスをリストに追加してください。",
+      "connected": "",
+      "disconnected": "",
+      "success": "",
+      "all": "",
+      "cancelling": "",
+      "stop": "",
+      "refresh": "",
       "removeUnlinked": "リンクされていないデバイスを削除します",
-      "remove": "削除する",
       "searchPlaceholder": "キーワードを入力",
       "search": "検索",
       "title": "メンバー",
       "allMembers": "全メンバー表示",
       "groups": "グループ",
       "database": "データベースファイル",
+      "deviceSynchronization": "デバイスの同期",
       "userPicture": "登録写真",
       "noData": "一致するデータがみつかりません。再検索してください。",
       "addNewMember": "メンバーの新規追加",
@@ -266,7 +283,7 @@
       },
       "popover": {
         "title": "",
-        "content": "キーワード間の論理AND演算子として ' 'または ','を使用します。"
+        "content": "キーワード間の論理AND演算子として ' 'または ',' を使用します。"
       },
       "similarity": "相似性",
       "status": "認証結果",
@@ -384,7 +401,7 @@
         "Read-only Access": "読み取り専用",
         "Unknown Error": "不明なエラー",
         "sdcard-recording-type-0": "バックアップビデオ",
-        "sdcard-recording-type-1": "",
+        "sdcard-recording-type-1": "イベントの記録",
         "sdcard-recording-type-2": "連続録音",
         "sdcard-recording-stream-0": "",
         "sdcard-recording-stream-1": "",
@@ -400,14 +417,14 @@
       "errorNotification": "異常通知",
       "notificationSet": "メールアドレスが設定されました",
       "enableOutgoingEmail": "メールアドレスを設定する",
-      "emailNotification": "",
+      "emailNotification": "電子メール通知",
       "enableRecording": "録音を有効にする",
       "recordingType": "いつ録音を開始するか",
       "recordingResolution": "解像度",
       "fps": "フレームレート",
       "codec": "コーデック",
       "recordingDuration": "録音時間の長さ (分)",
-      "prerecordingDuration": "",
+      "prerecordingDuration": "事前記録時間の長さ (秒)",
       "recordingLimit": "ストレージがいっぱいになったとき",
       "modal": {
         "recordingOnOffTitle": "",
@@ -501,7 +518,7 @@
     "countryCode": "国コードが間違っています",
     "duplicateName": "名前が重複しました、他の名前に設定してください",
     "identicalIP": "",
-    "duplicateIP": "",
+    "duplicateIP": "デバイスのIPアドレスが重複しています",
     "maxRecipient": "最大受信者数：64",
     "duplicateEmail": "重複するメールアドレス"
   },

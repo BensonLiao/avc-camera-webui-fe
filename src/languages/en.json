@@ -8,6 +8,11 @@
         "deselectall": "Deselect All"
       }
     },
+    "tooltip": {
+      "more": "More",
+      "delete": "Delete",
+      "download": "Download"
+    },
     "modal": {
       "pleaseWait": "Please wait",
       "sessionExpire": {
@@ -97,7 +102,7 @@
       "Cannot Support Database Downgrade from 30,000 to 3000 People": "Cannot Support Database Downgrade from 30,000 to 3000 People",
       "DEVICE_CONNECTION_FAIL": "Device Connection Failed",
       "DEVICE_LOGIN_FAIL": "Device Login Failed",
-      "DUPLICATE_DEVICE_IP": "Duplicate Device IP",
+      "DUPLICATE_DEVICE_IP": "Duplicate device IP address",
       "INVALID_DEVICE_ID": "Invalid Device ID",
       "DHCP Test Failed": "DHCP Testing Failed"
     },
@@ -115,11 +120,6 @@
       "tooltip": {
         "disabledButton": "Please select a file first."
       }
-    },
-    "tooltip": {
-      "download": "Download",
-      "delete": "Delete",
-      "more": "More"
     }
   },
   "userManagement": {
@@ -169,20 +169,31 @@
           "port": "Port",
           "portPlaceholder": "e.g. 8080",
           "addDeviceApiProcessingModal": "Adding Device",
-          "editDeviceApiProcessingModal": "Updating Device",
-          "confirmDeleteTitle": "Delete Device",
-          "confirmDeleteBody": "Are you sure you want to delete device?",
-          "deleteDeviceApiProcessingModal": "Deleting Device"
+          "editDeviceApiProcessingModal": "Adding Device",
+          "cancelDeviceApiProcessingModal": "Cancelling",
+          "refreshDeviceApiProcessingModal": "Refreshing Device",
+          "numberOfDevices": "Number of Devices",
+          "confirmMultipleDeleteBody": "Are you sure you want to delete these devices?",
+          "confirmDeleteBody": "Are you sure you want to delete the device?",
+          "deleteDeviceApiProcessingModal": "Deleting Device",
+          "confirmDeleteTitle": "Delete Device"
         }
       },
       "tooltip": {
         "photoLimitExceeded": "Photo Limit of Member Database Exceeded",
         "uploadPrimaryFirst": "Upload the Primary Photo First",
         "groupLimitExceeded": "Group number limit exceeded.",
-        "connected": "Connected",
         "notConnected": "Disconnected",
+        "loginFailed": "Login Failed",
+        "exportFailed": "Export Failed",
+        "unzipFailed": "Unzip Failed",
+        "wrongPassword": "Wrong Database Password",
+        "databaseOverLimit": "Database Member License Limit",
+        "connected": "Connected",
         "invalidSelection": "Un-linked Device Selected",
-        "noDevice": "Select a device",
+        "maxSelectedDeviceReached": "Max Devices to Sync Reached",
+        "noDevice": "Select a Device",
+        "maxDeviceReached": "Max Device Reached",
         "editGroupWithName": "Edit Group: {{0}}",
         "createGroup": "Create a Group",
         "deleteGroupWithName": "Delete Group: {{0}}",
@@ -207,28 +218,34 @@
         "connectSuccessTitle": "Connection Success",
         "connectSuccessBody": "Device Connected Successfully",
         "connectFailTitle": "Connection Failed",
-        "connectFailBody": "Unable to Connect the Device",
-        "syncSuccessTitle": "Synchronization Success",
-        "syncSuccessBody": "Device Synced Successfully"
+        "connectFailBody": "Unable to Connect the Device"
       },
       "host": "Host",
+      "failed": "Failed",
+      "cancelledByUser": "Cancelled",
       "syncing": "Syncing",
       "done": "Done",
-      "failed": "Failed",
       "lastUpdated": "Last Updated",
+      "synchronize": "Synchronize",
       "deviceName": "Device Name",
       "status": "Status",
       "actions": "Actions",
-      "noDevice": "Please click the 'Add' first to add a new device to your list",
-      "synchronize": "Synchronize",
+      "noDevice": "Please click 'Add' first to add a device to your list.",
+      "connected": "Connected",
+      "disconnected": "Disconnected",
+      "success": "Success",
+      "all": "All",
+      "cancelling": "Cancelling",
+      "stop": "Stop",
+      "refresh": "Refresh",
       "removeUnlinked": "Remove Disconnected Devices",
-      "remove": "Remove",
       "searchPlaceholder": "Enter keywords",
       "search": "Search",
       "title": "Members",
       "allMembers": "All Members",
       "groups": "Groups",
       "database": "Database",
+      "deviceSynchronization": "Device Synchronization",
       "userPicture": "User Picture",
       "noData": "Couldn't find any data.",
       "addNewMember": "Add a New Member",
@@ -389,7 +406,7 @@
         "sdcard-recording-stream-0": "Stream 1",
         "sdcard-recording-stream-1": "Stream 2",
         "sdcard-recording-limit-0": "Stop recording",
-        "sdcard-recording-limit-1": "Start Rotation",
+        "sdcard-recording-limit-1": "Start rotation",
         "unknownStatus": "UNKNOWN STATUS",
         "storageToFull": "All Available Space"
       },
@@ -407,8 +424,8 @@
       "fps": "Frame Rate",
       "codec": "Codec",
       "recordingDuration": "Recording Duration (minutes)",
-      "prerecordingDuration": "Retention Duration (seconds)",
-      "recordingLimit": "When storage is full",
+      "prerecordingDuration": "Pre-Recording Duration (seconds)",
+      "recordingLimit": "When Storage Is Full",
       "modal": {
         "recordingOnOffTitle": "Restart Recording Functionality",
         "recordingOnBody": "Are you sure you want to change SD card recording settings? This will restart SD card recording functionality according to your settings.",

@@ -753,7 +753,8 @@ mockAxios
       port: Number(item.port),
       name: `MD2 [${Math.random().toString(36).substring(7).toUpperCase()}]`, // Randomly generated device name
       account: item.account,
-      connectionStatus: Math.random() * 5 > 1 ? 1 : 0, // Generate failed connection with 50% chance
+      connectionStatus: Math.random() * 5 > 1 ?
+        1 : (Math.random() * 2 > 1 ? 2 : 0), // Generate failed (login fail or general fail) connection with 50% chance
       lastUpdateTime: 0,
       syncStatus: 0
     };
@@ -764,6 +765,49 @@ mockAxios
     devices.devices.forEach(deviceID => db.get('deviceSync.devices').remove({id: deviceID}).write());
     return mockResponseWithLog(config, [204, {}], 500);
   })
+  .onPost('/api/members/sync-status').reply(config => {
+    const {devices} = JSON.parse(config.data);
+    const deviceList = db.get('deviceSync.devices').value();
+    devices.forEach(deviceID => {
+      const index = deviceList.findIndex(device => device.id === deviceID);
+      if (deviceList[index].syncStatus === 3) {
+        // 50% to refresh failed status to success (mock disconnected during slave device import)
+        if (Math.random() * 2 > 1) {
+          deviceList[index].syncStatus = 2;
+          deviceList[index].lastUpdateTime = new Date().getTime();
+        } else {
+          // Fail with other reasons
+          const errorCodes = [4, 5, 6, 7, 8];
+          deviceList[index].syncStatus = errorCodes[Math.floor(Math.random() * errorCodes.length)];
+        }
+      }
+
+      deviceList[index].connectionStatus = 1;
+    });
+    return mockResponseWithLog(config, [204, db.get('deviceSync.devices').assign(deviceList).write()], 1000);
+  })
+  .onPost('/api/members/cancel-sync').reply(config => {
+    const {devices} = db.get('deviceSync').value();
+    let syncProcess = db.get('deviceSyncProcess').value();
+    // Finish Syncing
+    syncProcess.devices.forEach(syncDevice => {
+      const index = devices.findIndex(device => device.id === syncDevice.id);
+      devices[index] = {
+        ...syncDevice,
+        syncStatus: syncDevice.syncStatus < 2 ? 7 : syncDevice.syncStatus === 2 ? 0 : syncDevice.syncStatus
+      };
+    });
+    db.get('deviceSync').assign({
+      devices: devices,
+      syncStatus: 0
+    }).write();
+    db.get('deviceSyncProcess').assign({
+      devices: [],
+      sourceStatus: 8
+    }).write();
+
+    return mockResponseWithLog(config, [204, {}], 3000);
+  })
   .onPost('/api/members/sync-db').reply(config => {
     const {devices, syncStatus} = db.get('deviceSync').value();
     const devicesToSync = JSON.parse(config.data).devices;
@@ -773,11 +817,13 @@ mockAxios
       // Set sync process indicator on
       syncProcess.sourceStatus = 1;
       // Record time for this sync's lastUpdateTime
-      syncProcess.lastUpdateTime = new Date().getTime();
+      const newUpdateTime = new Date().getTime();
+      syncProcess.lastUpdateTime = newUpdateTime;
       db.get('deviceSync').assign({syncStatus: 1}).write();
       const itemsSyncing = devices.filter(device => devicesToSync.includes(device.id))
         .map(device => ({
           ...device,
+          lastUpdateTime: newUpdateTime,
           syncStatus: 1
         }));
       syncProcess.devices = itemsSyncing;
@@ -791,16 +837,31 @@ mockAxios
       // 20% chance to fail
       if (Math.random() * 5 > 1) {
         syncProcess.devices[deviceIndex].syncStatus = 2;
+        syncProcess.devices[deviceIndex].connectionStatus = 1;
         // Update lastUpdateTime for successful device
         syncProcess.devices[deviceIndex].lastUpdateTime = syncProcess.lastUpdateTime;
       } else {
-        syncProcess.devices[deviceIndex].syncStatus = 3;
+        const errorCodes = [3, 4, 5, 6, 8];
+        const failedStatus = errorCodes[Math.floor(Math.random() * errorCodes.length)];
+        syncProcess.devices[deviceIndex].syncStatus = failedStatus;
+        if (failedStatus === 3) {
+          // 50% chance to fail with `connection` or `login` fail
+          syncProcess.devices[deviceIndex].connectionStatus = Math.random() * 2 > 1 ? 0 : 2;
+        }
       }
-
-      db.get('deviceSync.devices').find({id: syncProcess.devices[deviceIndex].id}).assign(syncProcess.devices[deviceIndex]).write();
     } else {
       // Finish Syncing
-      db.get('deviceSync').assign({syncStatus: 0}).write();
+      syncProcess.devices.forEach(syncDevice => {
+        const index = devices.findIndex(device => device.id === syncDevice.id);
+        devices[index] = {
+          ...syncDevice,
+          syncStatus: syncDevice.syncStatus === 2 ? 0 : syncDevice.syncStatus
+        };
+      });
+      db.get('deviceSync').assign({
+        devices: devices,
+        syncStatus: 0
+      }).write();
       db.get('deviceSyncProcess').assign({
         devices: [],
         sourceStatus: 8

@@ -1,16 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {useContextCheckbox} from '../checkbox-table';
+import {useContextState} from '../../../web/stateProvider';
 
 /**
- * Component rendering checkbox in table header
+ * Render checkbox in table header
  * @typedef {object} Props
- * @prop {Object} formikForm - Formik form object
  * @prop {Number} width - Width of checkbox table head, defaults to 10% width
  * @returns {component}
  */
-const CheckboxHeader = ({formikForm, width = '10%'}) => {
-  const {selectAllRef, isSelectAll, selectAllHandler} = useContextCheckbox();
+const CheckboxHeader = ({width = '10%', disabled = false}) => {
+  const {selectAllRef, isSelectAll, selectAllHandler} = useContextState();
   return (
     <th
       className="text-center th-checkbox"
@@ -18,11 +17,12 @@ const CheckboxHeader = ({formikForm, width = '10%'}) => {
     >
       <input
         ref={selectAllRef}
+        disabled={disabled}
         id="selectAll"
         type="checkbox"
         indeterminate="true"
         checked={isSelectAll}
-        onChange={selectAllHandler(formikForm)}
+        onChange={selectAllHandler}
       />
       <label htmlFor="selectAll"/>
     </th>
@@ -30,8 +30,8 @@ const CheckboxHeader = ({formikForm, width = '10%'}) => {
 };
 
 CheckboxHeader.propTypes = {
-  formikForm: PropTypes.object.isRequired,
-  width: PropTypes.number
+  width: PropTypes.number,
+  disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.number])
 };
 
 export default CheckboxHeader;

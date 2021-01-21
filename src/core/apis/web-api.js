@@ -1509,6 +1509,24 @@ module.exports = {
       data: devices
     }),
     /**
+     * @param {Array} devices - Array of objects of device ids' to be refreshed
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     */
+    refreshDevice: devices => api({
+      method: 'post',
+      url: '/api/members/sync-status',
+      data: devices
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     */
+    cancelSync: () => api({
+      method: 'post',
+      url: '/api/members/cancel-sync'
+    }),
+    /**
      * @param {Array} devices - Array of objects of device ids' to be synced
      * @returns {Promise<response>}
      * @response 200 {Object}

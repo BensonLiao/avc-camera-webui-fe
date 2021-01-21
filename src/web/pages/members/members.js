@@ -8,6 +8,7 @@ import CustomTooltip from '../../../core/components/tooltip';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import DeviceSync from './members-deviceSync';
 import i18n from '../../../i18n';
+import {MEMBER_PAGES} from '../../../core/constants';
 import MembersDatabase from './members-database';
 import MembersSearchForm from './members-search-form';
 import MembersSidebar from './members-sidebar';
@@ -37,11 +38,11 @@ const Members = ({groups, members, params, remainingPictureCount, deviceSync, ne
     }
   });
 
-  // State used to switch pages between 'members', 'database' and 'sync'
-  const [page, setPage] = useState(localStorage.getItem('currentPage') || 'members');
+  // State used to switch pages between 'MEMBERS', 'DATABASE' and 'SYNC'
+  const [tab, setTab] = useState(localStorage.getItem('currentTab') || MEMBER_PAGES.MEMBERS);
 
   useEffect(() => {
-    localStorage.removeItem('currentPage');
+    localStorage.removeItem('currentTab');
   }, []);
 
   const {deleteGroupTarget, deleteMemberTarget} = state;
@@ -178,17 +179,17 @@ const Members = ({groups, members, params, remainingPictureCount, deviceSync, ne
       <MembersSidebar
         params={params}
         groups={groups}
-        page={page}
+        tab={tab}
         filterHandler={generateChangeFilterHandler}
         deleteGroupHandler={generateShowDeleteGroupModalHandler}
-        setPage={setPage}
+        setTab={setTab}
       />
       {/* Main content */}
       <div className="main-content left-menu-active sub">
-        <div className={classNames('page-members', page === 'database' ? 'bg-gray' : 'bg-white')}>
+        <div className={classNames('page-members', tab === MEMBER_PAGES.DATABASE ? 'bg-gray' : 'bg-white')}>
           <div className="container-fluid">
             <div className="row">
-              { page === 'members' && (
+              { tab === 'members' && (
                 <>
                   <div className="col-12 d-flex justify-content-between align-items-center mb-4">
                     <MembersSearchForm
@@ -244,14 +245,14 @@ const Members = ({groups, members, params, remainingPictureCount, deviceSync, ne
                   />
                 </>
               )}
-              { page === 'database' && (
+              { tab === MEMBER_PAGES.DATABASE && (
                 <div className="col-12 database">
                   <MembersDatabase
                     isApiProcessing={isApiProcessing}
                   />
                 </div>
               )}
-              { page === 'sync' && (
+              { tab === MEMBER_PAGES.SYNC && (
                 <div className="col-12 sync">
                   <DeviceSync
                     deviceSync={deviceSync}
@@ -277,7 +278,7 @@ Members.propTypes = {
   groups: PropTypes.shape(MembersTable.propTypes.groups).isRequired,
   members: PropTypes.shape(MembersTable.propTypes.members).isRequired,
   remainingPictureCount: PropTypes.number.isRequired,
-  deviceSync: PropTypes.any,
+  deviceSync: DeviceSync.propTypes.deviceSync,
   networkSettings: PropTypes.shape({ipAddress: PropTypes.string.isRequired}).isRequired
 };
 

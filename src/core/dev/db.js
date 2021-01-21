@@ -571,8 +571,9 @@ module.exports = {
       groups: memberGroups,
       members,
       deviceSync: {
-        devices: Array.from({length: 20}, (_, i) => {
-          const connectionStatus = Math.random() * 5 > 1 ? 1 : 0;
+        devices: Array.from({length: 30}, (_, i) => {
+          // Generate failed (login fail or general fail) connection with 50% chance
+          const connectionStatus = Math.random() * 5 > 1 ? 1 : (Math.random() * 2 > 1 ? 2 : 0);
           return {
             id: i + 1,
             ip: `192.168.0.${i + 1}`,
@@ -580,7 +581,7 @@ module.exports = {
             name: `${i + 1}: MD2 [${Math.random().toString(36).substring(7).toUpperCase()}]`,
             account: 'admin',
             connectionStatus: connectionStatus, // Generate failed connection with 50% chance
-            lastUpdateTime: connectionStatus && (Math.random() * 2 > 1) ? 1608888327067 : 0,
+            lastUpdateTime: connectionStatus === 1 && (Math.random() * 2 > 1) ? 1608888327067 : 0,
             syncStatus: 0
           };
         }),

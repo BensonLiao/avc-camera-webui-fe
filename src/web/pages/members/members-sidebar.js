@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import i18n from '../../../i18n';
 import CustomTooltip from '../../../core/components/tooltip';
+import {MEMBER_PAGES} from '../../../core/constants';
 import {MEMBERS_PAGE_GROUPS_MAX} from '../../../core/constants';
 
-const MembersSidebar = ({params, groups, filterHandler, deleteGroupHandler, setPage, page}) => {
+const MembersSidebar = ({params, groups, filterHandler, deleteGroupHandler, setTab, tab}) => {
   const isAddGroupDisabled = groups.items.length >= MEMBERS_PAGE_GROUPS_MAX;
-  const switchPage = page => e => {
+  const switchTab = tab => e => {
     e.preventDefault();
-    setPage(page);
+    setTab(tab);
   };
 
   return (
@@ -22,8 +23,8 @@ const MembersSidebar = ({params, groups, filterHandler, deleteGroupHandler, setP
             to="/users/members"
             title={i18n.t('userManagement.members.allMembers')}
             className={classNames('nav-link text-size-16 py-1 px-3 users-nav',
-              {active: !params.group && page === 'members'},
-              {'bg-light': !params.group && page === 'members'}
+              {active: !params.group && tab === MEMBER_PAGES.MEMBERS},
+              {'bg-light': !params.group && tab === MEMBER_PAGES.MEMBERS}
             )}
           >
             <i className="fas fa-user-friends pl-2 pr-4"/>{i18n.t('userManagement.members.allMembers')}
@@ -90,10 +91,10 @@ const MembersSidebar = ({params, groups, filterHandler, deleteGroupHandler, setP
             <a
               href=""
               className={classNames('nav-link text-size-14 py-2 px-3 users-nav',
-                {active: page === 'database'},
-                {'bg-light': page === 'database'}
+                {active: tab === MEMBER_PAGES.DATABASE},
+                {'bg-light': tab === MEMBER_PAGES.DATABASE}
               )}
-              onClick={switchPage('database')}
+              onClick={switchTab(MEMBER_PAGES.DATABASE)}
             >
               <i className="fas fa-cog pl-2 pr-4"/>
               {i18n.t('userManagement.members.databaseSettings')}
@@ -101,16 +102,16 @@ const MembersSidebar = ({params, groups, filterHandler, deleteGroupHandler, setP
             <a
               href=""
               className={classNames('nav-link text-size-14 py-2 px-3 users-nav',
-                {active: page === 'sync'},
-                {'bg-light': page === 'sync'}
+                {active: tab === MEMBER_PAGES.SYNC},
+                {'bg-light': tab === MEMBER_PAGES.SYNC}
               )}
-              onClick={switchPage('sync')}
+              onClick={switchTab(MEMBER_PAGES.SYNC)}
             >
               <div className="sidebar-database">
                 <i className="fas fa-database pl-2 pr-4"/>
                 <i className="fas fa-sync"/>
               </div>
-              {i18n.t('userManagement.members.synchronize')}
+              {i18n.t('userManagement.members.deviceSynchronization')}
             </a>
           </nav>
         </div>
@@ -122,8 +123,8 @@ const MembersSidebar = ({params, groups, filterHandler, deleteGroupHandler, setP
 MembersSidebar.propTypes = {
   filterHandler: PropTypes.func.isRequired,
   deleteGroupHandler: PropTypes.func.isRequired,
-  setPage: PropTypes.func.isRequired,
-  page: PropTypes.string.isRequired,
+  setTab: PropTypes.func.isRequired,
+  tab: PropTypes.string.isRequired,
   params: PropTypes.shape({group: PropTypes.string}).isRequired,
   groups: PropTypes.shape({
     items: PropTypes.arrayOf(PropTypes.shape({

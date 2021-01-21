@@ -8,6 +8,11 @@
         "deselectall": "全部取消選擇"
       }
     },
+    "tooltip": {
+      "more": "更多",
+      "delete": "刪除",
+      "download": "下載"
+    },
     "modal": {
       "pleaseWait": "請稍候",
       "sessionExpire": {
@@ -46,9 +51,9 @@
       "stats": "{{0}}-{{1}} 筆資料，總計：{{2}}"
     },
     "volumeBar": {
-      "freeSpace": "",
-      "total": "",
-      "sdStorageStatus": "{{0}} 可用 (共 {{1}})",
+      "freeSpace": "可用:",
+      "total": "共:",
+      "sdStorageStatus": "可用: {{0}}, 共: {{1}}",
       "used": "{{0}} 已使用",
       "free": "{{0}} 可用"
     },
@@ -95,9 +100,9 @@
       "Invalid Key": "啟用失敗，錯誤的啟動碼",
       "Duplicate Key": "啟用失敗，重複的啟動碼",
       "Cannot Support Database Downgrade from 30,000 to 3000 People": "啟用失敗，不支援臉部辨識成員上限從30,000人下降到3,000人",
-      "DEVICE_CONNECTION_FAIL": "",
+      "DEVICE_CONNECTION_FAIL": "裝置連線失敗",
       "DEVICE_LOGIN_FAIL": "",
-      "DUPLICATE_DEVICE_IP": "",
+      "DUPLICATE_DEVICE_IP": "裝置IP位址重複",
       "INVALID_DEVICE_ID": "",
       "DHCP Test Failed": "DHCP 測試失敗"
     },
@@ -115,11 +120,6 @@
       "tooltip": {
         "disabledButton": "請先選擇一個檔案"
       }
-    },
-    "tooltip": {
-      "download": "下載",
-      "delete": "刪除",
-      "more": "更多"
     }
   },
   "userManagement": {
@@ -168,21 +168,32 @@
           "hostPlaceholder": "",
           "port": "連接埠",
           "portPlaceholder": "例如8080",
-          "addDeviceApiProcessingModal": "",
-          "editDeviceApiProcessingModal": "",
-          "confirmDeleteTitle": "",
-          "confirmDeleteBody": "",
-          "deleteDeviceApiProcessingModal": ""
+          "addDeviceApiProcessingModal": "加入裝置",
+          "editDeviceApiProcessingModal": "加入裝置",
+          "cancelDeviceApiProcessingModal": "",
+          "refreshDeviceApiProcessingModal": "",
+          "numberOfDevices": "",
+          "confirmMultipleDeleteBody": "",
+          "confirmDeleteBody": "您確定要刪除裝置嗎？",
+          "deleteDeviceApiProcessingModal": "",
+          "confirmDeleteTitle": ""
         }
       },
       "tooltip": {
         "photoLimitExceeded": "已達數量限制",
         "uploadPrimaryFirst": "請先上傳主照片",
         "groupLimitExceeded": "已達數量限制",
-        "connected": "連線",
         "notConnected": "未連線",
+        "loginFailed": "",
+        "exportFailed": "",
+        "unzipFailed": "",
+        "wrongPassword": "",
+        "databaseOverLimit": "",
+        "connected": "連線",
         "invalidSelection": "",
+        "maxSelectedDeviceReached": "",
         "noDevice": "選擇裝置",
+        "maxDeviceReached": "",
         "editGroupWithName": "編輯群組: {{0}}",
         "createGroup": "新增群組",
         "deleteGroupWithName": "刪除群組: {{0}}",
@@ -204,31 +215,37 @@
       "importDB": "資料庫匯入",
       "import": "匯入",
       "toast": {
-        "connectSuccessTitle": "",
-        "connectSuccessBody": "",
-        "connectFailTitle": "",
-        "connectFailBody": "",
-        "syncSuccessTitle": "",
-        "syncSuccessBody": ""
+        "connectSuccessTitle": "連線成功",
+        "connectSuccessBody": "裝置連線成功",
+        "connectFailTitle": "連線失敗",
+        "connectFailBody": "無法連接裝置"
       },
       "host": "主機",
+      "failed": "",
+      "cancelledByUser": "",
       "syncing": "",
       "done": "",
-      "failed": "",
       "lastUpdated": "",
+      "synchronize": "立即同步",
       "deviceName": "裝置名稱",
       "status": "狀態",
       "actions": "操作",
-      "noDevice": "",
-      "synchronize": "",
+      "noDevice": "請首先點擊'新增'將裝置添加到列表中。",
+      "connected": "",
+      "disconnected": "",
+      "success": "",
+      "all": "",
+      "cancelling": "",
+      "stop": "",
+      "refresh": "",
       "removeUnlinked": "刪除未連線的裝置",
-      "remove": "移除",
       "searchPlaceholder": "輸入關鍵字",
       "search": "搜尋",
       "title": "成員",
       "allMembers": "清單",
       "groups": "群組",
       "database": "資料庫檔案",
+      "deviceSynchronization": "裝置同步",
       "userPicture": "註冊照片",
       "noData": "沒有符合的資料, 請重新設置條件",
       "addNewMember": "新增成員",
@@ -266,7 +283,7 @@
       },
       "popover": {
         "title": "",
-        "content": "使用' '或','串聯關鍵字。"
+        "content": "使用' '或 ',' 串聯關鍵字。"
       },
       "similarity": "相似度",
       "status": "結果",
@@ -384,7 +401,7 @@
         "Read-only Access": "唯獨",
         "Unknown Error": "未知錯誤",
         "sdcard-recording-type-0": "備援錄影",
-        "sdcard-recording-type-1": "",
+        "sdcard-recording-type-1": "事件錄影",
         "sdcard-recording-type-2": "持續錄影",
         "sdcard-recording-stream-0": "",
         "sdcard-recording-stream-1": "",
@@ -400,14 +417,14 @@
       "errorNotification": "異常通報",
       "notificationSet": "已設定電子郵件",
       "enableOutgoingEmail": "設定電子郵件",
-      "emailNotification": "",
+      "emailNotification": "電子郵件通報",
       "enableRecording": "開啟錄影",
       "recordingType": "何時開始錄影",
       "recordingResolution": " 解析度",
       "fps": "每秒幀數",
       "codec": "影像編碼",
       "recordingDuration": "錄影時間 (分)",
-      "prerecordingDuration": "",
+      "prerecordingDuration": "預錄時間 (秒)",
       "recordingLimit": "當存儲空間已滿時",
       "modal": {
         "recordingOnOffTitle": "",
@@ -501,7 +518,7 @@
     "countryCode": "國家代碼錯誤",
     "duplicateName": "名稱重複，請使用不同名稱",
     "identicalIP": "",
-    "duplicateIP": "",
+    "duplicateIP": "裝置IP位址重複",
     "maxRecipient": "已達數量限制",
     "duplicateEmail": "重複的電子郵件地址"
   },

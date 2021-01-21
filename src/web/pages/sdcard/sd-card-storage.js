@@ -4,7 +4,7 @@ import {Formik, Form} from 'formik';
 import {getRouter} from '@benson.liao/capybara-router';
 import progress from 'nprogress';
 import PropTypes from 'prop-types';
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {withApiWrapper} from '../../../core/apis';
 import api from '../../../core/apis/web-api';
 import i18n from '../../../i18n';
@@ -12,12 +12,11 @@ import {getPaginatedData, isArray} from '../../../core/utils';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import CustomTooltip from '../../../core/components/tooltip';
+import {ITEMS_PER_PAGE} from '../../../core/constants';
 import Pagination from '../../../core/components/pagination';
 import SDCardStorageSearchForm from './sd-card-storage-search-form';
 import SDCardStorageTable from './sd-card-storage-table';
 import StageProgress from '../../../core/components/stage-progress';
-
-const ITEMS_PER_PAGE = 10;
 
 const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
   useEffect(() => {
@@ -37,7 +36,6 @@ const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
   const [isShowProgressModal, setIsShowProgressModal] = useState(false);
   const [progressPercentage, setProgressPercentage] = useState(0);
   const [currentDate, setCurrentDate] = useState(date);
-  const formikRef = useRef();
 
   const generatePaginatedCheckList = files => {
     return getPaginatedData(files.map(file => ({
@@ -108,7 +106,6 @@ const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
               routes={['/sd-card/settings']}
             />
             <Formik
-              innerRef={formikRef}
               initialValues={generatePaginatedCheckList(files)}
             >
               {form => {
@@ -155,8 +152,6 @@ const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
                       </div>
                     </div>
                     <SDCardStorageTable
-                      form={form}
-                      formikRef={formikRef}
                       pageNumber={pageNumber}
                       currentDate={currentDate}
                       confirmDelete={confirmDelete}

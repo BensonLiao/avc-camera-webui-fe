@@ -31,7 +31,12 @@ const SDCard = ({
 }) => {
   const {isApiProcessing} = useContextState();
   const [isShowDisableModal, setIsShowDisableModal] = useState(false);
+  // toggleCheck: used in FormikEffect to maintain `Enable SD Card` button value on cancel without calling other APIs
+  const [toggleCheck, setToggleCheck] = useState(false);
   const [currentTab, setCurrentTab] = useState(localStorage.getItem('sdCurrentTab') || 'tab-sdcard-operation');
+  // isWaitingApiCall: used to disable buttons during the settimeout of 1000ms, to lock user action while waiting to call recording settings api
+  const [isWaitingApiCall, setIsWaitingApiCall] = useState(false);
+  const hideDisableModal = () => setIsShowDisableModal(false);
 
   useEffect(() => {
     // clear current tab so when user navigates back it doesn't stay as other tab
@@ -40,6 +45,17 @@ const SDCard = ({
 
   const setTab = event => {
     setCurrentTab(event);
+  };
+
+  /**
+   * Cancel disable SD card
+   * @param {function} setFieldValue - Formik setFieldValue function
+   * @returns {void}
+   */
+  const cancelAction = setFieldValue => _ => {
+    setToggleCheck(true);
+    hideDisableModal();
+    setFieldValue('sdEnabled', true);
   };
 
   const callApi = (apiFunction, value = '') => {
@@ -51,23 +67,35 @@ const SDCard = ({
       .finally(progress.done);
   };
 
+  /**
+   * Formik effect onChange function
+   * @param {object} nextValues
+   * @param {object} prevValues
+   * @returns {void}
+   */
   const onChangeSdCardSetting = ({nextValues, prevValues}) => {
+    // Show confirm disable modal
     if (prevValues.sdEnabled && !nextValues.sdEnabled) {
       return setIsShowDisableModal(true);
     }
 
-    if (!prevValues.sdEnabled && nextValues.sdEnabled) {
-      onSubmit(nextValues, false);
-      return callApi('enableSD', {sdEnabled: nextValues.sdEnabled});
+    // Switching `Enable SD Card` on
+    if (!toggleCheck && !prevValues.sdEnabled && nextValues.sdEnabled) {
+      setIsWaitingApiCall(true);
+      api.system.enableSD({sdEnabled: nextValues.sdEnabled})
+        .then(setTimeout(() => {
+          onSubmit(nextValues);
+          setIsWaitingApiCall(false);
+        }, 1000));
     }
 
+    // Toggling `Email notification`
     if (`${prevValues.sdAlertEnabled}` !== `${nextValues.sdAlertEnabled}`) {
       return callApi('sdCardAlert', {sdAlertEnabled: nextValues.sdAlertEnabled});
     }
   };
 
-  // reload should be false when called from onChangeSdCardSetting, to reduce unncessary api calls
-  const onSubmit = (values, reload = true) => {
+  const onSubmit = values => {
     // remember current tab to prevent jumping back to initial tab on reload
     localStorage.setItem('sdCurrentTab', currentTab);
 
@@ -82,13 +110,9 @@ const SDCard = ({
       sdPrerecordingDuration: values.sdPrerecordingDuration
     };
     progress.start();
-    if (reload) {
-      api.system.updateSDCardRecordingSettings(formValues)
-        .then(getRouter().reload)
-        .finally(progress.done);
-    } else {
-      api.system.updateSDCardRecordingSettings(formValues);
-    }
+    api.system.updateSDCardRecordingSettings(formValues)
+      .then(getRouter().reload)
+      .finally(progress.done);
   };
 
   return (
@@ -132,6 +156,7 @@ const SDCard = ({
                                 type="checkbox"
                                 className="custom-control-input"
                                 id="switch-sound"
+                                disabled={isWaitingApiCall}
                               />
                               <label className="custom-control-label" htmlFor="switch-sound">
                                 <span>{i18n.t('common.button.on')}</span>
@@ -160,10 +185,7 @@ const SDCard = ({
                             modalTitle={i18n.t('sdCard.modal.disableTitle')}
                             modalBody={i18n.t('sdCard.modal.disableBody')}
                             isConfirmDisable={isApiProcessing}
-                            onHide={() => {
-                              localStorage.setItem('sdCurrentTab', currentTab);
-                              getRouter().reload();
-                            }} // Reload to reset SD card switch button state
+                            onHide={cancelAction(setFieldValue)}
                             onConfirm={() => callApi('enableSD', {sdEnabled: false})}
                           />
                         </div>
@@ -187,12 +209,14 @@ const SDCard = ({
                         </Nav>
                         <div className="card-body">
                           <SDCardOperation
+                            isWaitingApiCall={isWaitingApiCall}
                             isEnableAuth={isEnableAuth}
                             sdEnabled={sdEnabled}
                             sdStatus={sdStatus}
                             callApi={callApi}
                           />
                           <SDCardRecording
+                            isWaitingApiCall={isWaitingApiCall}
                             sdCardRecordingSettings={sdCardRecordingSettings}
                             streamSettings={streamSettings}
                             formValues={values}

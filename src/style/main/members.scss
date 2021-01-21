@@ -43,10 +43,6 @@
       color: $success;
     }
 
-    .fa-ban {
-      color: $error;
-    }
-
     .fa-times-circle {
       color: $error;
     }
@@ -58,6 +54,51 @@
       .spinner {
         width: 1.3333em;
         height: 1.3333em;
+      }
+    }
+
+    .sync-success {
+      position: relative;
+
+      .fa-exchange-alt {
+        color: $primary;
+      }
+
+      .fa-check-circle {
+        position: absolute;
+        top: 4px;
+        left: 8px;
+        font-size: 15px;
+        background-color: $secondary-10;
+        padding: 1px;
+        border-radius: 30px;
+      }
+    }
+
+    .dropdown {
+      .fa-check-circle {
+        top: 40%;
+        font-size: 12px;
+      }
+
+      .btn {
+        &:hover {
+          .fa-check-circle {
+            background-color: $primary;
+          }
+        }
+      }
+    }
+
+    tr.checked {
+      .sync-success > .fa-check-circle {
+        background-color: $primary-50;
+      }
+
+      &:hover {
+        .sync-success > .fa-check-circle {
+          background-color: $primary-100;
+        }
       }
     }
   }

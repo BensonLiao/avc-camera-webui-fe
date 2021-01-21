@@ -15,6 +15,63 @@ import ProgressIndicator from '../../../core/components/progress-indicator';
  * @returns {JSX} - Device status
  */
 const DeviceSyncTableStatus = ({device, syncStatus}) => {
+  const renderUnlinkedStatus = () => {
+    return (
+      <CustomTooltip title={(() => {
+        switch (device.connectionStatus) {
+          default: return;
+          case ConnectionStatusSchema.connectionFail:
+            return i18n.t('userManagement.members.tooltip.notConnected');
+          case ConnectionStatusSchema.loginFail:
+            return i18n.t('userManagement.members.tooltip.loginFailed');
+        }
+      })()}
+      >
+        <i className="fas fa-lg fa-unlink"/>
+      </CustomTooltip>
+    );
+  };
+
+  // Display failed status
+  if (device.syncStatus !== DeviceSyncStatusSchema.syncOngoing &&
+    device.syncStatus !== DeviceSyncStatusSchema.syncNotStarted &&
+    device.syncStatus !== DeviceSyncStatusSchema.syncFinished) {
+    // Sync failed
+    if (device.syncStatus === DeviceSyncStatusSchema.syncAbnormal && device.connectionStatus !== ConnectionStatusSchema.connectionSuccess) {
+      return renderUnlinkedStatus();
+    }
+
+    return (
+      <CustomTooltip
+        title={(() => {
+          switch (device.syncStatus) {
+            default: return;
+            case DeviceSyncStatusSchema.syncAbnormal:
+              return i18n.t('userManagement.members.failed');
+            case DeviceSyncStatusSchema.exportFail:
+              return i18n.t('userManagement.members.tooltip.exportFailed');
+            case DeviceSyncStatusSchema.unzipFail:
+              return i18n.t('userManagement.members.tooltip.unzipFailed');
+            case DeviceSyncStatusSchema.wrongPassword:
+              return i18n.t('userManagement.members.tooltip.wrongPassword');
+            case DeviceSyncStatusSchema.overLimit:
+              return i18n.t('userManagement.members.tooltip.databaseOverLimit');
+            case DeviceSyncStatusSchema.syncCancel:
+              return '';
+          }
+        })()}
+      >
+        <span>
+          <i className="fas fa-lg fa-times-circle mr-2"/>
+          {device.syncStatus === DeviceSyncStatusSchema.syncCancel ?
+            i18n.t('userManagement.members.cancelledByUser') :
+            i18n.t('userManagement.members.failed')}
+        </span>
+      </CustomTooltip>
+
+    );
+  }
+
   // Check if sync is ongoing
   if (device.syncStatus && syncStatus === MasterSyncStatusSchema.syncOngoing) {
     switch (device.syncStatus) {
@@ -39,55 +96,32 @@ const DeviceSyncTableStatus = ({device, syncStatus}) => {
             <span>{i18n.t('userManagement.members.done')}</span>
           </div>
         );
-      case DeviceSyncStatusSchema.syncAbnormal:
-        // Sync failed
-        return (
-          <div className="d-flex align-items-center">
-            <i className="fas fa-lg fa-times-circle mr-2"/>
-            <span>{i18n.t('userManagement.members.failed')}</span>
-          </div>
-        );
-    }
-  } else {
-    // Show failed if last update failed
-    if (device.syncStatus === DeviceSyncStatusSchema.syncAbnormal) {
-      return (
-        <div className="d-flex align-items-center">
-          <i className="fas fa-lg fa-times-circle mr-2"/>
-          <span>{i18n.t('userManagement.members.failed')}</span>
-        </div>
-      );
-    }
-
-    // Display last synced time if lastUpdateTime is not 0
-    if (device.lastUpdateTime) {
-      return (
-        <CustomTooltip title={formatDate(device.lastUpdateTime)}>
-          <span>
-            <i className="fas fa-lg fa-check-circle mr-2"/>
-            {i18n.t('userManagement.members.lastUpdated') + ': ' + formatDate(device.lastUpdateTime)}
-          </span>
-        </CustomTooltip>
-      );
-    }
-
-    // Device has not been synced at all - show if initial device linking was successful
-    switch (device.connectionStatus) {
-      default: return;
-      case ConnectionStatusSchema.connectionSuccess:
-        return (
-          <CustomTooltip title={i18n.t('userManagement.members.tooltip.connected')}>
-            <i className="fas fa-lg fa-link"/>
-          </CustomTooltip>
-        );
-      case ConnectionStatusSchema.connectionFail:
-        return (
-          <CustomTooltip title={i18n.t('userManagement.members.tooltip.notConnected')}>
-            <i className="fas fa-lg fa-unlink"/>
-          </CustomTooltip>
-        );
     }
   }
+
+  // Display last synced time if lastUpdateTime is not 0
+  if (device.lastUpdateTime) {
+    return (
+      <CustomTooltip title={formatDate(device.lastUpdateTime)}>
+        <span className="sync-success">
+          <i className="fas fa-lg fa-exchange-alt mr-2"/>
+          <i className="fas fa-check-circle"/>
+          {i18n.t('userManagement.members.lastUpdated') + ': ' + formatDate(device.lastUpdateTime)}
+        </span>
+      </CustomTooltip>
+    );
+  }
+
+  // Device has not been synced at all - show if initial device linking was successful
+  if (device.connectionStatus === ConnectionStatusSchema.connectionSuccess) {
+    return (
+      <CustomTooltip title={i18n.t('userManagement.members.tooltip.connected')}>
+        <i className="fas fa-lg fa-link"/>
+      </CustomTooltip>
+    );
+  }
+
+  return renderUnlinkedStatus();
 };
 
 DeviceSyncTableStatus.propTypes = {

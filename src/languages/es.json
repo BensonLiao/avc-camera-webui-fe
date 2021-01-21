@@ -8,6 +8,11 @@
         "deselectall": "Deseleccionar todo"
       }
     },
+    "tooltip": {
+      "more": "Más",
+      "delete": "Eliminar",
+      "download": "Descargar"
+    },
     "modal": {
       "pleaseWait": "Por favor espera",
       "sessionExpire": {
@@ -46,9 +51,9 @@
       "stats": "{{0}}-{{1}} registros. Total: {{2}}"
     },
     "volumeBar": {
-      "freeSpace": "",
-      "total": "",
-      "sdStorageStatus": "{{0}} disponible total {{1}}",
+      "freeSpace": "Disponible:",
+      "total": "total:",
+      "sdStorageStatus": "Disponible: {{0}}, total: {{1}}",
       "used": "{{0}} se ha utilizado",
       "free": "{{0}} está disponible"
     },
@@ -95,9 +100,9 @@
       "Invalid Key": "Activación fallida, código de activación incorrecto",
       "Duplicate Key": "Activación fallida, código de activación repetido",
       "Cannot Support Database Downgrade from 30,000 to 3000 People": "Sin capacidad en base de datos, reducir de 30.000 a 3.000 miembros",
-      "DEVICE_CONNECTION_FAIL": "",
+      "DEVICE_CONNECTION_FAIL": "Error de conexión del dispositivo",
       "DEVICE_LOGIN_FAIL": "",
-      "DUPLICATE_DEVICE_IP": "",
+      "DUPLICATE_DEVICE_IP": "Dirección IP del dispositivo duplicada",
       "INVALID_DEVICE_ID": "",
       "DHCP Test Failed": "Prueba DHCP falló"
     },
@@ -115,11 +120,6 @@
       "tooltip": {
         "disabledButton": "Seleccione primero un archivo"
       }
-    },
-    "tooltip": {
-      "download": "Descargar",
-      "delete": "Eliminar",
-      "more": "Más"
     }
   },
   "userManagement": {
@@ -168,21 +168,32 @@
           "hostPlaceholder": "",
           "port": "Puerto ",
           "portPlaceholder": "p.ej. 8080",
-          "addDeviceApiProcessingModal": "",
-          "editDeviceApiProcessingModal": "",
-          "confirmDeleteTitle": "",
-          "confirmDeleteBody": "",
-          "deleteDeviceApiProcessingModal": ""
+          "addDeviceApiProcessingModal": "\"\nAgregar dispositivo\"",
+          "editDeviceApiProcessingModal": "Agregar dispositivo",
+          "cancelDeviceApiProcessingModal": "",
+          "refreshDeviceApiProcessingModal": "",
+          "numberOfDevices": "",
+          "confirmMultipleDeleteBody": "",
+          "confirmDeleteBody": "¿Estás seguro de que quieres eliminar el dispositivo?",
+          "deleteDeviceApiProcessingModal": "",
+          "confirmDeleteTitle": ""
         }
       },
       "tooltip": {
         "photoLimitExceeded": "Límite de cantidad alcanzado",
         "uploadPrimaryFirst": "Sube la foto principal primero",
         "groupLimitExceeded": "Límite de cantidad alcanzado",
-        "connected": "Conectado",
         "notConnected": "No conectado",
+        "loginFailed": "",
+        "exportFailed": "",
+        "unzipFailed": "",
+        "wrongPassword": "",
+        "databaseOverLimit": "",
+        "connected": "Conectado",
         "invalidSelection": "",
+        "maxSelectedDeviceReached": "",
         "noDevice": "Seleccione un dispositivo",
+        "maxDeviceReached": "",
         "editGroupWithName": "Editar grupo: {{0}}",
         "createGroup": "Añadir grupo",
         "deleteGroupWithName": "Borrar grupo: {{0}}",
@@ -204,31 +215,37 @@
       "importDB": "Importación de base de datos",
       "import": "Importar",
       "toast": {
-        "connectSuccessTitle": "",
-        "connectSuccessBody": "",
-        "connectFailTitle": "",
-        "connectFailBody": "",
-        "syncSuccessTitle": "",
-        "syncSuccessBody": ""
+        "connectSuccessTitle": "Conexión exitosa",
+        "connectSuccessBody": "Dispositivo conectado correctament",
+        "connectFailTitle": "La conexión falló",
+        "connectFailBody": "No se puede conectar el dispositivo"
       },
       "host": "Host",
+      "failed": "",
+      "cancelledByUser": "",
       "syncing": "",
       "done": "",
-      "failed": "",
       "lastUpdated": "",
+      "synchronize": "Sincronizar",
       "deviceName": "Nombre del dispositivo",
       "status": "Estado",
       "actions": "Operar",
-      "noDevice": "",
-      "synchronize": "",
+      "noDevice": "Primero haga clic en 'Agregar' para agregar un dispositivo a su lista.",
+      "connected": "",
+      "disconnected": "",
+      "success": "",
+      "all": "",
+      "cancelling": "",
+      "stop": "",
+      "refresh": "",
       "removeUnlinked": "Eliminar Dispositivos Desconectados",
-      "remove": "Eliminar",
       "searchPlaceholder": "Ingrese palabras claves",
       "search": "buscar",
       "title": "miembro",
       "allMembers": "Lista de Verificación",
       "groups": "Grupo",
       "database": "Base de Datos",
+      "deviceSynchronization": "Sincronización de dispositivos",
       "userPicture": "Registrar foto",
       "noData": "Ningún dato encontrado, por favor revise de nuevo!",
       "addNewMember": "Añadir miembro",
@@ -241,7 +258,7 @@
       },
       "addExistingMember": "Agregar a Usuario Existente",
       "searchPlaceholder": "Ingrese palabras claves",
-      "search": "buscar",
+      "search": "Buscar",
       "userPicture": "Registrar foto",
       "name": "Nombre",
       "actions": "Operar",
@@ -384,7 +401,7 @@
         "Read-only Access": "Solo lectura",
         "Unknown Error": "error desconocido",
         "sdcard-recording-type-0": "Video de respaldo",
-        "sdcard-recording-type-1": "",
+        "sdcard-recording-type-1": "Grabación de eventos",
         "sdcard-recording-type-2": "Grabación continua",
         "sdcard-recording-stream-0": "",
         "sdcard-recording-stream-1": "",
@@ -400,14 +417,14 @@
       "errorNotification": "Notificación de anormalidad",
       "notificationSet": "Conjunto de correo electrónico",
       "enableOutgoingEmail": "Configurar correo electrónico",
-      "emailNotification": "",
+      "emailNotification": "Notificación de correo electrónico",
       "enableRecording": "Habilitar grabación",
       "recordingType": "Cuándo comenzar a grabar",
       "recordingResolution": "Resolución",
       "fps": "Cuadros por segundo",
       "codec": "Codificación de imágenes",
       "recordingDuration": "Duración de la grabación (minutos)",
-      "prerecordingDuration": "",
+      "prerecordingDuration": "Duración de la pregrabación (segundos)",
       "recordingLimit": "Cuando el almacenamiento está lleno",
       "modal": {
         "recordingOnOffTitle": "",
@@ -501,7 +518,7 @@
     "countryCode": "El código de país es incorrecto",
     "duplicateName": "Nombre duplicado, por favorutilice un nombre diferente",
     "identicalIP": "",
-    "duplicateIP": "",
+    "duplicateIP": "Dirección IP del dispositivo duplicada",
     "maxRecipient": "El número máximo de destinatarios es 64",
     "duplicateEmail": "El correo electrónico esta duplicado"
   },

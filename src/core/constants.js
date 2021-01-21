@@ -307,5 +307,13 @@ module.exports = {
   SDCARD_STORAGE_DATE_FORMAT: {
     DISPLAY: 'MM/DD/YYYY',
     API: 'YYYY-MM-DD'
-  }
+  },
+  MEMBER_PAGES: {
+    MEMBERS: 'members',
+    DATABASE: 'database',
+    SYNC: 'sync'
+  },
+  ITEMS_PER_PAGE: 10,
+  MAX_DEVICES: 128,
+  MAX_SELECTED_DEVICES: 16
 };

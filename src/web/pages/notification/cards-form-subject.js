@@ -46,7 +46,7 @@ const CardsFormSubject = ({setFieldValue, values, validateField, errors, touched
   };
 
   return (
-    <>
+    <div className="cards-form-subject-tab pt-1">
       {/* I/O Notification */}
       <div className="form-group d-flex justify-content-between align-items-center">
         <label className="mb-0">{i18n.t('notification.cards.io')}</label>
@@ -252,7 +252,7 @@ const CardsFormSubject = ({setFieldValue, values, validateField, errors, touched
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

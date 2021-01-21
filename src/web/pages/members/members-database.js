@@ -187,7 +187,7 @@ const MembersDatabase = ({isApiProcessing}) => {
                     disabled={isApiProcessing || !file}
                     className="btn btn-outline-primary rounded-pill px-5"
                     type="button"
-                    style={file ? {} : {pointerEvents: 'none'}}
+                    style={file ?? {pointerEvents: 'none'}}
                     onClick={importDatabaseFile}
                   >
                     {i18n.t('userManagement.members.import')}

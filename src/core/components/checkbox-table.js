@@ -1,33 +1,35 @@
 import PropTypes from 'prop-types';
-import React, {useState, useRef, useEffect, useCallback, createContext, useContext} from 'react';
+import React, {useState, useRef, useEffect, useCallback} from 'react';
+import {StateProvider} from '../../web/stateProvider';
+import {connectForm} from './form-connect';
 import FormikEffect from './formik-effect';
 
-export const CheckboxFunctionContext = createContext();
-
 /**
- * Component rendering checkbox in table header
+ * Render table with checkbox, with indeterminate state
  * @typedef {object} Props
- * @prop {Number} formikRef - Ref of Formik form (Formik innerRef)
  * @prop {Number} pageNumber - Current page number
  * @prop {JSX} children - Table head and body
  * @prop {JSX} popoverAction - Checked items actions popover component
  * @returns {component}
  */
-const TableWithCheckBox = ({formikRef, pageNumber, children, popoverAction}) => {
+const TableWithCheckBox = connectForm(({formik, pageNumber, customHandler = () => {}, children, popoverAction}) => {
   const [isSelectAll, setIsSelectAll] = useState(false);
-  const [selectedPageNumbers, setSelectedPageNumbers] = useState([]);
   const selectAllRef = useRef();
 
   /**
    * Select or un-select all checkboxes on current page
-   * @param {Object} form - Formik form object
    * @returns {void}
    */
-  const selectAllHandler = form => _ => {
-    if (form.values[pageNumber]) {
-      form.values[pageNumber].forEach((_, index) => {
-        form.setFieldValue(`${pageNumber}.${index}.isChecked`, !isSelectAll);
-      });
+  const selectAllHandler = () => {
+    if (formik.values[pageNumber]) {
+      formik.setValues(formik.values.map((value, index) => {
+        return index === pageNumber ?
+          value.map(value => {
+            value.isChecked = !isSelectAll;
+            return value;
+          }) :
+          value;
+      }));
     }
 
     setIsSelectAll(prevState => (!prevState));
@@ -38,13 +40,12 @@ const TableWithCheckBox = ({formikRef, pageNumber, children, popoverAction}) => 
    * @returns {void}
    */
   const deselectAllHandler = () => {
-    selectedPageNumbers.forEach(selectedPageNumber => {
-      if (formikRef.current.values[selectedPageNumber]) {
-        formikRef.current.values[selectedPageNumber].forEach((_, index) => {
-          formikRef.current.setFieldValue(`${selectedPageNumber}.${index}.isChecked`, false);
-        });
-      }
-    });
+    formik.setValues(formik.values.map(value => {
+      return value.map(value => {
+        value.isChecked = false;
+        return value;
+      });
+    }));
 
     setIsSelectAll(false);
   };
@@ -54,18 +55,19 @@ const TableWithCheckBox = ({formikRef, pageNumber, children, popoverAction}) => 
    */
   useEffect(() => {
     // Crash prevention fallback if React is less than v2.2.0, innerRef only exists after v2.2.0
-    if (formikRef.current) {
-      const values = formikRef.current.values;
-      selectAllCheckboxState(values);
+    if (formik) {
+      selectAllCheckboxState(formik.values);
     }
-  }, [formikRef, selectAllCheckboxState, pageNumber]);
+  }, [formik, selectAllCheckboxState, pageNumber]);
 
   /**
      * Update `Select All` checkbox based on any checkbox update
      * @param {Object} nextValues - Form next values
      * @returns {void}
      */
-  const onChangeCardForm = ({nextValues}) => {
+  const onFormValueChange = ({nextValues}) => {
+    // Run custom function for form onChange
+    customHandler();
     if (nextValues.length && nextValues.length > 0) {
       selectAllCheckboxState(nextValues);
     }
@@ -79,8 +81,6 @@ const TableWithCheckBox = ({formikRef, pageNumber, children, popoverAction}) => 
   const selectAllCheckboxState = useCallback(values => {
     // Check if any checkboxes has been selected
     if (values[pageNumber] && values[pageNumber].some(value => value.isChecked)) {
-      selectedPageNumbers.push(pageNumber);
-      setSelectedPageNumbers(selectedPageNumbers);
       // Check if all or some checkboxes has been selected
       if (values[pageNumber].some(value => !value.isChecked)) {
         // Some checkboxes are selected, set to indetermindate state
@@ -94,14 +94,13 @@ const TableWithCheckBox = ({formikRef, pageNumber, children, popoverAction}) => 
       // No checkboxes has been selected
       selectAllRef.current.indeterminate = false;
       setIsSelectAll(false);
-      setSelectedPageNumbers(selectedPageNumbers.filter(selectedPageNumber => selectedPageNumber !== pageNumber));
     }
-  }, [pageNumber, selectedPageNumbers]);
+  }, [pageNumber]);
 
   return (
     <div className="col-12 pt-4 mb-5 table-responsive">
-      <FormikEffect onChange={onChangeCardForm}/>
-      <CheckboxFunctionContext.Provider value={{
+      <FormikEffect onChange={onFormValueChange}/>
+      <StateProvider initialState={{
         selectAllRef,
         isSelectAll,
         selectAllHandler,
@@ -112,14 +111,14 @@ const TableWithCheckBox = ({formikRef, pageNumber, children, popoverAction}) => 
           {children}
         </table>
         {popoverAction}
-      </CheckboxFunctionContext.Provider>
+      </StateProvider>
     </div>
   );
-};
+});
 
 TableWithCheckBox.propTypes = {
-  formikRef: PropTypes.object.isRequired,
   pageNumber: PropTypes.number.isRequired,
+  customHandler: PropTypes.func,
   children: PropTypes.node.isRequired,
   popoverAction: PropTypes.node
 };
@@ -127,5 +126,3 @@ TableWithCheckBox.propTypes = {
 TableWithCheckBox.defaultProps = {popoverAction: null};
 
 export default TableWithCheckBox;
-
-export const useContextCheckbox = () => useContext(CheckboxFunctionContext);

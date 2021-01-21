@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
-import {getRouter} from '@benson.liao/capybara-router';
 import Modal from 'react-bootstrap/Modal';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
@@ -13,7 +12,7 @@ import notify from '../../../core/notify';
 import Password from '../../../core/components/fields/password';
 import {useContextState} from '../../stateProvider';
 
-const DeviceSyncAddDevice = ({device, devices, ipAddress, isShowDeviceModal, hideDeviceModal}) => {
+const DeviceSyncAddDevice = ({device, devices, ipAddress, isShowDeviceModal, hideDeviceModal, setIsUpdateList}) => {
   const {isApiProcessing} = useContextState();
   const [isShowApiProcessModal, setIsShowApiProcessModal] = useState(false);
   const ipList = devices.reduce((arr, item) => {
@@ -77,27 +76,15 @@ const DeviceSyncAddDevice = ({device, devices, ipAddress, isShowDeviceModal, hid
       values.port = 8080;
     }
 
-    localStorage.setItem('currentPage', 'sync');
     setIsShowApiProcessModal(true);
     hideDeviceModal();
-
-    if (device) {
-      api.member.editDevice(values)
-        .then(showSuccessMessage)
-        .catch(showFailMessage)
-        .finally(() => {
-          hideApiProcessModal();
-          getRouter().reload();
-        });
-    } else {
-      api.member.addDevice(values)
-        .then(showSuccessMessage)
-        .catch(showFailMessage)
-        .finally(() => {
-          hideApiProcessModal();
-          getRouter().reload();
-        });
-    }
+    api.member[device ? 'editDevice' : 'addDevice'](values)
+      .then(showSuccessMessage)
+      .catch(showFailMessage)
+      .finally(() => {
+        hideApiProcessModal();
+        setIsUpdateList(prevState => !prevState);
+      });
   };
 
   /**
@@ -215,11 +202,32 @@ const DeviceSyncAddDevice = ({device, devices, ipAddress, isShowDeviceModal, hid
 };
 
 DeviceSyncAddDevice.propTypes = {
-  device: PropTypes.object,
-  devices: PropTypes.array.isRequired,
+  device: PropTypes.shape({
+    account: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    ip: PropTypes.string.isRequired,
+    port: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    connectionStatus: PropTypes.number.isRequired,
+    lastUpdateTime: PropTypes.number.isRequired,
+    syncStatus: PropTypes.number.isRequired
+  }),
+  devices: PropTypes.arrayOf(
+    PropTypes.shape({
+      account: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      ip: PropTypes.string.isRequired,
+      port: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      connectionStatus: PropTypes.number.isRequired,
+      lastUpdateTime: PropTypes.number.isRequired,
+      syncStatus: PropTypes.number.isRequired
+    })
+  ).isRequired,
   ipAddress: PropTypes.string.isRequired,
   isShowDeviceModal: PropTypes.bool.isRequired,
-  hideDeviceModal: PropTypes.func.isRequired
+  hideDeviceModal: PropTypes.func.isRequired,
+  setIsUpdateList: PropTypes.func.isRequired
 };
 
 export default DeviceSyncAddDevice;
