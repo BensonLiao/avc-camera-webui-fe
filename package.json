@@ -19,7 +19,9 @@
     "cy:local": "cypress open",
     "//cy:rec": "if you want to run the recorder, you need to start cypress runner first.",
     "//cy:rec2": "example: npm run cy --ip=xxx.xxx.xxx.xxx, then run on another terminal: npm run cy:rec --ip=xxx.xxx.xxx.xxx",
-    "cy:rec": "cypress run --record --key eb99afdd-6f51-4258-a6c8-c3c04712e9e3 --config video=true,baseUrl=http://${npm_config_ip-localhost}"
+    "cy:rec": "cypress run --record --key eb99afdd-6f51-4258-a6c8-c3c04712e9e3 --config video=true,baseUrl=http://${npm_config_ip-localhost}",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",
@@ -32,7 +34,6 @@
     "@babel/core": "7.7.2",
     "@babel/plugin-proposal-class-properties": "7.7.0",
     "@babel/plugin-syntax-dynamic-import": "7.2.0",
-    "@babel/polyfill": "7.7.0",
     "@babel/preset-env": "7.7.1",
     "@babel/preset-react": "7.7.0",
     "@benson.liao/capybara-router": "2.2.12",
@@ -50,6 +51,7 @@
     "cldr-dates-full": "38.0.0",
     "compression-webpack-plugin": "3.0.0",
     "config": "3.2.4",
+    "core-js": "3.9.0",
     "cropperjs": "1.5.7",
     "css-loader": "3.2.0",
     "dayjs": "1.9.3",
@@ -66,7 +68,6 @@
     "grunt-parallel": "0.5.1",
     "history": "5.0.0",
     "i18next": "19.8.2",
-    "imagemin-webpack-plugin": "2.4.2",
     "immutability-helper": "3.1.1",
     "jquery": "3.4.1",
     "js-cookie": "2.2.1",
@@ -100,6 +101,10 @@
     "webserver-form-schema": "git+ssh://git@github.com/BensonLiao/avc-camera-webui-schema.git"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^6.1.19",
+    "@storybook/addon-essentials": "^6.1.19",
+    "@storybook/addon-links": "^6.1.19",
+    "@storybook/react": "^6.1.19",
     "axios-mock-adapter": "1.17.0",
     "body-parser": "1.19.0",
     "cookie-parser": "1.4.4",

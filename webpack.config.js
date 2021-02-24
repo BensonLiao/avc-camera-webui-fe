@@ -2,7 +2,6 @@ const path = require('path');
 const config = require('config');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
-const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -147,12 +146,6 @@ module.exports = (env = {}) => {
         }
 
         result.push(new OptimizeCSSAssetsPlugin({cssProcessorOptions: {discardComments: {removeAll: true}}}));
-        result.push(
-          new ImageminPlugin({
-            test: /\.png$/i,
-            pngquant: {quality: 100}
-          })
-        );
         result.push(
           new CompressionWebpackPlugin({
             filename: '[path]',
