@@ -19,5 +19,20 @@
         "mailSettingFailed.reserved": "Falló la configuración del correo electrónico"
       }
     }
+  },
+  "sdCard": {
+    "storage": {
+      "files": {
+        "date": "FECHA"
+      }
+    }
+  },
+  "documentTitle": {
+    "sdCardStorage": "Almacenamiento"
+  },
+  "userManagement": {
+    "members": {
+      "refresh": "Actualizar"
+    }
   }
 }

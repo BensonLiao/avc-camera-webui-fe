@@ -54,7 +54,11 @@ export default withGlobalStatus(
                   <span className="text-truncate">{i18n.t('navigation.sidebar.notificationMethod')}</span>
                   <i className="fas fa-chevron-up"/>
                 </a>
-                <div id="basic-settings" className={classNames('collapse', {show: currentRouteName !== 'web.notification.cards'})} data-parent="#accordion-notification-menu">
+                <div
+                  id="basic-settings"
+                  className={classNames('collapse', {show: currentRouteName !== 'web.notification.cards'})}
+                  data-parent="#accordion-notification-menu"
+                >
                   <Link
                     className={classNames('nav-link', {active: currentRouteName === 'web.notification.smtp'})}
                     to="/notification/smtp"

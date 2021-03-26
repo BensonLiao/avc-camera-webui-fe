@@ -40,8 +40,12 @@ module.exports = class SDCard extends Base {
             </Link>
             <Link
               to="/sd-card/storage"
-              title={i18n.t('navigation.sidebar.storage')}
-              className={classNames('nav-link', {active: currentRouteName === 'web.sd-card.storage'})}
+              title="storage"
+              className={classNames('nav-link', {
+                active: currentRouteName === 'web.sd-card.storage' ||
+                currentRouteName === 'web.sd-card.image' ||
+                currentRouteName === 'web.sd-card.video'
+              })}
             >
               {i18n.t('navigation.sidebar.storage')}
             </Link>

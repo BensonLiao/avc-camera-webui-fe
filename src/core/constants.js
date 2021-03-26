@@ -315,5 +315,15 @@ module.exports = {
   },
   ITEMS_PER_PAGE: 10,
   MAX_DEVICES: 128,
-  MAX_SELECTED_DEVICES: 16
+  MAX_SELECTED_DEVICES: 16,
+  STAGE_PROGRESS_STATUS: {
+    INIT: 'initial',
+    START: 'start',
+    DONE: 'done',
+    ERROR: 'fail'
+  },
+  HUMAN_DETECTION_TYPE: {
+    LINE: 'triggerLine',
+    AREA: 'triggerArea'
+  }
 };

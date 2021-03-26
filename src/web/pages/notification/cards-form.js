@@ -7,9 +7,10 @@ import NotificationCardSchema from 'webserver-form-schema/notification-card-sche
 import NotificationCardType from 'webserver-form-schema/constants/notification-card-type';
 import NotificationEmailAttachmentType from 'webserver-form-schema/constants/notification-email-attachment-type';
 import NotificationFaceRecognitionCondition from 'webserver-form-schema/constants/notification-face-recognition-condition';
+import notificationHdCapacityValidator from '../../validations/notifications/notification-hd-capacity-validator';
 import progress from 'nprogress';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useState} from 'react';
 import sanitizeHtml from 'sanitize-html';
 import api from '../../../core/apis/web-api';
 import CardsFormRule from './cards-form-rule';
@@ -21,6 +22,7 @@ import FormikEffect from '../../../core/components/formik-effect';
 import i18n from '../../../i18n';
 import i18nUtils from '../../../i18n/utils';
 import {NOTIFY_CARDS_MAX} from '../../../core/constants';
+import {useConfirm} from '../../../core/components/confirm';
 import utils from '../../../core/utils';
 
 const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary');
@@ -45,12 +47,26 @@ const CardsForm = ({
   setIsTop,
   cardLimitError,
   cards,
-  modelName
+  modelName,
+  authStatus,
+  triggerArea
 }) => {
+  const [currentTab, setCurrentTab] = useState('tab-notification-schedule');
+
   const defaultSubject = {
     faceRecognition: i18n.t('notification.cards.defaultSubjectFR', {0: modelName}),
     motionDetection: i18n.t('notification.cards.defaultSubjectMD', {0: modelName}),
-    digitalInput: i18n.t('notification.cards.defaultSubjectDI', {0: modelName})
+    digitalInput: i18n.t('notification.cards.defaultSubjectDI', {0: modelName}),
+    humanDetection: i18n.t('notification.cards.defaultSubjectHD', {0: modelName}),
+    ageGender: i18n.t('notification.cards.defaultSubjectAG', {0: modelName})
+  };
+  const {isEnableFaceRecognitionKey, isEnableAgeGenderKey, isEnableHumanoidDetectionKey} = authStatus;
+  // Confirm switch state is used to prevent tiggering Formik effect while setting field value
+  const [confirmSwitch, setConfirmSwitch] = useState(true);
+  const confirm = useConfirm();
+
+  const setTab = event => {
+    setCurrentTab(event);
   };
 
   const generateCardInitialValues = card => {
@@ -61,6 +77,7 @@ const CardsForm = ({
         title: card.title,
         isTop: card.isTop,
         isEnableTime: card.isEnableTime,
+        isEnableSchedule: card.isEnableSchedule,
         $start: null,
         $end: null,
         timePeriods: card.timePeriods,
@@ -78,15 +95,21 @@ const CardsForm = ({
         senderContent: card.senderContent,
         emailContentPosition: card.emailContentPosition,
         isEnableFaceRecognition: card.isEnableFaceRecognition,
-        isEnableApp: card.isEnableApp
+        isEnableApp: card.isEnableApp,
+        selectedDay: card.selectedDay,
+        hdIntrusionAreaId: `${card.hdIntrusionAreaId}`,
+        hdEnabled: card.hdEnabled,
+        hdOption: card.hdOption,
+        hdCapacity: card.hdCapacity
       };
     }
 
     return {
-      type: NotificationCardType.faceRecognition,
+      type: isEnableFaceRecognitionKey ? NotificationCardType.faceRecognition : NotificationCardType.motionDetection,
       title: i18n.t('notification.cards.defaultCardTitle'),
       isTop: false,
       isEnableTime: false,
+      isEnableSchedule: false,
       $start: null,
       $end: null,
       timePeriods: [],
@@ -99,28 +122,74 @@ const CardsForm = ({
       isEnableSDCardRecording: false,
       $email: '',
       emails: [],
-      emailAttachmentType: NotificationEmailAttachmentType.faceThumbnail,
-      senderSubject: i18n.t('notification.cards.defaultSubjectFR', {0: modelName}),
+      emailAttachmentType: isEnableFaceRecognitionKey ? NotificationEmailAttachmentType.faceThumbnail : NotificationEmailAttachmentType.screenshot,
+      senderSubject: isEnableFaceRecognitionKey ? defaultSubject.faceRecognition : defaultSubject.motionDetection,
       senderContent: '',
       emailContentPosition: 0,
       isEnableFaceRecognition: false,
-      isEnableApp: false
+      isEnableApp: false,
+      selectedDay: {
+        monday: false,
+        tuesday: false,
+        wednesday: false,
+        thursday: false,
+        friday: false,
+        saturday: false,
+        sunday: false
+      },
+      hdIntrusionAreaId: '0',
+      hdEnabled: false,
+      hdOption: '0',
+      hdCapacity: 1
     };
   };
 
+  const onChangeSelectValue = setFieldValue => event => {
+    // Force switch tab back to `schedule` to prevent
+    // viewing non existent tabs on different card types
+    setCurrentTab('tab-notification-schedule');
+    setFieldValue('type', event.target.value);
+  };
+
   const onChangeCardForm = ({nextValues, prevValues, formik}) => {
-    if (prevValues.type !== nextValues.type && !(cardDetails && cardDetails.senderSubject)) {
+    if (prevValues.type !== nextValues.type) {
       defaultSubjectTitle(nextValues.type, formik);
+      if (nextValues.type !== NotificationCardType.faceRecognition) {
+        formik.setFieldValue('emailAttachmentType', NotificationEmailAttachmentType.screenshot);
+      }
+    }
+
+    // Clear time periods if switching between schedule modes (Repeat <-> Normal schedule) to prevent
+    // showing 1970/1/1 date
+    if (prevValues.isEnableSchedule !== nextValues.isEnableSchedule && confirmSwitch && formik.values.timePeriods.length > 0) {
+      setConfirmSwitch(false);
+      return confirm.open({
+        title: i18n.t('notification.cards.confirmRepeatScheduleTitle'),
+        body: i18n.t('notification.cards.confirmRepeatScheduleBody')
+      })
+        .then(isConfirm => {
+          if (isConfirm) {
+            return formik.setFieldValue('timePeriods', []);
+          }
+
+          formik.setFieldValue('isEnableSchedule', prevValues.isEnableSchedule);
+        })
+        // reset confirm state
+        .then(() => setConfirmSwitch(true));
     }
   };
 
   const defaultSubjectTitle = (type, formik = null) => {
     switch (type) {
-      case '0':
+      case NotificationCardType.faceRecognition:
         return formik ? formik.setFieldValue('senderSubject', defaultSubject.faceRecognition) : defaultSubject.faceRecognition;
-      case '3':
+      case NotificationCardType.humanoidDetection:
+        return formik ? formik.setFieldValue('senderSubject', defaultSubject.humanDetection) : defaultSubject.humanDetection;
+      case NotificationCardType.ageGender:
+        return formik ? formik.setFieldValue('senderSubject', defaultSubject.ageGender) : defaultSubject.ageGender;
+      case NotificationCardType.motionDetection:
         return formik ? formik.setFieldValue('senderSubject', defaultSubject.motionDetection) : defaultSubject.motionDetection;
-      case '5':
+      case NotificationCardType.digitalInput:
         return formik ? formik.setFieldValue('senderSubject', defaultSubject.digitalInput) : defaultSubject.digitalInput;
       default:
         break;
@@ -179,6 +248,7 @@ const CardsForm = ({
       <Formik
         initialValues={generateCardInitialValues(cardDetails)}
         validateOnChange={false}
+        validate={notificationHdCapacityValidator}
         onSubmit={onSubmit}
       >
         {({errors, touched, values, setFieldValue, validateField}) => {
@@ -217,11 +287,18 @@ const CardsForm = ({
                   />
                 </div>
                 <div className="select-wrapper border rounded-pill overflow-hidden">
-                  <Field name="type" component="select" className="form-control border-0">
+                  <Field
+                    name="type"
+                    component="select"
+                    className="form-control border-0"
+                    onChange={onChangeSelectValue(setFieldValue)}
+                  >
                     {
                       NotificationCardType.all().filter(type => (
-                        type === NotificationCardType.faceRecognition ||
+                        (type === NotificationCardType.faceRecognition && isEnableFaceRecognitionKey) ||
                         type === NotificationCardType.motionDetection ||
+                        (type === NotificationCardType.humanoidDetection && isEnableHumanoidDetectionKey) ||
+                        (type === NotificationCardType.ageGender && isEnableAgeGenderKey) ||
                         type === NotificationCardType.digitalInput
                       )).map(
                         type => {
@@ -232,19 +309,19 @@ const CardsForm = ({
                   </Field>
                 </div>
               </div>
-              <Tab.Container defaultActiveKey="tab-notification-time">
-                <Nav>
+              <Tab.Container activeKey={currentTab}>
+                <Nav onSelect={setTab}>
                   <Nav.Item>
                     <Nav.Link
-                      eventKey="tab-notification-time"
+                      eventKey="tab-notification-schedule"
                     >
                       {i18n.t('notification.cards.schedule')}
                     </Nav.Link>
                   </Nav.Item>
-                  {values.type === NotificationCardType.faceRecognition && (
+                  {(values.type === NotificationCardType.faceRecognition || values.type === NotificationCardType.humanoidDetection) && (
                     <Nav.Item>
                       <Nav.Link
-                        eventKey="tab-notification-condition"
+                        eventKey="tab-notification-rule"
                       >
                         {i18n.t('notification.cards.rule')}
                       </Nav.Link>
@@ -252,7 +329,7 @@ const CardsForm = ({
                   )}
                   <Nav.Item>
                     <Nav.Link
-                      eventKey="tab-notification-target"
+                      eventKey="tab-notification-subject"
                     >
                       {i18n.t('notification.cards.method')}
                     </Nav.Link>
@@ -260,7 +337,7 @@ const CardsForm = ({
                 </Nav>
                 <div className="modal-body">
                   <Tab.Content>
-                    <Tab.Pane eventKey="tab-notification-time">
+                    <Tab.Pane eventKey="tab-notification-schedule">
                       {/* Schedule settings */}
                       <CardsFormSchedule
                         values={values}
@@ -269,17 +346,20 @@ const CardsForm = ({
                     </Tab.Pane>
                   </Tab.Content>
                   <Tab.Content>
-                    <Tab.Pane eventKey="tab-notification-condition">
+                    <Tab.Pane eventKey="tab-notification-rule">
                       {/* Rule settings */}
                       <CardsFormRule
-                        faceRecognitionCondition={values.faceRecognitionCondition}
-                        isEnableFaceRecognition={values.isEnableFaceRecognition}
+                        values={values}
                         groups={groups}
+                        errors={errors}
+                        touched={touched}
+                        triggerArea={triggerArea}
+                        setFieldValue={setFieldValue}
                       />
                     </Tab.Pane>
                   </Tab.Content>
                   <Tab.Content>
-                    <Tab.Pane eventKey="tab-notification-target">
+                    <Tab.Pane eventKey="tab-notification-subject">
                       {/* Subject settings */}
                       <CardsFormSubject
                         values={values}
@@ -334,13 +414,20 @@ CardsForm.propTypes = {
     isEnableGPIO1: PropTypes.bool.isRequired,
     isEnableGPIO2: PropTypes.bool.isRequired,
     isEnableTime: PropTypes.bool.isRequired,
+    isEnableSchedule: PropTypes.bool.isRequired,
     isTop: PropTypes.bool.isRequired,
     timePeriods: PropTypes.array.isRequired,
     title: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     senderSubject: PropTypes.string,
     senderContent: PropTypes.string,
-    emailContentPosition: PropTypes.string.isRequired
+    emailContentPosition: PropTypes.string.isRequired,
+    selectedDay: PropTypes.object.isRequired,
+    hdIntrusionAreaId: PropTypes.string.isRequired,
+    // eslint-disable-next-line react/boolean-prop-naming
+    hdEnabled: PropTypes.bool.isRequired,
+    hdOption: PropTypes.string.isRequired,
+    hdCapacity: PropTypes.number.isRequired
   }),
   cards: PropTypes.array.isRequired,
   groups: PropTypes.shape(CardsFormRule.propTypes.groups.items).isRequired,
@@ -350,7 +437,13 @@ CardsForm.propTypes = {
   hideCardFormModal: PropTypes.func.isRequired,
   isTop: PropTypes.bool.isRequired,
   setIsTop: PropTypes.func.isRequired,
-  cardLimitError: PropTypes.func.isRequired
+  cardLimitError: PropTypes.func.isRequired,
+  authStatus: PropTypes.shape({
+    isEnableFaceRecognitionKey: PropTypes.bool.isRequired,
+    isEnableAgeGenderKey: PropTypes.bool.isRequired,
+    isEnableHumanoidDetectionKey: PropTypes.bool.isRequired
+  }).isRequired,
+  triggerArea: PropTypes.array.isRequired
 };
 
 CardsForm.defaultProps = {cardDetails: null};

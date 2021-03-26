@@ -407,12 +407,13 @@ module.exports = class Member extends React.PureComponent {
   };
 
   onDeleteAvatar = () => {
+    const {avatarToEdit} = this.state;
     const deleteAvatar = update(this.state,
       {
         isShowEditModal: {$set: false},
         avatarList: {
-          [this.state.avatarToEdit]: {
-            $set: {
+          [avatarToEdit]: {
+            $merge: {
               avatarPreviewStyle: {
                 cropper: {
                   x: 0,

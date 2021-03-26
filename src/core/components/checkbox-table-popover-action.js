@@ -8,28 +8,30 @@ import i18n from '../../i18n';
 /**
  * Component that pop-up when there's any selected items to perform items actions
  * @typedef {object} Props
- * @prop {Number} items - How many items are selectd
+ * @prop {Number?} items - How many items are selected, omit to use context hook state
  * @prop {Array<Object>} actions - item actions, e.g. delete
  * @returns {component}
  */
 const CheckboxTablePopoverAction = ({items, actions}) => {
   const numberOfTopDisplayActions = 2;
-  const {deselectAllHandler} = useContextState();
+  const {tableState: {current: selectedRow}, deselectAllHandler} = useContextState();
+  const selectedItems = items === null ? selectedRow?.length : items;
   return (
-    <div className={classnames('float-action-buttons bottom center', {'show mb-8x': items > 0})}>
-      {items > 0 && (
-        <div className="action-buttons rounded-pill">
+    <div className={classnames('float-action-buttons bottom center', {'show mb-8x': selectedItems > 0})}>
+      {selectedItems > 0 && (
+        <div className="action-buttons">
           <span className="mr-3">
-            {items} {i18n.t('common.table.popover.selected')}
+            {selectedItems} {i18n.t('common.table.popover.selected')}
           </span>
           <span className="group-buttons">
-            {actions.slice(0, numberOfTopDisplayActions).map(({id, icon, text, func}) => {
+            {actions.slice(0, numberOfTopDisplayActions).map(({icon, text, func, disabled}, idx) => {
               return (
-                <CustomTooltip key={id} title={text}>
+                <CustomTooltip key={String(idx)} title={text}>
                   <button
                     type="button"
-                    className="btn btn-primary text-white"
-                    onClick={func}
+                    className={classnames('btn btn-primary text-white', {'disabled shadow-none': disabled})}
+                    style={{cursor: disabled ? 'default' : 'pointer'}}
+                    onClick={disabled ? null : func}
                   >
                     {icon}
                   </button>
@@ -76,14 +78,16 @@ const CheckboxTablePopoverAction = ({items, actions}) => {
 };
 
 CheckboxTablePopoverAction.propTypes = {
-  items: PropTypes.number.isRequired,
+  items: PropTypes.number,
   actions: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
     icon: PropTypes.element,
     text: PropTypes.string.isRequired,
-    func: PropTypes.func
+    func: PropTypes.func,
+    disabled: PropTypes.bool
   })).isRequired
 };
+
+CheckboxTablePopoverAction.defaultProps = {items: null};
 
 export default CheckboxTablePopoverAction;
 

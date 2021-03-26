@@ -1,42 +1,38 @@
 import {getRouter} from '@benson.liao/capybara-router';
-import {Formik, Form, Field} from 'formik';
+import {Formik, Form} from 'formik';
 import progress from 'nprogress';
 import PropTypes from 'prop-types';
 import React, {useState, useEffect} from 'react';
 import {Nav, Tab} from 'react-bootstrap';
-import SDCardRecordingStatus from 'webserver-form-schema/constants/sdcard-recording-status';
 import api from '../../../core/apis/web-api';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
-import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import FormikEffect from '../../../core/components/formik-effect';
 import i18n from '../../../i18n';
-import {SD_STATUS_LIST} from '../../../core/constants';
 import SDCardOperation from './sd-card-operation';
 import SDCardRecording from './sd-card-recording';
-import {useContextState} from '../../stateProvider';
-import VolumeProgressBar from '../../../core/components/volume-progress-bar';
 import withGlobalStatus from '../../withGlobalStatus';
+import sdSettingsValidator from '../../validations/sdcard/sd-settings-validator';
+import SDCardMain from './sd-card-main';
+import {useConfirm} from '../../../core/components/confirm';
 
 const SDCard = ({
   systemInformation,
-  systemInformation: {
-    sdUsage,
-    sdTotal,
-    sdStatus,
-    sdEnabled,
-    sdFormat
-  }, smtpSettings: {isEnableAuth},
+  smtpSettings: {isEnableAuth},
   sdCardRecordingSettings,
-  streamSettings
+  streamSettings,
+  snapshotAllocation,
+  sdSpaceAllocation
 }) => {
-  const {isApiProcessing} = useContextState();
-  const [isShowDisableModal, setIsShowDisableModal] = useState(false);
-  // toggleCheck: used in FormikEffect to maintain `Enable SD Card` button value on cancel without calling other APIs
-  const [toggleCheck, setToggleCheck] = useState(false);
+  const {
+    sdAlertEnabled,
+    sdStatus,
+    sdEnabled
+  } = systemInformation;
+  const confirm = useConfirm();
+  const {snapshotMaxNumber} = snapshotAllocation;
   const [currentTab, setCurrentTab] = useState(localStorage.getItem('sdCurrentTab') || 'tab-sdcard-operation');
   // isWaitingApiCall: used to disable buttons during the settimeout of 1000ms, to lock user action while waiting to call recording settings api
   const [isWaitingApiCall, setIsWaitingApiCall] = useState(false);
-  const hideDisableModal = () => setIsShowDisableModal(false);
 
   useEffect(() => {
     // clear current tab so when user navigates back it doesn't stay as other tab
@@ -48,16 +44,11 @@ const SDCard = ({
   };
 
   /**
-   * Cancel disable SD card
-   * @param {function} setFieldValue - Formik setFieldValue function
+   * Call different apis of similar functionality without repeating code
+   * @param {string} apiFunction - Name of the api function
+   * @param {object} value - Object containing values of api call
    * @returns {void}
    */
-  const cancelAction = setFieldValue => _ => {
-    setToggleCheck(true);
-    hideDisableModal();
-    setFieldValue('sdEnabled', true);
-  };
-
   const callApi = (apiFunction, value = '') => {
     // remember current tab to prevent jumping back to initial tab on reload
     localStorage.setItem('sdCurrentTab', currentTab);
@@ -69,22 +60,33 @@ const SDCard = ({
 
   /**
    * Formik effect onChange function
+   * @param {func} setFieldValue
    * @param {object} nextValues
    * @param {object} prevValues
    * @returns {void}
    */
-  const onChangeSdCardSetting = ({nextValues, prevValues}) => {
-    // Show confirm disable modal
-    if (prevValues.sdEnabled && !nextValues.sdEnabled) {
-      return setIsShowDisableModal(true);
+  const onChangeSdCardSetting = setFieldValue => ({nextValues, prevValues}) => {
+    // Switching `Enable SD Card` off
+    if (sdEnabled && !nextValues.sdEnabled) {
+      return confirm.open({
+        title: i18n.t('sdCard.modal.disableTitle'),
+        body: i18n.t('sdCard.modal.disableBody')
+      })
+        .then(isConfirm => {
+          if (isConfirm) {
+            return callApi('enableSD', {sdEnabled: false});
+          }
+
+          setFieldValue('sdEnabled', true);
+        });
     }
 
     // Switching `Enable SD Card` on
-    if (!toggleCheck && !prevValues.sdEnabled && nextValues.sdEnabled) {
+    if (!sdEnabled && nextValues.sdEnabled) {
       setIsWaitingApiCall(true);
-      api.system.enableSD({sdEnabled: nextValues.sdEnabled})
+      return api.system.enableSD({sdEnabled: nextValues.sdEnabled})
         .then(setTimeout(() => {
-          onSubmit(nextValues);
+          onSubmitRecording(nextValues);
           setIsWaitingApiCall(false);
         }, 1000));
     }
@@ -95,24 +97,44 @@ const SDCard = ({
     }
   };
 
-  const onSubmit = values => {
+  /**
+   * Submit Formik form values to apis
+   * @param {object} values - Object containing values of Formik form
+   * @returns {void}
+   */
+  const onSubmitRecording = values => {
     // remember current tab to prevent jumping back to initial tab on reload
     localStorage.setItem('sdCurrentTab', currentTab);
-
-    // values contains more than we need, thus we have to map it out one by one
-    const formValues = {
-      sdRecordingStatus: values.sdRecordingStatus,
-      sdRecordingDuration: values.sdRecordingDuration,
-      sdRecordingEnabled: values.sdRecordingEnabled,
-      sdRecordingLimit: values.sdRecordingLimit,
-      sdRecordingStream: values.sdRecordingStream,
-      sdRecordingType: values.sdRecordingType,
-      sdPrerecordingDuration: values.sdPrerecordingDuration
-    };
     progress.start();
-    api.system.updateSDCardRecordingSettings(formValues)
+    api.system.updateSDCardRecordingSettings(values)
       .then(getRouter().reload)
       .finally(progress.done);
+  };
+
+  /**
+   * Submit Formik form values to apis
+   * @param {object} snapshotMaxNumber - Max number of snapshots to submit
+   * @returns {void}
+   */
+  const onSubmitOperation = snapshotMaxNumber => {
+    // remember current tab to prevent jumping back to initial tab on reload
+    progress.start();
+    api.system.updateSDCardSnapshotMaxNumber({snapshotMaxNumber})
+      .then(getRouter().reload)
+      .finally(progress.done);
+  };
+
+  /**
+   * Generate initial value for Formik form
+   * @returns {object} - Initial data structure for Formik form
+   */
+  const generateInitialValues = () => {
+    return {
+      ...sdCardRecordingSettings,
+      sdEnabled,
+      sdAlertEnabled,
+      snapshotMaxNumber
+    };
   };
 
   return (
@@ -125,111 +147,61 @@ const SDCard = ({
               path={[i18n.t('navigation.sidebar.sdCardSettings'), i18n.t('navigation.sidebar.basic')]}
               routes={['/sd-card/settings']}
             />
-            <div className="col-center">
-              <div className="card shadow">
-                <div className="card-header">{i18n.t('sdCard.basic.title')}</div>
-                <Formik
-                  initialValues={{
-                    frameRate: streamSettings[sdCardRecordingSettings.sdRecordingStream === 1 ? 'channelA' : 'channelB'].frameRate,
-                    codec: streamSettings[sdCardRecordingSettings.sdRecordingStream === 1 ? 'channelA' : 'channelB'].codec,
-                    ...systemInformation,
-                    ...sdCardRecordingSettings
-                  }}
-                  onSubmit={onSubmit}
-                >
-                  {({values, setFieldValue}) => (
-                    <Form>
-                      <div className="card-body sdcard row">
-                        <FormikEffect onChange={onChangeSdCardSetting}/>
-                        <VolumeProgressBar
-                          isRoundProgressBar
-                          total={sdTotal}
-                          usage={sdUsage}
-                          percentageToHideText={4}
+            <Formik
+              initialValues={generateInitialValues()}
+              validate={sdSettingsValidator}
+            >
+              {({setFieldValue}) => (
+                <div className="col-center" style={{width: '832px'}}>
+                  <div className="card shadow">
+                    <div className="card-header">{i18n.t('sdCard.basic.title')}</div>
+                    <Form className="d-flex">
+                      <div className="col-4 p-0 border-right">
+                        <FormikEffect onChange={onChangeSdCardSetting(setFieldValue)}/>
+                        <SDCardMain
+                          sdCardRecordingSettings={sdCardRecordingSettings}
+                          sdSpaceAllocation={sdSpaceAllocation}
+                          systemInformation={systemInformation}
+                          isWaitingApiCall={isWaitingApiCall}
                         />
-                        <div className="d-flex justify-content-center flex-column col-8">
-                          <div className="form-group d-flex justify-content-between align-items-center">
-                            <label className="mb-0">{i18n.t('sdCard.basic.enable')}</label>
-                            <div className="custom-control custom-switch">
-                              <Field
-                                name="sdEnabled"
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="switch-sound"
-                                disabled={isWaitingApiCall}
-                              />
-                              <label className="custom-control-label" htmlFor="switch-sound">
-                                <span>{i18n.t('common.button.on')}</span>
-                                <span>{i18n.t('common.button.off')}</span>
-                              </label>
-                            </div>
-                          </div>
-                          <hr/>
-                          <div className="form-group">
-                            <div className="d-flex mb-0">
-                              <label className="mb-o pl-0 col-sm-5">{i18n.t('sdCard.basic.status')}</label>
-                              {sdCardRecordingSettings.sdRecordingStatus === Number(SDCardRecordingStatus.on) ? (
-                                <div className="d-flex col-sm-7 align-items-center">
-                                  <div className="dot-sd"/>
-                                  <label className="text-danger">{i18n.t('sdCard.basic.recording')}</label>
-                                </div>
-                              ) : <label className="mb-o col-sm-7 text-primary">{SD_STATUS_LIST[sdStatus] || i18n.t('sdCard.basic.constants.unknownStatus')}</label>}
-                            </div>
-                            <div className="mb-0">
-                              <label className="mb-o pl-0 col-sm-5">{i18n.t('sdCard.basic.filesystem')}</label>
-                              <label className="mb-o col-sm-7 text-primary">{sdFormat === 'Unrecognized' ? i18n.t('sdCard.basic.unrecognized') : sdFormat}</label>
-                            </div>
-                          </div>
-                          <CustomNotifyModal
-                            isShowModal={isShowDisableModal}
-                            modalTitle={i18n.t('sdCard.modal.disableTitle')}
-                            modalBody={i18n.t('sdCard.modal.disableBody')}
-                            isConfirmDisable={isApiProcessing}
-                            onHide={cancelAction(setFieldValue)}
-                            onConfirm={() => callApi('enableSD', {sdEnabled: false})}
-                          />
-                        </div>
                       </div>
-                      <Tab.Container activeKey={currentTab}>
-                        <Nav onSelect={setTab}>
-                          <Nav.Item>
-                            <Nav.Link
-                              eventKey="tab-sdcard-operation"
-                            >
-                              {i18n.t('sdCard.basic.operation')}
-                            </Nav.Link>
-                          </Nav.Item>
-                          <Nav.Item>
-                            <Nav.Link
-                              eventKey="tab-sdcard-recording"
-                            >
-                              {i18n.t('sdCard.basic.recording')}
-                            </Nav.Link>
-                          </Nav.Item>
-                        </Nav>
-                        <div className="card-body">
-                          <SDCardOperation
-                            isWaitingApiCall={isWaitingApiCall}
-                            isEnableAuth={isEnableAuth}
-                            sdEnabled={sdEnabled}
-                            sdStatus={sdStatus}
-                            callApi={callApi}
-                          />
-                          <SDCardRecording
-                            isWaitingApiCall={isWaitingApiCall}
-                            sdCardRecordingSettings={sdCardRecordingSettings}
-                            streamSettings={streamSettings}
-                            formValues={values}
-                            setFieldValue={setFieldValue}
-                            onSubmit={onSubmit}
-                          />
-                        </div>
-                      </Tab.Container>
+                      <div className="col-8 p-0">
+                        <Tab.Container activeKey={currentTab}>
+                          <Nav onSelect={setTab}>
+                            {['operation', 'recording'].map(tab => (
+                              <Nav.Item key={tab}>
+                                <Nav.Link
+                                  eventKey={`tab-sdcard-${tab}`}
+                                >
+                                  {i18n.t(`sdCard.basic.${tab}`)}
+                                </Nav.Link>
+                              </Nav.Item>
+                            ))}
+                          </Nav>
+                          <div className="card-body">
+                            <SDCardOperation
+                              snapshotMaxNumber={snapshotMaxNumber}
+                              isWaitingApiCall={isWaitingApiCall}
+                              isEnableAuth={isEnableAuth}
+                              sdEnabled={sdEnabled}
+                              sdStatus={sdStatus}
+                              callApi={callApi}
+                              onSubmit={onSubmitOperation}
+                            />
+                            <SDCardRecording
+                              isWaitingApiCall={isWaitingApiCall}
+                              sdCardRecordingSettings={sdCardRecordingSettings}
+                              streamSettings={streamSettings}
+                              onSubmit={onSubmitRecording}
+                            />
+                          </div>
+                        </Tab.Container>
+                      </div>
                     </Form>
-                  )}
-                </Formik>
-              </div>
-            </div>
+                  </div>
+                </div>
+              )}
+            </Formik>
           </div>
         </div>
       </div>
@@ -248,7 +220,9 @@ SDCard.propTypes = {
   }).isRequired,
   smtpSettings: PropTypes.shape({isEnableAuth: PropTypes.bool.isRequired}).isRequired,
   sdCardRecordingSettings: SDCardRecording.propTypes.sdCardRecordingSettings,
-  streamSettings: SDCardRecording.propTypes.streamSettings
+  streamSettings: SDCardRecording.propTypes.streamSettings,
+  snapshotAllocation: PropTypes.object.isRequired,
+  sdSpaceAllocation: PropTypes.object.isRequired
 };
 
 export default withGlobalStatus(SDCard);

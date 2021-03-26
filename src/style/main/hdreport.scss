@@ -1,0 +1,20 @@
+.hd-report {
+  min-width: 70rem;
+
+  .dropdown {
+    button:hover {
+      color: #fff !important;
+      background-color: $primary-500;
+      border-color: $primary-500;
+
+      i {
+        color: #fff !important;
+      }
+    }
+  }
+
+  .hd-report-table {
+    height: calc(100vh - 200px);
+    min-height: 20rem;
+  }
+}

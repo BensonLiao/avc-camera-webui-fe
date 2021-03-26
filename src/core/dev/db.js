@@ -48,8 +48,8 @@ const availableSDCardFilesDateList = [
   dayjs().format(SDCARD_STORAGE_DATE_FORMAT.API),
   dayjs().subtract(1, 'd').format(SDCARD_STORAGE_DATE_FORMAT.API),
   dayjs().subtract(2, 'd').format(SDCARD_STORAGE_DATE_FORMAT.API),
-  dayjs().subtract(4, 'd').format(SDCARD_STORAGE_DATE_FORMAT.API),
-  dayjs().subtract(5, 'd').format(SDCARD_STORAGE_DATE_FORMAT.API)
+  dayjs().add(1, 'd').format(SDCARD_STORAGE_DATE_FORMAT.API),
+  dayjs().add(2, 'd').format(SDCARD_STORAGE_DATE_FORMAT.API)
 ];
 
 const members = [
@@ -190,6 +190,22 @@ const members = [
   }
 ];
 
+const extractMemberDetails = ({
+  id,
+  picture,
+  name,
+  groupId,
+  organization,
+  note
+}) => ({
+  id,
+  picture,
+  name,
+  groupId,
+  organization,
+  note
+});
+
 module.exports = {
   init: () => {
     db.defaults({
@@ -268,10 +284,21 @@ module.exports = {
         sdEnabled: false,
         sdStatus: 0,
         sdFormat: 'FAT32',
-        sdTotal: 10000000,
-        sdUsage: 3200000,
+        sdTotal: 15553280,
+        sdUsage: 9080960,
         sdAlertEnabled: false
       },
+      sdCardSpaceAllocationInfo: {
+        recordingVideoNumber: 46,
+        recordingVideoBytes: 9284722660,
+        sdCardAvailableBytes: 4951081720,
+        sdCardTotalBytes: 15926558720,
+        snapshotImageCount: 97,
+        snapshotImageBytes: 1151215200,
+        sdcardReservedBytes: 536870912,
+        isInitialized: 1
+      },
+      snapshot: {snapshotMaxNumber: 12001},
       sdCardRecordingSettings: {
         sdRecordingStatus: 0,
         sdRecordingEnabled: true,
@@ -282,21 +309,86 @@ module.exports = {
         sdPrerecordingDuration: 4
       },
       sdCardStorage: {
-        files: Array.from({length: 30}, (_, i) => {
-          const availableDate = availableSDCardFilesDateList[Math.floor(Math.random() * availableSDCardFilesDateList.length)];
-          return (
-            {
-              id: uuidv4(),
-              bytes: Math.random() * 1024,
-              name: `file${i}.txt`,
-              path: `/sdcard/test/folder1/file${i}.txt`,
-              type: 'file',
-              // Add a date field to mock backend filter
-              date: `${i <= 10 ? dayjs().format(SDCARD_STORAGE_DATE_FORMAT.API) : availableDate}`
-            }
-          );
-        }),
-        filesDateList: availableSDCardFilesDateList
+        video: {
+          directory: availableSDCardFilesDateList.map(date => ({
+            name: `${date}`,
+            bytes: Math.random() * 1024 * 1000 * 1000,
+            path: `/tmp/junit403565711484165989/${date}`,
+            type: 'directory',
+            extension: 'unknown',
+            timestamp: 1611547082000,
+            ownerId: 1000,
+            // For mock
+            date: date
+          })),
+          files: Array.from({length: 50}, (_, i) => {
+            const availableDate = availableSDCardFilesDateList[Math.floor(Math.random() * availableSDCardFilesDateList.length)];
+            return (
+              {
+                id: uuidv4(),
+                name: `video${i}.txt`,
+                bytes: Math.random() * 1024 * 1000,
+                path: `/sdcard/test/folder1/video${i}.txt`,
+                type: 'file',
+                extension: 'file',
+                timestamp: 1611547082000,
+                // Add a date field to mock backend filter
+                date: `${i <= 10 ? dayjs().format(SDCARD_STORAGE_DATE_FORMAT.API) : availableDate}`
+              }
+            );
+          })
+        },
+        image: {
+          directory: availableSDCardFilesDateList.map(date => ({
+            name: `${date}`,
+            bytes: Math.random() * 1024 * 1000 * 1000,
+            path: `/tmp/junit403565711484165989/${date}`,
+            type: 'directory',
+            extension: 'unknown',
+            timestamp: 1611547082000,
+            ownerId: 1000,
+            // For mock
+            date: date
+          })),
+          files: Array.from({length: 50}, (_, i) => {
+            const availableDate = availableSDCardFilesDateList[Math.floor(Math.random() * availableSDCardFilesDateList.length)];
+            return (
+              {
+                id: uuidv4(),
+                name: `image${i}.txt`,
+                bytes: Math.random() * 1024 * 1000,
+                path: `/sdcard/test/folder1/image${i}.txt`,
+                type: 'file',
+                extension: 'file',
+                timestamp: 1611547082000,
+                // Add a date field to mock backend filter
+                date: `${i <= 10 ? dayjs().format(SDCARD_STORAGE_DATE_FORMAT.API) : availableDate}`
+              }
+            );
+          })
+        },
+        root: [
+        //   {
+        //   name: 'Snapshot',
+        //   bytes: 0,
+        //   path: 'storage/sdcard1/Android/data/com.avc.app.snapshotmanager/files/snapshot',
+        //   type: 'directory',
+        //   extension: 'unknown',
+        //   timestamp: 0,
+        //   ownerId: 0
+        // },
+          {
+            name: 'Recording',
+            bytes: 0,
+            path: 'storage/sdcard1/Android/data/com.avc.service.rtsp/files',
+            type: 'directory',
+            extension: 'unknown',
+            timestamp: 0,
+            ownerId: 0
+          }
+        ],
+        filesDateList: availableSDCardFilesDateList,
+        download: {progress: 0}
       },
       systemDateTime: {
         deviceTime: new Date().getTime(),
@@ -364,8 +456,8 @@ module.exports = {
         },
         channelB: {
           codec: StreamCodec.mjpeg,
-          resolution: StreamResolution['1'],
-          frameRate: '29',
+          resolution: StreamResolution['2'],
+          frameRate: '5',
           bandwidthManagement: StreamBandwidthManagement.mbr,
           bitRate: '4096',
           gov: StreamGOV['60'],
@@ -431,6 +523,117 @@ module.exports = {
         sensibility: 1,
         areas: []
       },
+      humanDetectionSettings: {
+        isEnable: false,
+        triggerArea: [
+          {
+            id: '0',
+            isEnable: true,
+            isDisplay: true,
+            stayTime: 0,
+            stayCountLimit: 1,
+            name: 'Area0',
+            rect: {
+              bottom: 1080,
+              left: 0,
+              right: 640,
+              top: 720
+            }
+          },
+          {
+            id: '1',
+            isEnable: true,
+            isDisplay: true,
+            stayTime: 0,
+            stayCountLimit: 1,
+            name: 'Area1',
+            rect: {
+              bottom: 1080,
+              left: 1280,
+              right: 1920,
+              top: 720
+            }
+          },
+          {
+            id: '2',
+            isEnable: true,
+            isDisplay: true,
+            stayTime: 0,
+            stayCountLimit: 1,
+            name: 'Area2',
+            rect: {
+              bottom: 360,
+              left: 1280,
+              right: 1920,
+              top: 0
+            }
+          },
+          {
+            id: '3',
+            isEnable: true,
+            isDisplay: true,
+            stayTime: 0,
+            stayCountLimit: 1,
+            name: 'Area3',
+            rect: {
+              bottom: 360,
+              left: 0,
+              right: 640,
+              top: 0
+            }
+          }
+        ],
+        triggerLine: [
+          {
+            isEnable: true,
+            isDisplay: true,
+            id: '0',
+            name: 'Line0',
+            point: [
+              {
+                x: 0,
+                y: 540
+              },
+              {
+                x: 1920,
+                y: 540
+              }
+            ]
+          },
+          {
+            isEnable: false,
+            isDisplay: false,
+            id: '1',
+            name: 'Line1',
+            point: [
+              {
+                x: 960,
+                y: 0
+              },
+              {
+                x: 960,
+                y: 1080
+              }
+            ]
+          },
+          {
+            isEnable: false,
+            isDisplay: false,
+            id: '2',
+            name: 'Line2',
+            point: [
+              {
+                x: 0,
+                y: 0
+              },
+              {
+                x: 1920,
+                y: 540
+              }
+            ]
+          }
+        ]
+      },
       notificationIOInSettings: {
         isEnable: false,
         ioType: '0'
@@ -488,7 +691,21 @@ module.exports = {
         faceRecognitionCondition: '1',
         senderSubject: '',
         senderContent: '',
-        emailContentPosition: '0'
+        emailContentPosition: '0',
+        isEnableSchedule: true,
+        selectedDay: {
+          monday: true,
+          tuesday: true,
+          wednesday: true,
+          thursday: true,
+          friday: true,
+          saturday: false,
+          sunday: false
+        },
+        hdIntrusionAreaId: '2',
+        hdEnabled: false,
+        hdOption: '0',
+        hdCapacity: 1
       },
       {
         id: 2,
@@ -537,7 +754,21 @@ module.exports = {
         faceRecognitionCondition: '0',
         senderSubject: '',
         senderContent: '',
-        emailContentPosition: '1'
+        emailContentPosition: '1',
+        isEnableSchedule: true,
+        selectedDay: {
+          monday: true,
+          tuesday: true,
+          wednesday: true,
+          thursday: true,
+          friday: true,
+          saturday: false,
+          sunday: false
+        },
+        hdIntrusionAreaId: '2',
+        hdEnabled: false,
+        hdOption: '0',
+        hdCapacity: 1
       },
       {
         id: 3,
@@ -566,7 +797,21 @@ module.exports = {
         faceRecognitionCondition: '0',
         senderSubject: '',
         senderContent: '',
-        emailContentPosition: '0'
+        emailContentPosition: '0',
+        isEnableSchedule: true,
+        selectedDay: {
+          monday: true,
+          tuesday: true,
+          wednesday: true,
+          thursday: true,
+          friday: true,
+          saturday: false,
+          sunday: false
+        },
+        hdIntrusionAreaId: '2',
+        hdEnabled: false,
+        hdOption: '0',
+        hdCapacity: 1
       }],
       groups: memberGroups,
       members,
@@ -592,14 +837,21 @@ module.exports = {
         sourceStatus: 0,
         lastUpdateTime: 0
       },
+      syncSchedule: {
+        time: 3600000,
+        isEnabled: false,
+        interval: 30,
+        lastModifiedTime: 1608888327067,
+        deviceList: ['1', '2', '3', '5']
+      },
       faceEvents: [
         {
           id: uuidv4(),
           pictureThumbUrl: eventPhotos.scarlett,
-          pictureLargeUrl: eventPhotos.scarlett,
+          pictureLargeUrl: null,
           time: '2019-10-02T12:00:00.000Z',
           recognitionType: RecognitionType.registered,
-          member: members[0],
+          member: extractMemberDetails(members[0]),
           confidences: {
             score: '50',
             similarity: Similarity.low
@@ -608,10 +860,10 @@ module.exports = {
         {
           id: uuidv4(),
           pictureThumbUrl: eventPhotos.cumberbatch,
-          pictureLargeUrl: eventPhotos.cumberbatch,
+          pictureLargeUrl: null,
           time: '2020-03-21T09:42:00.000Z',
           recognitionType: RecognitionType.registered,
-          member: members[4],
+          member: extractMemberDetails(members[4]),
           confidences: {
             score: '89',
             similarity: Similarity.high
@@ -620,10 +872,10 @@ module.exports = {
         {
           id: uuidv4(),
           pictureThumbUrl: eventPhotos.hemsworth,
-          pictureLargeUrl: eventPhotos.hemsworth,
+          pictureLargeUrl: null,
           time: '2020-09-04T11:03:00.000Z',
           recognitionType: RecognitionType.registered,
-          member: members[5],
+          member: extractMemberDetails(members[5]),
           confidences: {
             score: '72',
             similarity: Similarity.high
@@ -632,10 +884,10 @@ module.exports = {
         {
           id: uuidv4(),
           pictureThumbUrl: eventPhotos.renner,
-          pictureLargeUrl: eventPhotos.renner,
+          pictureLargeUrl: null,
           time: '2020-05-21T19:40:00.000Z',
           recognitionType: RecognitionType.registered,
-          member: members[3],
+          member: extractMemberDetails(members[3]),
           confidences: {
             score: '21',
             similarity: Similarity.low
@@ -644,10 +896,10 @@ module.exports = {
         {
           id: uuidv4(),
           pictureThumbUrl: eventPhotos.rocket,
-          pictureLargeUrl: eventPhotos.rocket,
+          pictureLargeUrl: null,
           time: '2020-07-31T04:12:00.000Z',
           recognitionType: RecognitionType.registered,
-          member: members[7],
+          member: extractMemberDetails(members[7]),
           confidences: {
             score: '61',
             similarity: Similarity.medium
@@ -656,10 +908,10 @@ module.exports = {
         {
           id: uuidv4(),
           pictureThumbUrl: eventPhotos.thanos,
-          pictureLargeUrl: eventPhotos.thanos,
+          pictureLargeUrl: null,
           time: '2020-02-28T21:40:00.000Z',
           recognitionType: RecognitionType.registered,
-          member: members[6],
+          member: extractMemberDetails(members[6]),
           confidences: {
             score: '99',
             similarity: Similarity.high
@@ -668,10 +920,10 @@ module.exports = {
         {
           id: uuidv4(),
           pictureThumbUrl: eventPhotos.pratt,
-          pictureLargeUrl: eventPhotos.pratt,
+          pictureLargeUrl: null,
           time: '2020-06-18T06:20:00.000Z',
           recognitionType: RecognitionType.registered,
-          member: members[10],
+          member: extractMemberDetails(members[10]),
           confidences: {
             score: '84',
             similarity: Similarity.high
@@ -680,10 +932,10 @@ module.exports = {
         {
           id: uuidv4(),
           pictureThumbUrl: eventPhotos.evans,
-          pictureLargeUrl: eventPhotos.evans,
+          pictureLargeUrl: null,
           time: '2020-01-25T16:12:00.000Z',
           recognitionType: RecognitionType.unknown,
-          member: members[8],
+          member: extractMemberDetails(members[8]),
           confidences: {
             score: '10',
             similarity: Similarity.low
@@ -692,10 +944,10 @@ module.exports = {
         {
           id: uuidv4(),
           pictureThumbUrl: eventPhotos.downey,
-          pictureLargeUrl: eventPhotos.downey,
+          pictureLargeUrl: null,
           time: '2020-09-11T11:11:11.000Z',
           recognitionType: RecognitionType.unknown,
-          member: members[9],
+          member: extractMemberDetails(members[9]),
           confidences: {
             score: '16',
             similarity: Similarity.low
@@ -704,7 +956,7 @@ module.exports = {
         {
           id: uuidv4(),
           pictureThumbUrl: eventPhotos.fury,
-          pictureLargeUrl: eventPhotos.fury,
+          pictureLargeUrl: null,
           time: '2020-05-09T09:11:00.000Z',
           recognitionType: RecognitionType.unknown,
           confidences: {
@@ -715,10 +967,10 @@ module.exports = {
         {
           id: uuidv4(),
           pictureThumbUrl: eventPhotos.potts,
-          pictureLargeUrl: eventPhotos.potts,
+          pictureLargeUrl: null,
           time: '2020-02-14T14:12:00.000Z',
           recognitionType: RecognitionType.unknown,
-          member: members[0],
+          member: extractMemberDetails(members[0]),
           confidences: {
             score: '10',
             similarity: Similarity.low
@@ -727,7 +979,7 @@ module.exports = {
         {
           id: uuidv4(),
           pictureThumbUrl: eventPhotos.nebula,
-          pictureLargeUrl: eventPhotos.nebula,
+          pictureLargeUrl: null,
           time: '2020-06-30T19:52:00.000Z',
           recognitionType: RecognitionType.fake,
           confidences: {
@@ -738,7 +990,7 @@ module.exports = {
         {
           id: uuidv4(),
           pictureThumbUrl: eventPhotos.hulk,
-          pictureLargeUrl: eventPhotos.hulk,
+          pictureLargeUrl: null,
           time: '2020-08-22T22:08:00.000Z',
           recognitionType: RecognitionType.fake,
           confidences: {
@@ -749,10 +1001,10 @@ module.exports = {
         {
           id: uuidv4(),
           pictureThumbUrl: eventPhotos.groot,
-          pictureLargeUrl: eventPhotos.groot,
+          pictureLargeUrl: null,
           time: '2020-04-23T02:38:00.000Z',
           recognitionType: RecognitionType.unknown,
-          member: members[10],
+          member: extractMemberDetails(members[10]),
           confidences: {
             score: '64',
             similarity: Similarity.medium
@@ -761,10 +1013,10 @@ module.exports = {
         {
           id: uuidv4(),
           pictureThumbUrl: eventPhotos.coulson,
-          pictureLargeUrl: eventPhotos.coulson,
+          pictureLargeUrl: null,
           time: '2020-07-12T12:27:00.000Z',
           recognitionType: RecognitionType.unknown,
-          member: members[3],
+          member: extractMemberDetails(members[3]),
           confidences: {
             score: '43',
             similarity: Similarity.low
@@ -773,10 +1025,10 @@ module.exports = {
         {
           id: uuidv4(),
           pictureThumbUrl: eventPhotos.ant,
-          pictureLargeUrl: eventPhotos.ant,
+          pictureLargeUrl: null,
           time: '2020-01-22T15:47:00.000Z',
           recognitionType: RecognitionType.unknown,
-          member: members[9],
+          member: extractMemberDetails(members[9]),
           confidences: {
             score: '62',
             similarity: Similarity.medium
@@ -800,7 +1052,63 @@ module.exports = {
         },
         {
           id: 3,
-          account: 'barry123',
+          account: 'barry3',
+          birthday: '19860221',
+          permission: '1',
+          password: 'cC12345678'
+        },
+        {
+          id: 4,
+          account: 'barry4',
+          birthday: '19860221',
+          permission: '1',
+          password: 'cC12345678'
+        },
+        {
+          id: 5,
+          account: 'barry5',
+          birthday: '19860221',
+          permission: '1',
+          password: 'cC12345678'
+        },
+        {
+          id: 6,
+          account: 'barry6',
+          birthday: '19860221',
+          permission: '1',
+          password: 'cC12345678'
+        },
+        {
+          id: 7,
+          account: 'barry7',
+          birthday: '19860221',
+          permission: '1',
+          password: 'cC12345678'
+        },
+        {
+          id: 8,
+          account: 'barry8',
+          birthday: '19860221',
+          permission: '1',
+          password: 'cC12345678'
+        },
+        {
+          id: 9,
+          account: 'barry9',
+          birthday: '19860221',
+          permission: '1',
+          password: 'cC12345678'
+        },
+        {
+          id: 10,
+          account: 'barry10',
+          birthday: '19860221',
+          permission: '1',
+          password: 'cC12345678'
+        },
+        {
+          id: 11,
+          account: 'barry11',
           birthday: '19860221',
           permission: '1',
           password: 'cC12345678'
@@ -846,13 +1154,95 @@ module.exports = {
       ],
       authStatus: {
         isEnableFaceRecognitionKey: true,
-        isEnableAgeGenderKey: false,
-        isEnableHumanoidDetectionKey: false
+        isEnableAgeGenderKey: true,
+        isEnableHumanoidDetectionKey: true
       },
       upgrade: {upgradeProgress: 0},
       ping: {
         lastPinged: new Date(),
         count: 0
+      },
+      hdReport: {
+        interval2: Array.from({length: 24}, (_, idx) => {
+          const hour = (0 + `${idx}`).slice(-2);
+          return (
+            {
+              id: uuidv4(),
+              date: dayjs().format('MM/DD/YYYY'),
+              timeInterval: `${hour}:00:00 - ${hour}:59:59`,
+              enterCount: Math.ceil(Math.random() * 100),
+              exitCount: Math.ceil(Math.random() * 100)
+            }
+          );
+        }),
+        interval1: Array.from({length: 48}, (_, idx) => {
+          const hour = (0 + `${Math.floor(idx / 2)}`).slice(-2);
+          return (
+            {
+              id: uuidv4(),
+              date: dayjs().format('MM/DD/YYYY'),
+              timeInterval: `${hour}:${idx % 2 ? '30' : '00'}:00 - ${hour}:${idx % 2 ? '59' : '29'}:59`,
+              enterCount: Math.ceil(Math.random() * 100),
+              exitCount: Math.ceil(Math.random() * 100)
+            }
+          );
+        }),
+        interval0: Array.from({length: 96}, (_, idx) => {
+          const hour = (0 + `${Math.floor(idx / 4)}`).slice(-2);
+          return (
+            {
+              id: uuidv4(),
+              date: dayjs().format('MM/DD/YYYY'),
+              timeInterval: `${hour}:${['00:00', '15:00', '30:00', '45:00'][idx % 4]} - ${hour}:${['14:59', '29:59', '44:59', '59:59'][idx % 4]}`,
+              enterCount: Math.ceil(Math.random() * 100),
+              exitCount: Math.ceil(Math.random() * 100)
+            }
+          );
+        })
+      },
+      agReport: {
+        interval2: Array.from({length: 24}, (_, idx) => {
+          const hour = (0 + `${idx}`).slice(-2);
+          return (
+            {
+              id: uuidv4(),
+              date: dayjs().format('MM/DD/YYYY'),
+              timeInterval: `${hour}:00:00 - ${hour}:59:59`,
+              age: Array.from({length: 7}, () => ({
+                male: Math.ceil(Math.random() * 20),
+                female: Math.ceil(Math.random() * 20)
+              }))
+            }
+          );
+        }),
+        interval1: Array.from({length: 48}, (_, idx) => {
+          const hour = (0 + `${Math.floor(idx / 2)}`).slice(-2);
+          return (
+            {
+              id: uuidv4(),
+              date: dayjs().format('MM/DD/YYYY'),
+              timeInterval: `${hour}:${idx % 2 ? '30' : '00'}:00 - ${hour}:${idx % 2 ? '59' : '29'}:59`,
+              age: Array.from({length: 7}, () => ({
+                male: Math.ceil(Math.random() * 10),
+                female: Math.ceil(Math.random() * 10)
+              }))
+            }
+          );
+        }),
+        interval0: Array.from({length: 96}, (_, idx) => {
+          const hour = (0 + `${Math.floor(idx / 4)}`).slice(-2);
+          return (
+            {
+              id: uuidv4(),
+              date: dayjs().format('MM/DD/YYYY'),
+              timeInterval: `${hour}:${['00:00', '15:00', '30:00', '45:00'][idx % 4]} - ${hour}:${['14:59', '29:59', '44:59', '59:59'][idx % 4]}`,
+              age: Array.from({length: 7}, () => ({
+                male: Math.ceil(Math.random() * 5),
+                female: Math.ceil(Math.random() * 5)
+              }))
+            }
+          );
+        })
       }
     }).write();
     return db;

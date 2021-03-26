@@ -45,68 +45,70 @@ const UsersTable = ({permissionFilter, users}) => {
 
   return (
     <>
-      <div className="col-12">
-        <table className="table custom-style">
-          <thead>
-            <tr className="shadow">
-              <th style={{width: '33%'}}>{i18n.t('userManagement.accounts.permission')}</th>
-              <th style={{width: '34%'}}>{i18n.t('userManagement.accounts.username')}</th>
-              <th style={{width: '33%'}}>{i18n.t('userManagement.accounts.actions')}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              usersList.map((user, index) => {
-                const tdClass = classNames({'border-bottom': index >= usersList.length - 1});
-                const isSuperAdmin = user.permission === UserPermission.superAdmin;
-                return (
-                  <tr key={user.id}>
-                    <td className={tdClass}>
-                      <span
-                        className={classNames(
-                          'badge badge-pill text-size-16 px-3',
-                          (user.permission === UserPermission.root || isSuperAdmin) ? 'badge-admin' : 'badge-guest'
-                        )}
-                      >
-                        {i18nUtils.getAccountPermissonI18N(user.permission, <ErrorDisplay/>)}
-                      </span>
-                    </td>
-                    <td className={tdClass}>{user.account}</td>
-                    <td className={classNames('text-left group-btn', tdClass)}>
-                      <Link
-                        className="btn btn-link"
-                        to={{
-                          name: 'web.users.accounts.details',
-                          params: {userId: user.id}
-                        }}
-                      >
-                        <i className="fas fa-pen fa-lg fa-fw"/>
-                      </Link>
-                      { !isSuperAdmin && (
-                        <CustomTooltip
-                          show={user.account === account}
-                          title={i18n.t('userManagement.accounts.tooltip.deleteAccountError1')}
+      <div className="users-table">
+        <div className="table-wrapper">
+          <table className="table">
+            <thead>
+              <tr>
+                <th style={{width: '33%'}}>{i18n.t('userManagement.accounts.permission')}</th>
+                <th style={{width: '34%'}}>{i18n.t('userManagement.accounts.username')}</th>
+                <th style={{width: '33%'}}>{i18n.t('userManagement.accounts.actions')}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                usersList.map((user, index) => {
+                  const tdClass = classNames({'border-bottom': index >= usersList.length - 1});
+                  const isSuperAdmin = user.permission === UserPermission.superAdmin;
+                  return (
+                    <tr key={user.id}>
+                      <td className={tdClass}>
+                        <span
+                          className={classNames(
+                            'badge badge-pill text-size-16 px-3',
+                            (user.permission === UserPermission.root || isSuperAdmin) ? 'badge-admin' : 'badge-guest'
+                          )}
                         >
-                          <span>
-                            <button
-                              // Super Admin account should not be deleted, due to app restrictions
-                              disabled={user.account === account}
-                              className="btn btn-link"
-                              type="button"
-                              onClick={generateShowDeleteUserModalHandler(user)}
-                            >
-                              <i className="far fa-trash-alt fa-lg fa-fw"/>
-                            </button>
-                          </span>
-                        </CustomTooltip>
-                      )}
-                    </td>
-                  </tr>
-                );
-              })
-            }
-          </tbody>
-        </table>
+                          {i18nUtils.getAccountPermissonI18N(user.permission, <ErrorDisplay/>)}
+                        </span>
+                      </td>
+                      <td className={tdClass}>{user.account}</td>
+                      <td className={classNames('text-left group-btn', tdClass)}>
+                        <Link
+                          className="btn btn-link"
+                          to={{
+                            name: 'web.users.accounts.details',
+                            params: {userId: user.id}
+                          }}
+                        >
+                          <i className="fas fa-pen fa-lg fa-fw"/>
+                        </Link>
+                        { !isSuperAdmin && (
+                          <CustomTooltip
+                            show={user.account === account}
+                            title={i18n.t('userManagement.accounts.tooltip.deleteAccountError1')}
+                          >
+                            <span>
+                              <button
+                                // Super Admin account should not be deleted, due to app restrictions
+                                disabled={user.account === account}
+                                className="btn btn-link"
+                                type="button"
+                                onClick={generateShowDeleteUserModalHandler(user)}
+                              >
+                                <i className="far fa-trash-alt fa-lg fa-fw"/>
+                              </button>
+                            </span>
+                          </CustomTooltip>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })
+              }
+            </tbody>
+          </table>
+        </div>
       </div>
       {/* Delete user modal */}
       <CustomNotifyModal

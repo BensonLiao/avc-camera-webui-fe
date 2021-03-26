@@ -187,81 +187,84 @@ const Members = ({groups, members, params, remainingPictureCount, deviceSync, ne
       {/* Main content */}
       <div className="main-content left-menu-active sub">
         <div className={classNames('page-members', tab === MEMBER_PAGES.DATABASE ? 'bg-gray' : 'bg-white')}>
-          <div className="container-fluid">
-            <div className="row">
-              { tab === 'members' && (
-                <>
-                  <div className="col-12 d-flex justify-content-between align-items-center mb-4">
-                    <MembersSearchForm
-                      isApiProcessing={isApiProcessing}
-                      currentRouteName={currentRoute.name}
-                      params={params}
-                    />
-                    <CustomTooltip show={isOverPhotoLimit} title={i18n.t('userManagement.members.tooltip.photoLimitExceeded')}>
-                      <div className="dropdown">
-                        <button
-                          className="btn border-primary text-primary rounded-pill dropdown-toggle"
-                          type="button"
-                          disabled={isOverPhotoLimit}
-                          style={isOverPhotoLimit ? {pointerEvents: 'none'} : {}}
-                          data-toggle="dropdown"
-                        >
-                          <i className="fas fa-plus fa-fw text-primary"/>{i18n.t('common.button.new')}
-                        </button>
-                        <div className="dropdown-menu dropdown-menu-right shadow">
-                          <Link
-                            className="dropdown-item"
-                            to={{
-                              name: 'web.users.members.new-member',
-                              params: params
-                            }}
-                          >
-                            {i18n.t('userManagement.members.addNewMember')}
-                          </Link>
-                          <Link className="dropdown-item" to="/users/events">{i18n.t('userManagement.members.addMemberFromEvent')}</Link>
-                        </div>
-                      </div>
-                    </CustomTooltip>
+          {tab === MEMBER_PAGES.MEMBERS && (
+            <div className="w-100 px-32px py-12px">
+              <div className="d-flex justify-content-between align-items-center">
+                <MembersSearchForm
+                  isApiProcessing={isApiProcessing}
+                  currentRouteName={currentRoute.name}
+                  params={params}
+                />
+                <CustomTooltip show={isOverPhotoLimit} title={i18n.t('userManagement.members.tooltip.photoLimitExceeded')}>
+                  <div className="dropdown">
+                    <button
+                      className="btn border-primary text-primary rounded-pill dropdown-toggle"
+                      type="button"
+                      disabled={isOverPhotoLimit}
+                      style={isOverPhotoLimit ? {pointerEvents: 'none'} : {}}
+                      data-toggle="dropdown"
+                    >
+                      <i className="fas fa-plus fa-fw text-primary"/>{i18n.t('common.button.new')}
+                    </button>
+                    <div className="dropdown-menu dropdown-menu-right shadow">
+                      <Link
+                        className="dropdown-item"
+                        to={{
+                          name: 'web.users.members.new-member',
+                          params: params
+                        }}
+                      >
+                        {i18n.t('userManagement.members.addNewMember')}
+                      </Link>
+                      <Link className="dropdown-item" to="/users/events">{i18n.t('userManagement.members.addMemberFromEvent')}</Link>
+                    </div>
                   </div>
-                  <MembersSelectedGroup
-                    selectedGroup={groups.items.find(x => x.id === params.group)}
-                    params={params}
-                  />
-                  <MembersTable
-                    params={params}
-                    members={members}
-                    groups={groups}
-                    filterHandler={generateChangeFilterHandler}
-                    deleteMemberModal={generateShowDeleteMemberModalHandler}
-                  />
-                  <Pagination
-                    index={members.index}
-                    size={members.size}
-                    total={members.total}
-                    currentPageItemQuantity={members.items.length}
-                    hrefTemplate={hrefTemplate.indexOf('?') >= 0 ?
-                      `${hrefTemplate}&index=` :
-                      `${hrefTemplate}?index=`}
-                  />
-                </>
-              )}
-              { tab === MEMBER_PAGES.DATABASE && (
-                <div className="col-12 database">
-                  <MembersDatabase
-                    isApiProcessing={isApiProcessing}
-                  />
-                </div>
-              )}
-              { tab === MEMBER_PAGES.SYNC && (
-                <div className="col-12 sync">
-                  <DeviceSync
-                    deviceSync={deviceSync}
-                    ipAddress={ipAddress}
-                  />
-                </div>
-              )}
+                </CustomTooltip>
+              </div>
+              <div
+                className="horizontal-border"
+                style={{
+                  width: 'calc(100% + 4rem)',
+                  marginLeft: '-2rem'
+                }}
+              />
+              <MembersSelectedGroup
+                selectedGroup={groups.items.find(x => x.id === params.group)}
+                params={params}
+              />
+              <MembersTable
+                params={params}
+                members={members}
+                groups={groups}
+                filterHandler={generateChangeFilterHandler}
+                deleteMemberModal={generateShowDeleteMemberModalHandler}
+              />
+              <Pagination
+                index={members.index}
+                size={members.size}
+                total={members.total}
+                currentPageItemQuantity={members.items.length}
+                hrefTemplate={hrefTemplate.indexOf('?') >= 0 ?
+                  `${hrefTemplate}&index=` :
+                  `${hrefTemplate}?index=`}
+              />
             </div>
-          </div>
+          )}
+          {tab === MEMBER_PAGES.DATABASE && (
+            <div className="w-100 database pt-32px">
+              <MembersDatabase
+                isApiProcessing={isApiProcessing}
+              />
+            </div>
+          )}
+          {tab === MEMBER_PAGES.SYNC && (
+            <div className="w-100 sync px-32px py-12px">
+              <DeviceSync
+                deviceSync={deviceSync}
+                ipAddress={ipAddress}
+              />
+            </div>
+          )}
           <RouterView/>
         </div>
       </div>

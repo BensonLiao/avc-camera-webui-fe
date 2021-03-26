@@ -32,7 +32,7 @@ module.exports = class Stream extends Base {
   }
 
   render() {
-    const {streamSettings, systemInformation} = this.props;
+    const {streamSettings, systemInformation, sdCardRecordingSettings} = this.props;
     return (
       <div className="main-content left-menu-active">
         <section className="section-media">
@@ -45,7 +45,11 @@ module.exports = class Stream extends Base {
               />
               <div className="col-center">
                 <div className="card shadow">
-                  <StreamSetting streamSettings={streamSettings} systemInformation={systemInformation}/>
+                  <StreamSetting
+                    sdCardRecordingSettings={sdCardRecordingSettings}
+                    streamSettings={streamSettings}
+                    systemInformation={systemInformation}
+                  />
                 </div>
               </div>
             </div>

@@ -1,17 +1,19 @@
 import axios from 'axios';
+import download from 'downloadjs';
+import {getRouter} from '@benson.liao/capybara-router';
+import progress from 'nprogress';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
-import {getRouter} from '@benson.liao/capybara-router';
-import Similarity from 'webserver-form-schema/constants/event-filters/similarity';
 import RecognitionType from 'webserver-form-schema/constants/event-filters/recognition-type';
-import i18n from '../../../i18n';
-import MemberModal from '../../../core/components/member-modal';
-import Pagination from '../../../core/components/pagination';
-import utils from '../../../core/utils';
+import Similarity from 'webserver-form-schema/constants/event-filters/similarity';
 import EventsSidebar from './events-sidebar';
 import EventsSearchForm from './event-search-form';
 import EventsTable from './events-table';
+import i18n from '../../../i18n';
+import MemberModal from '../../../core/components/member-modal';
+import Pagination from '../../../core/components/pagination';
 import SearchMember from '../../../core/components/search-member';
+import {withApiWrapper} from '../../../core/apis';
 import withGlobalStatus from '../../withGlobalStatus';
 import {useContextState} from '../../stateProvider';
 
@@ -136,6 +138,19 @@ const Events = ({params, authStatus, groups, faceEvents, systemDateTime, remaini
     }
   );
 
+  const downloadEventReport = () => {
+    progress.start();
+    withApiWrapper()({
+      method: 'get',
+      url: '/api/face-events/report.csv',
+      responseType: 'blob'
+    })
+      .then(response => {
+        download(response.data, 'event.csv');
+      })
+      .finally(progress.done);
+  };
+
   return (
     <>
       <EventsSidebar
@@ -147,40 +162,50 @@ const Events = ({params, authStatus, groups, faceEvents, systemDateTime, remaini
       />
       <div className="main-content left-menu-active sub">
         <div className="page-events bg-white">
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-12 mb-4">
-                <div className="card quantity-wrapper float-right">
-                  <div className="card-body">
-                    <div className="quantity">{utils.formatNumber(faceEvents.total)}</div>
-                    <div className="description">{i18n.t('userManagement.events.total')}</div>
-                  </div>
-                </div>
-                <EventsSearchForm
-                  params={params}
-                  systemDateTime={systemDateTime}
-                  isApiProcessing={isApiProcessing}
-                  currentRouteName={currentRoute.name}
-                />
-              </div>
-              <EventsTable
+          <div className="w-100 px-32px py-12px">
+            <div className="d-flex justify-content-between align-items-center">
+              <EventsSearchForm
                 params={params}
-                events={faceEvents}
-                groups={groups}
                 systemDateTime={systemDateTime}
-                remainingPictureCount={remainingPictureCount}
-                filterHandler={generateChangeFilterHandler}
-                addMemberHandler={generateMemberAddHandler}
-                modifyMemberHandler={generateMemberModifyHandler}
+                isApiProcessing={isApiProcessing}
+                currentRouteName={currentRoute.name}
               />
-              <Pagination
-                index={faceEvents.index}
-                size={faceEvents.size}
-                total={faceEvents.total}
-                currentPageItemQuantity={faceEvents.items.length}
-                hrefTemplate={hrefTemplate.indexOf('?') >= 0 ? `${hrefTemplate}&index=` : `${hrefTemplate}?index=`}
-              />
+              <div className="ml-3">
+                <button
+                  className="btn btn-outline-primary rounded-pill"
+                  type="button"
+                  disabled={isApiProcessing}
+                  onClick={downloadEventReport}
+                >
+                  <i className="fas fa-download mr-2"/>
+                  {i18n.t('common.button.downloadReport')}
+                </button>
+              </div>
             </div>
+            <div
+              className="horizontal-border"
+              style={{
+                width: 'calc(100% + 4rem)',
+                marginLeft: '-2rem'
+              }}
+            />
+            <EventsTable
+              params={params}
+              events={faceEvents}
+              groups={groups}
+              systemDateTime={systemDateTime}
+              remainingPictureCount={remainingPictureCount}
+              filterHandler={generateChangeFilterHandler}
+              addMemberHandler={generateMemberAddHandler}
+              modifyMemberHandler={generateMemberModifyHandler}
+            />
+            <Pagination
+              index={faceEvents.index}
+              size={faceEvents.size}
+              total={faceEvents.total}
+              currentPageItemQuantity={faceEvents.items.length}
+              hrefTemplate={hrefTemplate.indexOf('?') >= 0 ? `${hrefTemplate}&index=` : `${hrefTemplate}?index=`}
+            />
           </div>
         </div>
         <MemberModal

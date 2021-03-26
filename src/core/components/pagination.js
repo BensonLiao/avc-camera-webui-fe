@@ -100,22 +100,24 @@ module.exports = class Pagination extends React.Component {
     }
 
     return (
-      <div className="col-12">
+      <div className="col-12 border border-top-none pagination-component">
         <nav
           className="d-flex justify-content-center align-items-center"
           style={{
             padding: '0px 2px',
-            height: '36px'
+            height: '42px'
           }}
         >
-          <p className="text-size-14 text-muted mb-0 mr-auto invisible">
-            {i18n.t('common.pagination.stats', {
-              0: startItem,
-              1: endItem,
-              2: total
-            })}
-          </p>
-          <ul className="pagination my-auto">
+          <div className="border rounded d-flex align-items-center">
+            <span className="text-size-14 text-muted mx-2 my-1">
+              {`${i18n.t('common.pagination.total')}: ${total}`}
+            </span>
+            <div className="vertical-border m-0" style={{height: '1.85rem'}}/>
+            <span className="text-size-14 text-muted mx-2 my-1">
+              {`${startItem} - ${endItem} ${i18n.t('common.pagination.items')}`}
+            </span>
+          </div>
+          <ul className="pagination my-auto ml-auto">
             <li className={classNames('page-item', {disabled: !hasPrevious})}>
               <Link
                 to={hasPrevious && typeof setPageIndexState !== 'function' ? hrefTemplate + (index - 1) : ''}
@@ -167,13 +169,6 @@ module.exports = class Pagination extends React.Component {
               </Link>
             </li>
           </ul>
-          <p className="text-size-14 text-muted mb-0 ml-auto">
-            {i18n.t('common.pagination.stats', {
-              0: startItem,
-              1: endItem,
-              2: total
-            })}
-          </p>
         </nav>
       </div>
     );

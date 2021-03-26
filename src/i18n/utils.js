@@ -5,9 +5,11 @@ const StreamResolution = require('webserver-form-schema/constants/stream-resolut
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const NotificationCardType = require('webserver-form-schema/constants/notification-card-type');
 const NotificationFaceRecognitionCondition = require('webserver-form-schema/constants/notification-face-recognition-condition');
+const NotificationHdOption = require('webserver-form-schema/constants/notification-hd-option');
 const SDCardRecordingType = require('webserver-form-schema/constants/sdcard-recording-type');
 const SDCardRecordingStream = require('webserver-form-schema/constants/sdcard-recording-stream');
 const SDCardRecordingLimit = require('webserver-form-schema/constants/sdcard-recording-limit');
+const TimeInterval = require('webserver-form-schema/constants/human-detection-report-time-interval');
 
 /**
  * Get the stream resolution option with i18n translation, for custom dropdown or `<select>` element to render.
@@ -183,6 +185,22 @@ module.exports.getNotificationFRConditionI18N = (recognitionType, defaultValue =
 };
 
 /**
+   * Get the i18n message of notification human detection option.
+   * @param {string} option - The human detection option, `capacity` or `intrusion.
+   * @param {string|object|Element} defaultValue - What to returns when there's no match case, default is ``.
+   * @returns {string|object|Element}
+   */
+module.exports.getNotificationHDOptionI18N = (option, defaultValue = '') => {
+  switch (option) {
+    default: return defaultValue;
+    case NotificationHdOption.capacity:
+      return i18n.t('notification.cards.capactiy');
+    case NotificationHdOption.intrusion:
+      return i18n.t('notification.cards.intrusion');
+  }
+};
+
+/**
    * Get the i18n message of api error.
    * @param {string} errorMessage - The api error message.
    * @returns {string}
@@ -274,16 +292,24 @@ module.exports.getApiErrorMessageI18N = errorMessage => {
       return i18n.t('common.toast.Duplicate Key');
     case 'Cannot Support Database Downgrade from 30,000 to 3000 People':
       return i18n.t('common.toast.Cannot Support Database Downgrade from 30,000 to 3000 People');
-    case 'DEVICE_CONNECTION_FAIL':
-      return i18n.t('common.toast.DEVICE_CONNECTION_FAIL');
-    case 'DEVICE_LOGIN_FAIL':
-      return i18n.t('common.toast.DEVICE_LOGIN_FAIL');
-    case 'DUPLICATE_DEVICE_IP':
-      return i18n.t('common.toast.DUPLICATE_DEVICE_IP');
-    case 'INVALID_DEVICE_ID':
-      return i18n.t('common.toast.INVALID_DEVICE_ID');
+    case 'Device Connection Fail':
+      return i18n.t('common.toast.Device Connection Fail');
+    case 'Device Login Fail':
+      return i18n.t('common.toast.Device Login Fail');
+    case 'Duplicate Device IP':
+      return i18n.t('common.toast.Duplicate Device IP');
+    case 'Invalid Device ID':
+      return i18n.t('common.toast.Invalid Device ID');
+    case 'Device Amount Over Limit':
+      return i18n.t('common.toast.Device Amount Over Limit');
+    case 'Sync Target Amount Over Limit':
+      return i18n.t('common.toast.Sync Target Amount Over Limit');
     case 'DHCP Testing Failed':
       return i18n.t('common.toast.DHCP Test Failed');
+    case 'Not Enough Zipping Space':
+      return i18n.t('common.toast.Not Enough Zipping Space');
+    case 'File Does Not Exist':
+      return i18n.t('common.toast.File Does Not Exist');
   }
 };
 
@@ -358,5 +384,25 @@ module.exports.getSDCardRecordingLimit = x => {
         value: x,
         label: i18n.t('sdCard.basic.constants.sdcard-recording-limit-1')
       };
+  }
+};
+
+/**
+ *
+ * @param {string} x - Value representing time interval of HD report
+ * @param {string|object|Element} defaultValue - What to returns when there's no match case, default is ``.
+ * @returns {object}
+ * - value {any}
+ * - label {string}
+ */
+module.exports.getReportIntervalI18N = (x, defaultValue = '') => {
+  switch (x) {
+    default: return defaultValue;
+    case TimeInterval.fifteenMinutes:
+      return i18n.t('analytics.report.duration15Mins');
+    case TimeInterval.thirtyMinutes:
+      return i18n.t('analytics.report.duration30Mins');
+    case TimeInterval.oneHour:
+      return i18n.t('analytics.report.duration1Hour');
   }
 };

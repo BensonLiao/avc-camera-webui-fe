@@ -84,7 +84,7 @@ const License = ({
           <div className="row">
             <BreadCrumb
               path={[i18n.t('navigation.sidebar.analyticsSettings'), i18n.t('navigation.sidebar.license')]}
-              routes={['/analytic/face-recognition']}
+              routes={[window.defaultSmartPageLink]}
             />
             <div className="col-12">
               <h3 className="mb-4">{i18n.t('analytics.license.title')}</h3>

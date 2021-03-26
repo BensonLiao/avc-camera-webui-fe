@@ -15,7 +15,8 @@ module.exports = class SelectField extends React.PureComponent {
       name: PropTypes.string.isRequired,
       className: PropTypes.string,
       children: PropTypes.node.isRequired,
-      row: PropTypes.bool
+      row: PropTypes.bool,
+      noMb: PropTypes.bool
     };
   }
 
@@ -27,17 +28,18 @@ module.exports = class SelectField extends React.PureComponent {
       readOnly: false,
       wrapperClassName: '',
       className: '',
-      row: false
+      row: false,
+      noMb: false
     };
   }
 
   render() {
     const {
-      hide, labelName, labelClassName, formClassName, wrapperClassName, readOnly, name, className, children, row, ...extraProps
+      hide, labelName, labelClassName, formClassName, wrapperClassName, readOnly, name, className, children, row, noMb, ...extraProps
     } = this.props;
 
     return (
-      <div className={classNames('form-group', (hide && 'd-none'), (row && 'row'), formClassName)}>
+      <div className={classNames('form-group', (hide && 'd-none'), (noMb && 'mb-0'), (row && 'row'), formClassName)}>
         <label className={labelClassName}>{labelName}</label>
         <div className={classNames('select-wrapper border rounded-pill overflow-hidden', readOnly && 'select-readonly', wrapperClassName)}>
           <Field

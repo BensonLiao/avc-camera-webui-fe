@@ -27,5 +27,26 @@
         "certificate-type-2.reserve": "在此裝置上產生憑證"
       }
     }
+  },
+  "sdCard": {
+    "storage": {
+      "files": {
+        "date": "日期"
+      }
+    }
+  },
+  "documentTitle": {
+    "sdCardStorage": "儲存"
+  },
+  "common": {
+    "volumeBar": {
+      "used": "{{0}} 已使用",
+      "free": "{{0}} 可用"
+    }
+  },
+  "userManagement": {
+    "members": {
+      "refresh": "更新"
+    }
   }
 }

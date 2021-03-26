@@ -75,7 +75,7 @@ module.exports = class User extends Base {
 
   callApi = (apiType, values = '') => {
     api.user[apiType](values)
-      .then(this.hideModal(true))
+      .then(() => this.hideModal(true))
       .finally(progress.done);
   };
 
@@ -163,7 +163,7 @@ module.exports = class User extends Base {
                   />
                   <ErrorMessage component="div" name="account" className="invalid-feedback"/>
                   <small className="text-info">
-                    {i18n.t('userManagement.accounts.modal.usernameHelper')}
+                    {i18n.t('setup.account.accountHelper')}
                   </small>
                 </div>
                 { !user && (

@@ -41,7 +41,8 @@ module.exports = class DatePicker extends React.PureComponent {
       endDateFieldName: PropTypes.string,
       isShowPicker: PropTypes.bool,
       onClickInput: PropTypes.func.isRequired,
-      onHide: PropTypes.func.isRequired
+      onHide: PropTypes.func.isRequired,
+      disabled: PropTypes.bool
     };
   }
 
@@ -56,7 +57,8 @@ module.exports = class DatePicker extends React.PureComponent {
       isShowPicker: false,
       availableDates: undefined,
       startDateFieldName: '',
-      endDateFieldName: ''
+      endDateFieldName: '',
+      disabled: false
     };
   }
 
@@ -890,12 +892,13 @@ module.exports = class DatePicker extends React.PureComponent {
 
   render() {
     const {
-      inputProps, field, isShowPicker, onClickInput, onHide, dateTabText, dateFormat, timeTabText, timeFormat
+      inputProps, field, isShowPicker, onClickInput, onHide, dateTabText, dateFormat, timeTabText, timeFormat, disabled
     } = this.props;
     return (
       <>
         <button
           ref={this.inputRef}
+          disabled={disabled}
           type="button"
           {...inputProps}
           onClick={onClickInput}

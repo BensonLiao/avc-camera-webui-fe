@@ -94,8 +94,7 @@ const Upgrade = () => {
         // Check the server was startup, if success then startup was failed and retry.
         const test = () => {
           api.ping('app')
-            .then(response => {
-              console.log('ping app response(userinitiated)', response);
+            .then(() => {
               updateProgressStatus('deviceRestart', 'done');
               setApiProcessModalTitle(i18n.t('system.softwareUpgrade.modal.upgradeSuccess'));
               let countdown = constants.REDIRECT_COUNTDOWN;

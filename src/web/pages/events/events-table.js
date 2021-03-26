@@ -94,142 +94,141 @@ const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMem
     }
   ];
   return (
-    <div
-      className="col-12 mb-5 table-responsive"
-      style={{overflowY: 'hidden'}}
-    >
-      <table className="table custom-style">
-        <thead>
-          <tr className="shadow">
-            {tableField.map(item => {
-              return (
-                <th key={item.title} style={item.width}>
-                  {
-                    item.handler ? (
-                      <>
-                        <a href="#" onClick={item.handler}>{item.title}</a>
-                        <i className={item.icon}/>
-                      </>
-                    ) :
-                      item.title
-                  }
-                </th>
-              );
-            })}
-          </tr>
-        </thead>
-        <tbody>
-          {
+    <div className="events-table">
+      <div className="table-wrapper">
+        <table className="table">
+          <thead>
+            <tr>
+              {tableField.map(item => {
+                return (
+                  <th key={item.title} style={item.width}>
+                    {
+                      item.handler ? (
+                        <>
+                          <a href="#" onClick={item.handler}>{item.title}</a>
+                          <i className={item.icon}/>
+                        </>
+                      ) :
+                        item.title
+                    }
+                  </th>
+                );
+              })}
+            </tr>
+          </thead>
+          <tbody>
+            {
             /* The empty view */
-            !events.items.length && (
-              <tr className="disable-highlight">
-                <td className="text-size-20 text-center" colSpan="10">
-                  <i className="fas fa-frown-open fa-fw text-dark"/> {i18n.t('userManagement.events.noData')}
-                </td>
-              </tr>
-            )
-          }
-          {
-            events.items.map(event => {
-              return (
-                <tr key={event.id}>
-                  <td>
-                    {utils.formatDate(
-                      utils.subtractTimezoneOffset(new Date(event.time)),
-                      {withSecond: true}
-                    )}
+              !events.items.length && (
+                <tr className="disable-highlight">
+                  <td className="text-size-20 text-center border-0" colSpan="10">
+                    <i className="fas fa-frown-open fa-fw text-dark"/> {i18n.t('userManagement.events.noData')}
                   </td>
-                  <td>
-                    <div className="thumbnail-wrapper">
-                      <div className="rounded-circle overflow-hidden circle-crop">
-                        {event.pictureThumbUrl && (
-                          <a onClick={() => generateEnlargePhotoHandler(event.pictureLargeUrl)}>
-                            <div className="thumbnail" style={{backgroundImage: `url('${event.pictureThumbUrl}')`}}/>
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    {event.member && event.member.picture ? (
+                </tr>
+              )
+            }
+            {
+              events.items.map(event => {
+                return (
+                  <tr key={event.id}>
+                    <td>
+                      {utils.formatDate(
+                        utils.subtractTimezoneOffset(new Date(event.time)),
+                        {withSecond: true}
+                      )}
+                    </td>
+                    <td>
                       <div className="thumbnail-wrapper">
                         <div className="rounded-circle overflow-hidden circle-crop">
-                          <div className="thumbnail" style={{backgroundImage: `url('data:image/jpeg;base64,${event.member.picture}')`}}/>
+                          {event.pictureThumbUrl && (
+                            <a onClick={() => generateEnlargePhotoHandler(event.pictureLargeUrl)}>
+                              <div className="thumbnail" style={{backgroundImage: `url('${event.pictureThumbUrl}')`}}/>
+                            </a>
+                          )}
                         </div>
                       </div>
-                    ) : '-'}
-                  </td>
-                  {['name', 'group', 'organization'].map(memberDetail => (
-                    <td key={memberDetail}>
-                      <CustomTooltip placement="top-start" title={event.member ? event.member[memberDetail] || '' : ''}>
+                    </td>
+                    <td>
+                      {event.member && event.member.picture ? (
+                        <div className="thumbnail-wrapper">
+                          <div className="rounded-circle overflow-hidden circle-crop">
+                            <div className="thumbnail" style={{backgroundImage: `url('data:image/jpeg;base64,${event.member.picture}')`}}/>
+                          </div>
+                        </div>
+                      ) : '-'}
+                    </td>
+                    {['name', 'group', 'organization'].map(memberDetail => (
+                      <td key={memberDetail}>
+                        <CustomTooltip placement="top-start" title={event.member ? event.member[memberDetail] || '' : ''}>
+                          <div>
+                            {event.member ? event.member[memberDetail] || '-' : '-'}
+                          </div>
+                        </CustomTooltip>
+                      </td>
+                    ))}
+                    <td>
+                      {event.confidences && event.recognitionType !== RecognitionType.fake ?
+                        i18nUtils.getEventConfidenceI18N(event.confidences.similarity, <ErrorDisplay/>) :
+                        '-'}
+                    </td>
+                    <td>
+                      <CustomTooltip title={event.confidences ? event.confidences.score || '' : ''}>
+                        <span className={classNames('badge badge-pill',
+                          {'badge-success': event.recognitionType === RecognitionType.registered},
+                          {'badge-danger': event.recognitionType === RecognitionType.unknown},
+                          {'badge-warning': event.recognitionType === RecognitionType.fake}
+                        )}
+                        >
+                          {i18nUtils.getEventRecognitionTypeI18N(event.recognitionType, <ErrorDisplay/>)}
+                        </span>
+                      </CustomTooltip>
+                    </td>
+                    <td>
+                      <CustomTooltip placement="top-start" title={event.member ? event.member.note || '' : ''}>
                         <div>
-                          {event.member ? event.member[memberDetail] || '-' : '-'}
+                          {event.member ? event.member.note || '-' : '-'}
                         </div>
                       </CustomTooltip>
                     </td>
-                  ))}
-                  <td>
-                    {event.confidences && event.recognitionType !== RecognitionType.fake ?
-                      i18nUtils.getEventConfidenceI18N(event.confidences.similarity, <ErrorDisplay/>) :
-                      '-'}
-                  </td>
-                  <td>
-                    <CustomTooltip title={event.confidences ? event.confidences.score || '' : ''}>
-                      <span className={classNames('badge badge-pill',
-                        {'badge-success': event.recognitionType === RecognitionType.registered},
-                        {'badge-danger': event.recognitionType === RecognitionType.unknown},
-                        {'badge-warning': event.recognitionType === RecognitionType.fake}
-                      )}
-                      >
-                        {i18nUtils.getEventRecognitionTypeI18N(event.recognitionType, <ErrorDisplay/>)}
-                      </span>
-                    </CustomTooltip>
-                  </td>
-                  <td>
-                    <CustomTooltip placement="top-start" title={event.member ? event.member.note || '' : ''}>
-                      <div>
-                        {event.member ? event.member.note || '-' : '-'}
-                      </div>
-                    </CustomTooltip>
-                  </td>
-                  <td>
-                    {event.recognitionType === RecognitionType.fake ? '-' : (
-                      <CustomTooltip show={isOverPhotoLimit} title={i18n.t('userManagement.events.tooltip.photoLimitExceeded')}>
-                        <div className="d-flex justify-content-center">
-                          <button
-                            disabled={isOverPhotoLimit}
-                            className="btn text-primary dropdown-toggle p-0"
-                            type="button"
-                            data-toggle="dropdown"
-                            style={{
-                              boxShadow: 'none',
-                              pointerEvents: isOverPhotoLimit ? 'none' : 'auto'
-                            }}
-                          >
-                            {i18n.t('common.button.add')}
-                          </button>
-                          <div className="dropdown-menu dropdown-menu-right shadow">
-                            <a
-                              className="dropdown-item px-3"
-                              onClick={addMemberHandler(event.pictureThumbUrl)}
-                            >{i18n.t('userManagement.events.addNewMember')}
-                            </a>
-                            <a
-                              className="dropdown-item px-3"
-                              onClick={modifyMemberHandler(event.member && event.member.name, event.pictureThumbUrl)}
-                            >{i18n.t('userManagement.events.addExistingMember')}
-                            </a>
+                    <td>
+                      {event.recognitionType === RecognitionType.fake ? '-' : (
+                        <CustomTooltip show={isOverPhotoLimit} title={i18n.t('userManagement.events.tooltip.photoLimitExceeded')}>
+                          <div className="d-flex justify-content-center">
+                            <button
+                              disabled={isOverPhotoLimit}
+                              className="btn text-primary dropdown-toggle p-0"
+                              type="button"
+                              data-toggle="dropdown"
+                              style={{
+                                boxShadow: 'none',
+                                pointerEvents: isOverPhotoLimit ? 'none' : 'auto'
+                              }}
+                            >
+                              {i18n.t('common.button.add')}
+                            </button>
+                            <div className="dropdown-menu dropdown-menu-right shadow">
+                              <a
+                                className="dropdown-item px-3"
+                                onClick={addMemberHandler(event.pictureThumbUrl)}
+                              >{i18n.t('userManagement.events.addNewMember')}
+                              </a>
+                              <a
+                                className="dropdown-item px-3"
+                                onClick={modifyMemberHandler(event.member && event.member.name, event.pictureThumbUrl)}
+                              >{i18n.t('userManagement.events.addExistingMember')}
+                              </a>
+                            </div>
                           </div>
-                        </div>
-                      </CustomTooltip>
-                    )}
-                  </td>
-                </tr>
-              );
-            })
-          }
-        </tbody>
-      </table>
+                        </CustomTooltip>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })
+            }
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

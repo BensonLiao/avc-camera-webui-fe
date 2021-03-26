@@ -30,7 +30,7 @@ const CheckboxHeader = ({width = '10%', disabled = false}) => {
 };
 
 CheckboxHeader.propTypes = {
-  width: PropTypes.number,
+  width: PropTypes.string,
   disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.number])
 };
 

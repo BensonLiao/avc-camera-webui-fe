@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import store from '../core/store';
 import {StateProvider} from './stateProvider';
+import ConfirmContextProvider from '../core/components/confirm';
+import ProcessingContextProvider from '../core/components/processing';
 
 const withGlobalStatus = WrappedComponent => {
   class WithGlobalStatusHOC extends Component {
@@ -89,13 +91,17 @@ const withGlobalStatus = WrappedComponent => {
           user
         }}
         >
-          <WrappedComponent
-            {...{
-              $listens: this.$listens,
-              ...this.props,
-              ...this.storeValues
-            }}
-          />
+          <ProcessingContextProvider>
+            <ConfirmContextProvider>
+              <WrappedComponent
+                {...{
+                  $listens: this.$listens,
+                  ...this.props,
+                  ...this.storeValues
+                }}
+              />
+            </ConfirmContextProvider>
+          </ProcessingContextProvider>
         </StateProvider>
       );
     }

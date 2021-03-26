@@ -73,8 +73,8 @@ const EventsSearchForm = ({params, isApiProcessing, currentRouteName}) => {
     >
       {({errors, touched}) => {
         return (
-          <Form>
-            <div className="form-row datepicker-wrapper">
+          <Form className="d-inline-flex">
+            <div className="datepicker-wrapper">
               <div className="col-auto px-0 btn-group datepicker-group">
                 <Field
                   name="start"
@@ -114,30 +114,33 @@ const EventsSearchForm = ({params, isApiProcessing, currentRouteName}) => {
                 />
               </div>
             </div>
-            <div className="form-row mt-4 align-items-center">
-              <div className="col-auto px-0">
-                <Field
-                  name="keyword"
-                  style={{paddingRight: '0.75rem'}}
-                  className={classNames('form-control search-bar-expand', {'is-invalid': errors.keyword && touched.keyword})}
-                  type="search"
-                  placeholder={i18n.t('userManagement.events.searchPlaceholder')}
-                />
-              </div>
-              <div className="col-auto px-0 ml-3">
-                <button className="btn btn-outline-primary rounded-pill px-3" type="submit" disabled={(errors.keyword && touched.keyword) || isApiProcessing}>
-                  <i className="fas fa-search fa-fw"/> {i18n.t('userManagement.events.search')}
-                </button>
-              </div>
-              <div className="ml-2 col-auto">
-                <CustomPopover
-                  title={i18n.t('userManagement.events.popover.title')}
-                  content={i18n.t('userManagement.events.popover.content')}
-                  placement="bottom-start"
-                >
-                  <i className="fas fa-question-circle helper-text text-primary"/>
-                </CustomPopover>
-              </div>
+            <div className="vertical-border"/>
+            <div className="col-auto px-0">
+              <Field
+                name="keyword"
+                style={{paddingRight: '0.75rem'}}
+                className={classNames('form-control search-bar-expand', {'is-invalid': errors.keyword && touched.keyword})}
+                type="search"
+                placeholder={i18n.t('userManagement.events.searchPlaceholder')}
+              />
+            </div>
+            <div className="col-auto px-0 ml-3">
+              <button
+                className="btn btn-outline-primary rounded-pill px-4"
+                type="submit"
+                disabled={(errors.keyword && touched.keyword) || isApiProcessing}
+              >
+                <i className="fas fa-search fa-fw"/>
+              </button>
+            </div>
+            <div className="col-auto d-flex align-items-center">
+              <CustomPopover
+                title={i18n.t('userManagement.events.popover.title')}
+                content={i18n.t('userManagement.events.popover.content')}
+                placement="bottom-start"
+              >
+                <i className="fas fa-question-circle helper-text text-primary"/>
+              </CustomPopover>
             </div>
             <div className="form-row">
               <div className="col-auto">

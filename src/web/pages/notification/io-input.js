@@ -43,13 +43,27 @@ const IoInput = ({currentTab, ioInSettings}) => {
                 <label>{i18n.t('notification.io.normalState')}</label>
                 <div className="d-flex align-items-center">
                   <div className="form-check">
-                    <Field disabled={!values.isEnable} name="ioType" className="form-check-input" type="radio" id="input-input-normally-open" value={IOType.normallyOpen}/>
+                    <Field
+                      disabled={!values.isEnable}
+                      name="ioType"
+                      className="form-check-input"
+                      type="radio"
+                      id="input-input-normally-open"
+                      value={IOType.normallyOpen}
+                    />
                     <label className="form-check-label" htmlFor="input-input-normally-open">
                       {i18n.t('notification.io.open')}
                     </label>
                   </div>
                   <div className="form-check ml-5">
-                    <Field disabled={!values.isEnable} name="ioType" className="form-check-input" type="radio" id="input-input-normally-closed" value={IOType.normallyClosed}/>
+                    <Field
+                      disabled={!values.isEnable}
+                      name="ioType"
+                      className="form-check-input"
+                      type="radio"
+                      id="input-input-normally-closed"
+                      value={IOType.normallyClosed}
+                    />
                     <label className="form-check-label" htmlFor="input-input-normally-closed">
                       {i18n.t('notification.io.closed')}
                     </label>

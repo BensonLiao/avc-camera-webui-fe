@@ -102,7 +102,6 @@ const Group = ({group, groups, params}) => {
       >
         {({errors, touched}) => {
           const isAddGroupDisabled = groups.items.length >= MEMBERS_PAGE_GROUPS_MAX && !group;
-          console.log('test', group);
           return (
             <Form>
               <div className="modal-header">

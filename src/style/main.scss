@@ -1,13 +1,13 @@
 @import "./shared/bootstrap";
 @import "./shared/overwrite-bootstrap";
 @import "./shared/progress-circles.scss";
+@import "./main/common";
 @import "./main/error";
 @import "./main/events";
 @import "./main/variables";
 @import "./main/navigation";
 @import "./main/notification";
 @import "./main/users";
-@import "./main/common";
 @import "./main/media";
 @import "./main/sdcard";
 @import "./main/home";
@@ -19,3 +19,5 @@
 @import "./main/system";
 @import "./main/members";
 @import "./main/language";
+@import "./main/hdreport";
+@import "./main/agreport";

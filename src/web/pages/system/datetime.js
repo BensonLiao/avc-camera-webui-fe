@@ -153,6 +153,7 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
                                   <div className="d-flex form-group align-items-center">
                                     <div className="text-size-14 text-nowrap mr-3">{`${i18n.t('system.dateTime.ntpHost')} :`}</div>
                                     <Field
+                                      disabled={values.syncTimeOption !== SyncTimeOption.ntp}
                                       className="form-control flex-grow-1"
                                       type="text"
                                       name="ntpIP"
@@ -163,6 +164,7 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
                                   <div className="d-flex align-items-center mb-3">
                                     <div className="form-check">
                                       <Field
+                                        disabled={values.syncTimeOption !== SyncTimeOption.ntp}
                                         name="ntpTimeOption"
                                         className={classNames('form-check-input')}
                                         type="radio"
@@ -178,6 +180,7 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
                                     </div>
                                     <div className="form-row datepicker-wrapper">
                                       <Field
+                                        disabled={values.syncTimeOption !== SyncTimeOption.ntp}
                                         name="ntpUpdateTime"
                                         component={DateTimePicker}
                                         timeTabText={i18n.t('system.dateTime.syncTime')}
@@ -199,6 +202,7 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
                                   <div className="d-flex align-items-center">
                                     <div className="form-check">
                                       <Field
+                                        disabled={values.syncTimeOption !== SyncTimeOption.ntp}
                                         name="ntpTimeOption"
                                         className={classNames('form-check-input')}
                                         type="radio"
@@ -214,6 +218,7 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
                                     </div>
                                     <div className={classNames('select-wrapper rounded-pill overflow-hidden')}>
                                       <SelectField
+                                        readOnly={values.syncTimeOption !== SyncTimeOption.ntp}
                                         labelName=""
                                         name="ntpUpdateTimeRate"
                                         className={classNames('form-control')}
@@ -262,6 +267,7 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
                               </div>
                               <div className="form-row datepicker-wrapper">
                                 <Field
+                                  disabled={values.syncTimeOption !== SyncTimeOption.manual}
                                   name="manualTime"
                                   component={DateTimePicker}
                                   dateTabText={i18n.t('common.dateTimePicker.date')}

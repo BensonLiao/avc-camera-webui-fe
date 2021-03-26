@@ -207,11 +207,11 @@ nav.navbar.fixed-top {
     .actions {
       padding: 0 32px;
     }
+  }
 
-    .group-item.active,
-    .nav-link.active {
-      color: $primary-500;
-    }
+  .group-item.active,
+  .users-nav.active, {
+    color: $primary-500 !important;
   }
 
   .filter-wrapper {
@@ -308,6 +308,7 @@ nav.navbar.fixed-top {
       line-height: 40px;
       color: inherit;
       padding: 20px 24px;
+      cursor: pointer;
 
       i {
         @extend .transition-transform;
@@ -347,6 +348,11 @@ nav.navbar.fixed-top {
         .fa-chevron-down {
           transform: rotate(180deg);
         }
+      }
+
+      &.inactive {
+        cursor: not-allowed;
+        color: $secondary-400;
       }
     }
 

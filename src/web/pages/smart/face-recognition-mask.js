@@ -1,15 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {useFormikContext, Field} from 'formik';
 import i18n from '../../../i18n';
 import MaskArea from '../../../core/components/fields/mask-area';
-import PropTypes from 'prop-types';
+import ImgWithFallback from '../../../core/components/img-with-fallback';
 
 const FaceRecognitionMask = ({isShowDetectionZone}) => {
   const {values} = useFormikContext();
   return (
     <div className="col-7 pl-3 pr-0">
       <div id="fr-video-wrapper" className="video-wrapper">
-        <img className="img-fluid" draggable={false} src="/api/snapshot"/>
+        <ImgWithFallback
+          className="img-fluid"
+          draggable={false}
+          src="/api/snapshot"
+        />
         {
           isShowDetectionZone && (
             <div className="draggable-wrapper" tabIndex={-1}>

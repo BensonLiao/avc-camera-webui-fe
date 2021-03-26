@@ -1,25 +1,18 @@
 .page-members {
-  padding: $top-table-height 33px;
-  min-height: calc(100vh - #{$top-navigation-height});
+  // 48px is the height of the sub navbar
+  min-height: calc(100vh - #{$top-navigation-height + 48px});
   min-width: 800px;
 
-  .table {
-    th {
-      white-space: nowrap;
-      color: #1a1a1a !important;
-
-      a {
-        color: #1a1a1a;
+  #{$table-wrapper} {
+    #{$table} {
+      #{$table-body-cell} {
+        @extend .text-truncate;
       }
-    }
-
-    td {
-      @extend .text-truncate;
     }
   }
 
-  .dropdown {
-    button:hover {
+  .filter-dropdown {
+    button:hover:not(.no-highlight) {
       color: #fff !important;
       background-color: $primary-500;
       border-color: $primary-500;
@@ -101,6 +94,29 @@
         }
       }
     }
+
+    #devices-left {
+      color: $primary;
+      font-weight: 700;
+    }
+
+    #max-devices {
+      color: $border;
+    }
+
+    .text-danger #max-devices {
+      color: inherit;
+    }
+  }
+
+  .db-sync-table {
+    height: calc(100vh - 300px);
+    min-height: 20rem;
+  }
+
+  .members-table {
+    height: calc(100vh - 240px);
+    min-height: 20rem;
   }
 }
 
@@ -380,6 +396,35 @@
 
       .slider {
         width: 160px !important;
+      }
+    }
+  }
+}
+
+.device-schedule-modal {
+  .modal-dialog {
+    min-width: 50rem;
+
+    .modal-body {
+      min-height: calc(100vh - 360px);
+    }
+
+    .device-schedule-table {
+      height: calc(100vh - 500px);
+      min-height: 20rem;
+      margin-bottom: 0;
+
+      .td-checkbox {
+        position: relative;
+
+        label {
+          position: absolute;
+          margin: 0;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+        }
       }
     }
   }

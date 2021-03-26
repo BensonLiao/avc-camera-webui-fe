@@ -41,7 +41,12 @@ module.exports = class Layout extends Base {
         modelName: PropTypes.string.isRequired,
         firmware: PropTypes.string.isRequired
       }).isRequired,
-      networkSettings: PropTypes.shape({mac: PropTypes.string.isRequired}).isRequired
+      networkSettings: PropTypes.shape({mac: PropTypes.string.isRequired}).isRequired,
+      authStatus: PropTypes.shape({
+        isEnableFaceRecognitionKey: PropTypes.bool.isRequired,
+        isEnableAgeGenderKey: PropTypes.bool.isRequired,
+        isEnableHumanoidDetectionKey: PropTypes.bool.isRequired
+      }).isRequired
     };
   }
 
@@ -191,6 +196,7 @@ module.exports = class Layout extends Base {
             'web.smart',
             'web.smart.face-recognition',
             'web.smart.motion-detection',
+            'web.smart.human-detection',
             'web.smart.license'
           ].indexOf(currentRouteName) >= 0,
           'd-flex justify-content-center align-items-center': isAdmin,
@@ -253,7 +259,11 @@ module.exports = class Layout extends Base {
               </Link>
             </CustomTooltip>
             <CustomTooltip title={i18n.t('navigation.sidebar.tooltip.analytics')}>
-              <Link className={classTable.smart} to="/analytic/face-recognition" onClick={this.onClickLink}>
+              <Link
+                className={classTable.smart}
+                to="/analytic"
+                onClick={this.onClickLink}
+              >
                 <img src={iconAnalytic}/>
               </Link>
             </CustomTooltip>

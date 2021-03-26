@@ -56,10 +56,10 @@ mockAxios
       lastPinged: new Date(),
       count: ++ping.count
     }).write();
-    // Simulate pinging web x times until server is unreachable (mock restarting)
+    // Simulate pinging web x times until server is unreachable to mock shutdown
     if (ping.count >= 2) {
       db.get('ping').assign({
-        ...ping,
+        count: 0,
         lastPinged: new Date()
       }).write();
       return;
@@ -69,16 +69,15 @@ mockAxios
     return mockResponseWithLog(config, [config.params.mock ? 500 : 200]);
   })
   .onGet('/api/ping/app').reply(config => {
-    // Length of time for mock restarting device (seconds)
-    const restartTimeLength = 2;
-
     let {count} = db.get('ping').value();
-    // Count is to simulate process has finished pinging 'web' x times
+    db.get('ping').assign({count: ++count}).write();
+    // Simulate pinging app x times until server is back to mock restart
     if (count >= 2) {
-      return mockResponseWithLog(config, [200], restartTimeLength * 1000);
+      return mockResponseWithLog(config, [200]);
     }
 
-    return mockResponseWithLog(config, [200]);
+    // Just set a larger delay than default timeout to simulate ECONNABORTED error
+    return mockResponseWithLog(config, [200], 2000);
   })
   .onGet('/api/system/adbconfig').reply(config => mockResponseWithLog(config, [200, db.get('adbConfig').value()]))
   .onPut('/api/system/adbconfig').reply(config => mockResponseWithLog(config, [200, db.get('adbConfig').assign(JSON.parse(config.data)).write()]))
@@ -156,7 +155,10 @@ mockAxios
   .onPost('/api/video/settings/_auto-focus').reply(config => mockResponseWithLog(config, [204, {}], 1000))
   .onPost('/api/system/_setup').reply(config => mockResponseWithLog(config, [200, {}]))
   .onGet('/api/system/information').reply(config => mockResponseWithLog(config, [200, db.get('system').value()]))
-  .onGet('/api/system/datetime').reply(config => mockResponseWithLog(config, [200, db.get('systemDateTime').value()]))
+  .onGet('/api/system/datetime').reply(config => (mockResponseWithLog(config, [200, {
+    ...db.get('systemDateTime').value(),
+    deviceTime: new Date().getTime()
+  }])))
   .onPut('/api/system/datetime').reply(config => mockResponseWithLog(config, [200, db.get('systemDateTime').assign(JSON.parse(config.data)).write()], 1000))
   .onGet('/api/system/network').reply(config => mockResponseWithLog(config, [200, db.get('networkSettings').value()]))
   .onPut('/api/system/network').reply(config => mockResponseWithLog(config, [200, db.get('networkSettings').assign(JSON.parse(config.data)).write()]))
@@ -172,13 +174,34 @@ mockAxios
   .onPut('/api/system/network/tcpip/http').reply(config => mockResponseWithLog(config, [200, db.get('httpSettings').assign(JSON.parse(config.data)).write()], 2000))
   .onGet('/api/system/https').reply(config => mockResponseWithLog(config, [200, db.get('httpsSettings').value()]))
   .onPost('/api/system/systeminfo/sdcard-storage').reply(config => {
-    const {date: searchDate} = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('sdCardStorage.files').filter({date: searchDate}).value()]);
+    const {type, directoryName} = JSON.parse(config.data);
+    if (type === 'root') {
+      return mockResponseWithLog(config, [200, db.get('sdCardStorage.root').value()]);
+    }
+
+    if (directoryName) {
+      return mockResponseWithLog(config, [200, db.get(`sdCardStorage.${type}.files`).filter({date: directoryName}).value()]);
+    }
+
+    return mockResponseWithLog(config, [200, db.get(`sdCardStorage.${type}.directory`).value()]);
   })
-  .onPost('/api/system/systeminfo/sdcard-storage/date-list').reply(config =>
-    mockResponseWithLog(config, [200, db.get('sdCardStorage.filesDateList').value()])
-  )
-  .onPost('/api/system/systeminfo/sdcard-storage/download').reply(config => {
+  .onPost('/api/sdcard-storage/batchDownload').reply(config => {
+    db.get('sdCardStorage.download').assign({progress: 0}).write();
+    return mockResponseWithLog(config, [204, {}]);
+  })
+  .onGet('/api/sdcard-storage/batchDownloadStatus').reply(config => {
+    const download = db.get('sdCardStorage.download').value();
+    // Mock download error
+    if (download.progress >= 30) {
+      return mockResponseWithLog(config, [400, new Error('Not Enough Zipping Space')]);
+    }
+
+    // Respond with download progress percentage
+    const progressSpeed = 5;
+    db.get('sdCardStorage.download').assign({progress: download.progress += progressSpeed}).write();
+    return mockResponseWithLog(config, [200, {progress: download.progress}]);
+  })
+  .onGet('/api/sdcard-storage/batchDownload').reply(config => {
     return new Promise(resolve => {
       // Length of time for mocking uploading firmware (seconds)
       const timeToFinish = 2;
@@ -200,9 +223,29 @@ mockAxios
         return mockResponseWithLog(config, [200, new Blob()]);
       });
   })
+  .onDelete('/api/sdcard-storage/batchDownload').reply(config => {
+    return mockResponseWithLog(config, [204, {}]);
+  })
   .onDelete('/api/system/systeminfo/sdcard-storage/delete').reply(config => {
-    const {files} = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('sdCardStorage.files').remove(file => files.indexOf(file.path) > -1).write()]);
+    const {type, files} = JSON.parse(config.data);
+    const directoryList = (db.get(`sdCardStorage.${type}.directory`).filter(file => files.indexOf(file.path) > -1).value());
+    directoryList.forEach(({date}) => {
+      db.get(`sdCardStorage.${type}.files`).remove({date}).write();
+      db.get(`sdCardStorage.${type}.directory`).remove({date}).write();
+    });
+    db.get(`sdCardStorage.${type}.files`).remove(file => files.indexOf(file.path) > -1).write();
+
+    return mockResponseWithLog(config, [200, {}]);
+  })
+  .onGet('/api/system/systeminfo/sd-space-allocation-info').reply(config => mockResponseWithLog(config, [200, db.get('sdCardSpaceAllocationInfo').value()]))
+  .onGet('/api/system/snapshot/max-entry').reply(config => mockResponseWithLog(config, [200, db.get('snapshot').value()]))
+  .onPut('/api/system/snapshot/max-entry').reply(config => {
+    const {snapshotMaxNumber} = JSON.parse(config.data);
+    const newData = {
+      ...db.get('snapshot').value(),
+      snapshotMaxNumber: Number(snapshotMaxNumber)
+    };
+    return mockResponseWithLog(config, [200, db.get('snapshot').assign(newData).write()]);
   })
   .onGet('/api/system/systeminfo/sdcard-recording').reply(config => mockResponseWithLog(config, [200, db.get('sdCardRecordingSettings').value()]))
   .onPost('/api/system/systeminfo/sdcard-recording').reply(config => {
@@ -270,6 +313,7 @@ mockAxios
   .onPost('/api/system/resetdefault').reply(config => mockResponseWithLog(config, [204, {}]))
   .onPost('/api/system/importsettings').reply(config => mockResponseWithLog(config, [204, {}]))
   .onPost('/api/system/firmware').reply(config => {
+    db.get('upgrade').assign({upgradeProgress: 0}).write();
     return new Promise(resolve => {
       // Length of time for mocking uploading firmware (seconds)
       const timeToFinish = 2;
@@ -292,14 +336,12 @@ mockAxios
       });
   })
   .onPost('/api/system/firmware/upgrade').reply(config => {
-    // Number of steps to 100% upgrade
-    const stepsToFinish = 3;
-
     const progress = db.get('upgrade').value();
-
+    // Amount of progress per request in percentage to increase
+    const progressPerRequestInPercentage = 25;
+    progress.upgradeProgress += progressPerRequestInPercentage;
     // Respond with finished status if upgrade finished
-    if (progress.upgradeProgress === stepsToFinish || progress.upgradeProgress > 100) {
-      db.get('upgrade').assign({upgradeProgress: 0}).write();
+    if (progress.upgradeProgress >= 100) {
       return mockResponseWithLog(config, [200, {
         updateStatus: 2,
         upgradeProgress: 100
@@ -307,10 +349,10 @@ mockAxios
     }
 
     // Respond with upgrade progress percentage
-    db.get('upgrade').assign({upgradeProgress: ++progress.upgradeProgress}).write();
+    db.get('upgrade').assign({upgradeProgress: progress.upgradeProgress}).write();
     return mockResponseWithLog(config, [200, {
       updateStatus: 0,
-      updateProgress: Math.round((progress.upgradeProgress - 1) * 100 / stepsToFinish)
+      updateProgress: progress.upgradeProgress
     }]);
   })
   .onPut('/api/system/device-name').reply(config => mockResponseWithLog(config, [200, db.get('system').assign(JSON.parse(config.data)).write()]))
@@ -844,7 +886,7 @@ mockAxios
         const errorCodes = [3, 4, 5, 6, 8];
         const failedStatus = errorCodes[Math.floor(Math.random() * errorCodes.length)];
         syncProcess.devices[deviceIndex].syncStatus = failedStatus;
-        if (failedStatus === 3) {
+        if (failedStatus === 3 && Math.random() * 2 > 1) {
           // 50% chance to fail with `connection` or `login` fail
           syncProcess.devices[deviceIndex].connectionStatus = Math.random() * 2 > 1 ? 0 : 2;
         }
@@ -870,6 +912,8 @@ mockAxios
 
     return mockResponseWithLog(config, [200, syncProcess], 500);
   })
+  .onGet('/api/members/sync-schedule').reply(config => mockResponseWithLog(config, [200, db.get('syncSchedule').value()]))
+  .onPut('/api/members/sync-schedule').reply(config => mockResponseWithLog(config, [200, db.get('syncSchedule').assign(JSON.parse(config.data)).write()], 1000))
   .onGet('/api/face-recognition/settings').reply(config => {
     const faceRecognitionSettings = db.get('faceRecognitionSettings').value();
     // get with converMapping to percentage util function (mocking real server)
@@ -892,6 +936,49 @@ mockAxios
   })
   .onGet('/api/motion-detection/settings').reply(config => mockResponseWithLog(config, [200, db.get('motionDetectionSettings').value()]))
   .onPut('/api/motion-detection/settings').reply(config => mockResponseWithLog(config, [200, db.get('motionDetectionSettings').assign(JSON.parse(config.data)).write()]))
+  .onGet('/api/human-detection/settings').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('humanDetectionSettings').value()]);
+  })
+  .onPut('/api/human-detection/settings').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('humanDetectionSettings').assign(JSON.parse(config.data)).write()]);
+  })
+  .onGet('/api/human-detection/report').reply(config => {
+    const {index, size, interval} = config.params;
+    const itemChunkIndex = Number(index) || 0;
+    const itemChunkSize = Number(size) || 10;
+    let data = db.get('hdReport').value()[`interval${interval === undefined ? 1 : interval}`];
+
+    const pageData = data.slice(
+      itemChunkIndex * itemChunkSize,
+      (itemChunkIndex + 1) * itemChunkSize
+    );
+
+    return (mockResponseWithLog(config, [200, {
+      index: itemChunkIndex,
+      size: itemChunkSize,
+      total: data.length,
+      items: pageData
+    }]));
+  })
+  .onGet('/api/age-gender-detection/report').reply(config => {
+    const {index, size, interval} = config.params;
+    const itemChunkIndex = Number(index) || 0;
+    const itemChunkSize = Number(size) || 10;
+    let data = db.get('agReport').value()[`interval${interval === undefined ? 1 : interval}`];
+
+    const pageData = data.slice(
+      itemChunkIndex * itemChunkSize,
+      (itemChunkIndex + 1) * itemChunkSize
+    );
+
+    return (mockResponseWithLog(config, [200, {
+      index: itemChunkIndex,
+      size: itemChunkSize,
+      total: data.length,
+      items: pageData,
+      ageInterval: 10
+    }]));
+  })
   .onGet('/api/auth-keys').reply(config => {
     const data = db.get('authKeys').value();
     return mockResponseWithLog(config, [200, {

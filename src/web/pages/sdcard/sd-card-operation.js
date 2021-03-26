@@ -1,27 +1,58 @@
+import classNames from 'classnames';
 import {getRouter, Link} from '@benson.liao/capybara-router';
-import {Field} from 'formik';
+import {Field, ErrorMessage} from 'formik';
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React from 'react';
 import {Tab} from 'react-bootstrap';
-import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import CustomTooltip from '../../../core/components/tooltip';
 import i18n from '../../../i18n';
+import {connectForm} from '../../../core/components/form-connect';
 import {useContextState} from '../../stateProvider';
+import {useConfirm} from '../../../core/components/confirm';
 
-const SDCardOperation = ({sdEnabled, sdStatus, callApi, isEnableAuth, isWaitingApiCall}) => {
+const SDCardOperation = connectForm(({
+  sdEnabled, sdStatus, callApi, isEnableAuth, isWaitingApiCall, onSubmit, snapshotMaxNumber,
+  formik: {errors, touched, values: formValues}
+}) => {
+  const confirm = useConfirm();
   const {isApiProcessing} = useContextState();
-  const [isShowConfirmModal, setIsShowConfirmModal] = useState({
-    isShowFormatModal: false,
-    isShowUnmountModal: false
-  });
-  const {isShowFormatModal, isShowUnmountModal} = isShowConfirmModal;
+  /**
+   * Check for empty value, validation considers empty string to be 0 due to automatic convertion, convert=true
+   * @param {number} value - Value of the form field 'sdRecordingType'
+   * @returns {string} Validation string
+   */
+  const emptyStringCheck = value => {
+    if (value === '') {
+      return i18n.t('validation.stringEmpty');
+    }
+  };
 
-  const showModal = selectedModal => event => {
-    event.preventDefault();
-    return setIsShowConfirmModal(prevState => ({
-      ...prevState,
-      [selectedModal]: true
-    }));
+  const confirmAction = type => _ => {
+    let confirmBody;
+    let confirmTitle;
+    switch (type) {
+      case ('unmountSDCard'):
+        confirmTitle = i18n.t('sdCard.basic.unmount');
+        confirmBody = i18n.t('sdCard.modal.disabledUnmountButton');
+        break;
+      case ('formatSDCard'):
+        confirmTitle = i18n.t('sdCard.basic.format');
+        confirmBody = i18n.t('sdCard.modal.disabledFormatButton');
+        break;
+      default: break;
+    }
+
+    confirm.open({
+      title: confirmTitle,
+      body: confirmBody
+    })
+      .then(isConfirm => {
+        if (isConfirm) {
+          return callApi(type);
+        }
+
+        return getRouter().reload();
+      });
   };
 
   return (
@@ -38,7 +69,7 @@ const SDCardOperation = ({sdEnabled, sdStatus, callApi, isEnableAuth, isWaitingA
                     type="button"
                     disabled={sdEnabled || isApiProcessing || isWaitingApiCall}
                     style={sdEnabled ? {pointerEvents: 'none'} : {}}
-                    onClick={showModal('isShowFormatModal')}
+                    onClick={confirmAction('formatSDCard')}
                   >
                     {i18n.t('sdCard.basic.format')}
                   </button>
@@ -51,28 +82,12 @@ const SDCardOperation = ({sdEnabled, sdStatus, callApi, isEnableAuth, isWaitingA
                     type="button"
                     disabled={sdEnabled || isApiProcessing || isWaitingApiCall}
                     style={sdEnabled ? {pointerEvents: 'none'} : {}}
-                    onClick={sdStatus ? () => (callApi('mountSDCard')) : showModal('isShowUnmountModal')}
+                    onClick={sdStatus ? () => (callApi('mountSDCard')) : confirmAction('unmountSDCard')}
                   >
                     {sdStatus ? i18n.t('sdCard.basic.mount') : i18n.t('sdCard.basic.unmount')}
                   </button>
                 </span>
               </CustomTooltip>
-              <CustomNotifyModal
-                isShowModal={isShowFormatModal}
-                modalTitle={i18n.t('sdCard.basic.format')}
-                modalBody={i18n.t('sdCard.modal.disabledFormatButton')}
-                isConfirmDisable={isApiProcessing}
-                onHide={getRouter().reload} // Reload to reset SD card switch button state
-                onConfirm={() => callApi('formatSDCard')}
-              />
-              <CustomNotifyModal
-                isShowModal={isShowUnmountModal}
-                modalTitle={i18n.t('sdCard.basic.unmount')}
-                modalBody={i18n.t('sdCard.modal.disabledUnmountButton')}
-                isConfirmDisable={isApiProcessing}
-                onHide={getRouter().reload} // Reload to reset SD card switch button state
-                onConfirm={() => callApi('unmountSDCard')}
-              />
             </div>
           </div>
         </div>
@@ -94,7 +109,7 @@ const SDCardOperation = ({sdEnabled, sdStatus, callApi, isEnableAuth, isWaitingA
                 <CustomTooltip show={!isEnableAuth} title={i18n.t('sdCard.tooltip.disabledNotificationButton')}>
                   <div className="custom-control custom-switch float-right">
                     <Field
-                      disabled={!isEnableAuth || isWaitingApiCall}
+                      disabled={!isEnableAuth || isWaitingApiCall || isApiProcessing}
                       name="sdAlertEnabled"
                       type="checkbox"
                       style={isEnableAuth ? {} : {pointerEvents: 'none'}}
@@ -111,18 +126,50 @@ const SDCardOperation = ({sdEnabled, sdStatus, callApi, isEnableAuth, isWaitingA
             </div>
           </div>
         </div>
+        <CustomTooltip show={!sdEnabled} title={i18n.t('sdCard.basic.enable')}>
+          <div className="form-group">
+            <label>{i18n.t('sdCard.basic.snapshotAmount')}</label>
+            <Field
+              disabled={formValues.sdEnabled === false || isWaitingApiCall}
+              name="snapshotMaxNumber"
+              type="number"
+              validate={emptyStringCheck}
+              placeholder="12000"
+              className={classNames('form-control', {'is-invalid': errors.snapshotMaxNumber && touched.snapshotMaxNumber})}
+            />
+            <ErrorMessage component="div" name="snapshotMaxNumber" className="invalid-feedback"/>
+            <p className="text-size-14 text-muted mt-2">{i18n.t('sdCard.basic.snapshotRange')}</p>
+          </div>
+        </CustomTooltip>
+        <div
+          className="horizontal-border"
+          style={{
+            width: 'calc(100% + 3rem)',
+            marginLeft: '-1.5rem'
+          }}
+        />
+        <div className="d-flex mt-32px">
+          <button
+            className="btn btn-primary rounded-pill ml-auto px-40px"
+            disabled={snapshotMaxNumber === formValues.snapshotMaxNumber || errors.snapshotMaxNumber || isApiProcessing}
+            type="button"
+            onClick={() => onSubmit(formValues.snapshotMaxNumber)}
+          >
+            {i18n.t('common.button.apply')}
+          </button>
+        </div>
       </Tab.Pane>
     </Tab.Content>
   );
-};
+});
 
 SDCardOperation.propTypes = {
-  // eslint-disable-next-line react/boolean-prop-naming
   sdEnabled: PropTypes.bool.isRequired,
   sdStatus: PropTypes.number.isRequired,
   callApi: PropTypes.func.isRequired,
   isEnableAuth: PropTypes.bool.isRequired,
-  isWaitingApiCall: PropTypes.bool.isRequired
+  isWaitingApiCall: PropTypes.bool.isRequired,
+  onSubmit: PropTypes.func.isRequired
 };
 
 export default SDCardOperation;

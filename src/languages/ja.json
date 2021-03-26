@@ -30,8 +30,16 @@
       "on": "ON",
       "off": "OFF",
       "resetDefault": "リセットしてデフォルト設定へ戻す",
+      "downloadReport": "レポートのダウンロード",
       "apply": "適用",
       "create": "新規"
+    },
+    "dateTimePicker": {
+      "date": "日付",
+      "startTime": "開始日時",
+      "endTime": "終了日時",
+      "time": "時刻",
+      "manualDateTime": "Manual DateTime"
     },
     "password": {
       "hidePassword": "パスワードを非表示にする",
@@ -39,7 +47,7 @@
       "password": "パスワード",
       "newPassword": "新しいパスワード",
       "newPasswordPlaceholder": "新しいパスワードを入力してください",
-      "passwordHelper": "文字数8-16：半角英大文字、英小文字、数字、記号を混在してください。但し記号には# % & ` “ \\ /< >とスペースを使用できません",
+      "passwordHelper": "文字数8-16：半角英大文字、英小文字、数字、記号を混在してください。但し記号には# % & ` \" \\ /< >とスペースを使用できません",
       "confirmNewPassword": "新しいパスワード (確認用)",
       "confirmNewPasswordPlaceholder": "新しいパスワードを再度入力してください",
       "passwordPlaceholder": "パスワードを入力してください",
@@ -48,14 +56,18 @@
     },
     "loading": "ロードしています",
     "pagination": {
-      "stats": "{{0}}-{{1}}個データ、合計: {{2}}"
+      "total": "合計",
+      "items": "個データ"
     },
     "volumeBar": {
-      "freeSpace": "使用可能:",
+      "recordingPercentage": "録画",
+      "snapshotPercentage": "スナップショット",
+      "freePercentage": "使用可能",
       "total": "合計:",
+      "usedPercentage": "使用されています",
       "sdStorageStatus": "使用可能: {{0}} , 合計: {{1}}",
-      "used": "{{0}} 使用されています",
-      "free": "{{0}} 使用可能"
+      "reserved": "予約済み",
+      "others": "その他"
     },
     "toast": {
       "Duplicate Member Names": "名称が重複しています。別の名称をご使用ください",
@@ -100,18 +112,15 @@
       "Invalid Key": "無効なライセンスキー",
       "Duplicate Key": "アクティベーションに失敗しました。ライセンスキーが重複してます",
       "Cannot Support Database Downgrade from 30,000 to 3000 People": "顔認証メンバー上限を30,000人から3,000人に下げることに対応していません",
-      "DEVICE_CONNECTION_FAIL": "デバイス接続に失敗しました",
-      "DEVICE_LOGIN_FAIL": "",
-      "DUPLICATE_DEVICE_IP": "デバイスのIPアドレスが重複しています",
-      "INVALID_DEVICE_ID": "",
-      "DHCP Test Failed": "DHCPテストに失敗しました"
-    },
-    "dateTimePicker": {
-      "date": "日付",
-      "time": "時刻",
-      "startTime": "開始日時",
-      "endTime": "終了日時",
-      "manualDateTime": "Manual DateTime"
+      "Device Connection Fail": "デバイス接続に失敗しました",
+      "Device Login Fail": "ターゲットデバイスへのログインは失敗しました",
+      "Duplicate Device IP": "デバイスのIPアドレスが重複しています",
+      "Invalid Device ID": "無効なデバイスID",
+      "Device Amount Over Limit": "同時接続数上限(16)に超えます",
+      "Sync Target Amount Over Limit": "同時接続数上限(16)に超えます",
+      "DHCP Test Failed": "DHCPテストに失敗しました",
+      "Not Enough Zipping Space": "圧縮するのに十分なスペースがありません。空き容量を増やすか、選択するファイルを減らしてください。",
+      "File Does Not Exist": "ファイルが存在しません"
     },
     "fileHandler": {
       "importHelper": "zipファイルのみサポートしています",
@@ -158,25 +167,31 @@
         "database": {
           "exportApiProcessModalTitle": "メンバーデータベースをエクスポートします",
           "importApiProcessModalTitle": "メンバーデータベースをインポートします",
-          "successTitle": "",
-          "successBody": "",
-          "title": "データベース暗号化"
+          "successTitle": "設定が成功しました",
+          "successBody": "新しい設定が適用されました",
+          "title": "データベース暗号化",
+          "enableSyncSchedule": "",
+          "interval": "",
+          "intervalPlaceholder": "",
+          "intervalHelper": "範囲：1〜365日",
+          "scheduleTime": "",
+          "select": ""
         },
         "deviceSync": {
           "modifyDeviceTitle": "編集装置",
           "newDeviceTitle": "新しいデバイス",
-          "hostPlaceholder": "",
+          "hostPlaceholder": "デバイスのIPアドレスを入力します",
           "port": "ポート",
-          "portPlaceholder": "例えば8080",
+          "portPlaceholder": "例えば80",
           "addDeviceApiProcessingModal": "デバイスの追加",
           "editDeviceApiProcessingModal": "デバイスの追加",
-          "cancelDeviceApiProcessingModal": "",
-          "refreshDeviceApiProcessingModal": "",
-          "numberOfDevices": "",
-          "confirmMultipleDeleteBody": "",
-          "confirmDeleteBody": "デバイスを削除してもよろしいですか？",
-          "deleteDeviceApiProcessingModal": "",
-          "confirmDeleteTitle": ""
+          "cancelDeviceApiProcessingModal": "キャンセル",
+          "refreshDeviceApiProcessingModal": "デバイスステータスを更新します",
+          "confirmDeleteBody": "削除してもよろしいですか {{0}} ？",
+          "numberOfDevices": "デバイスの数",
+          "confirmMultipleDeleteBody": "これらのデバイスを削除してもよろしいですか？",
+          "confirmDeleteTitle": "デバイスの削除",
+          "deleteDeviceApiProcessingModal": "デバイスの削除"
         }
       },
       "tooltip": {
@@ -184,16 +199,14 @@
         "uploadPrimaryFirst": "最初はメイン写真をアップロードして下さい",
         "groupLimitExceeded": "グループ数の上限に達しました",
         "notConnected": "接続されていません",
-        "loginFailed": "",
-        "exportFailed": "",
-        "unzipFailed": "",
-        "wrongPassword": "",
-        "databaseOverLimit": "",
+        "loginFailed": "アカウントまたはパスワードが間違っています",
+        "exportFailed": "エクスポートの失敗",
+        "unzipFailed": "解凍の失敗",
+        "wrongPassword": "データベースファイル解凍パスワードが間違っています",
+        "databaseOverLimit": "メンバーデータベースの制限に達しました",
         "connected": "接続済み",
-        "invalidSelection": "",
-        "maxSelectedDeviceReached": "",
+        "maxSelectedDeviceReached": "デバイス番号の制限を超えました",
         "noDevice": "デバイスを選択します",
-        "maxDeviceReached": "",
         "editGroupWithName": "グループを編集する：{{0}}",
         "createGroup": "グループを追加する",
         "deleteGroupWithName": "グループを削除する：{{0}}",
@@ -207,6 +220,7 @@
       "notePlaceholder": "備考を入力してください",
       "noteHelper": "最大256文字まで入力可能です",
       "delete": "削除",
+      "noData": "一致するデータがみつかりません。再検索してください。",
       "databaseSettings": "データベース設定",
       "encryptionSettings": "暗号化設定",
       "edit": "編集",
@@ -221,35 +235,38 @@
         "connectFailBody": "デバイスを接続できません"
       },
       "host": "ホスト",
-      "failed": "",
-      "cancelledByUser": "",
-      "syncing": "",
-      "done": "",
-      "lastUpdated": "",
-      "synchronize": "同期する",
+      "syncSchedule": "",
       "deviceName": "デバイス名",
+      "lastUpdated": "最終更新",
+      "failed": "失敗",
+      "cancelledByUser": "キャンセル",
+      "syncing": "同期",
+      "done": "終了しました",
+      "unlinkedSelectedWarning": "接続されているデバイスのみを選択",
+      "synchronize": "同期する",
       "status": "ステータス",
       "actions": "操作",
       "noDevice": "最初に[追加]をクリックして、デバイスをリストに追加してください。",
-      "connected": "",
-      "disconnected": "",
-      "success": "",
-      "all": "",
-      "cancelling": "",
-      "stop": "",
-      "refresh": "",
-      "removeUnlinked": "リンクされていないデバイスを削除します",
+      "connected": "接続済み",
+      "disconnected": "接続されていません",
+      "success": "成功",
+      "all": "すべて",
+      "maxDeviceReached": "デバイス番号の制限を超えました",
+      "selectDevicesToSync": "同期するデバイスを選択します",
+      "numberOfDevicesLeft": "同期用に選択するデバイスが <1>{{devicesLeftCount}}</1> 個あります",
+      "cancelling": "キャンセル",
+      "stop": "やめる",
       "searchPlaceholder": "キーワードを入力",
       "search": "検索",
       "title": "メンバー",
       "allMembers": "全メンバー表示",
-      "groups": "グループ",
       "database": "データベースファイル",
       "deviceSynchronization": "デバイスの同期",
+      "groups": "グループ",
       "userPicture": "登録写真",
-      "noData": "一致するデータがみつかりません。再検索してください。",
       "addNewMember": "メンバーの新規追加",
-      "addMemberFromEvent": "イベントからメンバーを追加"
+      "addMemberFromEvent": "イベントからメンバーを追加",
+      "numberOfDevicesLeft_plural": "同期用に選択するデバイスが <1>{{devicesLeftCount}}</1> 個あります"
     },
     "events": {
       "toast": {
@@ -282,8 +299,8 @@
         "enroll-status-2": "登録者"
       },
       "popover": {
-        "title": "",
-        "content": "キーワード間の論理AND演算子として ' 'または ',' を使用します。"
+        "title": "イベント検索のヒント",
+        "content": "キーワード間の論理AND演算子として  ' 'または ',' を使用します。"
       },
       "similarity": "相似性",
       "status": "認証結果",
@@ -299,8 +316,7 @@
       "group": "グループ",
       "organization": "組織",
       "note": "備考",
-      "addNewMember": "メンバーの新規追加",
-      "total": "合計イベント数"
+      "addNewMember": "メンバーの新規追加"
     },
     "accounts": {
       "constants": {
@@ -313,7 +329,6 @@
         "usernamePlaceholder": "アカウント名を入力してください",
         "modifyUserTitle": "アカウントを編集する",
         "newUserTitle": "新規ユーザー",
-        "usernameHelper": "文字数1-32：大文字、小文字のアルファベット、数字、記号を混在するのは必須です。但し記号は# % & ` “ \\ / < >とスペースを使用できません",
         "confirmDeleteTitle": "アカウントを削除する",
         "confirmDeleteBody": "アカウント {{0}} を削除しますか？"
       },
@@ -400,75 +415,76 @@
         "Nonfunctioning": "異常",
         "Read-only Access": "読み取り専用",
         "Unknown Error": "不明なエラー",
-        "sdcard-recording-type-0": "バックアップビデオ",
+        "sdcard-recording-type-0": "RTSP切断ビデオ",
         "sdcard-recording-type-1": "イベントの記録",
-        "sdcard-recording-type-2": "連続録音",
-        "sdcard-recording-stream-0": "",
-        "sdcard-recording-stream-1": "",
-        "sdcard-recording-limit-0": "録音を停止します",
-        "sdcard-recording-limit-1": "回転を開始します",
-        "unknownStatus": "UNKNOWN STATUS",
-        "storageToFull": "利用可能なすべてのスペース"
+        "sdcard-recording-type-2": "連続録画",
+        "sdcard-recording-stream-0": "ストリーム 1",
+        "sdcard-recording-stream-1": "ストリーム 2",
+        "sdcard-recording-limit-0": "録画を停止します",
+        "sdcard-recording-limit-1": "古いファイルを上書きする",
+        "unknownStatus": "UNKNOWN STATUS"
       },
-      "operation": "操作",
-      "format": "フォーマット",
-      "mount": "マウント",
-      "unmount": "マウントを解除",
-      "errorNotification": "異常通知",
-      "notificationSet": "メールアドレスが設定されました",
-      "enableOutgoingEmail": "メールアドレスを設定する",
-      "emailNotification": "電子メール通知",
-      "enableRecording": "録音を有効にする",
-      "recordingType": "いつ録音を開始するか",
-      "recordingResolution": "解像度",
-      "fps": "フレームレート",
-      "codec": "コーデック",
-      "recordingDuration": "録音時間の長さ (分)",
-      "prerecordingDuration": "事前記録時間の長さ (秒)",
-      "recordingLimit": "ストレージがいっぱいになったとき",
-      "modal": {
-        "recordingOnOffTitle": "",
-        "recordingOnBody": "",
-        "recordingOffBody": ""
-      },
-      "title": "SDカード",
       "enable": "SDカードを有効にする",
       "status": "ステータス",
       "recording": "ビデオ",
       "filesystem": "ファイルシステム",
-      "unrecognized": "不明なファイルシステム"
+      "unrecognized": "不明なファイルシステム",
+      "unmount": "マウントを解除",
+      "format": "フォーマット",
+      "operation": "操作",
+      "mount": "マウント",
+      "errorNotification": "異常通知",
+      "notificationSet": "メールアドレスが設定されました",
+      "enableOutgoingEmail": "メールアドレスを設定する",
+      "emailNotification": "電子メール通知",
+      "snapshotAmount": "保存するスナップショットの数",
+      "snapshotRange": "範囲: 1000-131071 デフォルト: 12000",
+      "modal": {
+        "recordingOnOffTitle": "録画機能を再開します",
+        "recordingOnBody": "SDカードの録画設定を変更してもよろしいですか？これにより、SDカードの録画が中断されて再開されます。",
+        "recordingOffBody": "SDカードのビデオ録画をオフにしてもよろしいですか？これにより、現在の録画プロセスが停止します。 "
+      },
+      "enableRecording": "録画を有効にする",
+      "recordingType": "いつ録画を開始するか",
+      "recordingResolution": "解像度",
+      "fps": "フレームレート",
+      "codec": "コーデック",
+      "recordingDuration": "録画時間の長さ (分)",
+      "prerecordingDuration": "事前記録時間の長さ (秒)",
+      "recordingLimit": "ストレージがいっぱいになったとき",
+      "title": "SDカード"
+    },
+    "modal": {
+      "disabledUnmountButton": "SDカードをア取り外してよろしいですか？",
+      "disabledFormatButton": "SDカードをフォーマットしてもよろしいですか？",
+      "disableTitle": "SDカードを取り外します",
+      "disableBody": "SDカードを取り外しますか？イベントによるキャプチャが保存されません"
     },
     "tooltip": {
       "disabledOperationButton": "先にSDカードの機能を無効にしてください",
       "disabledNotificationButton": "メールアドレスを設定するのは必須です"
     },
-    "modal": {
-      "disabledFormatButton": "SDカードをフォーマットしてもよろしいですか？",
-      "disabledUnmountButton": "SDカードをア取り外してよろしいですか？",
-      "disableTitle": "SDカードを取り外します",
-      "disableBody": "SDカードを取り外しますか？イベントによるキャプチャが保存されません"
-    },
     "storage": {
       "files": {
-        "date": "日付",
         "name": "ファイル名",
         "size": "ファイルサイズ",
         "actions": "操作"
       },
       "noFile": "ファイルがない",
+      "modal": {
+        "confirmDeleteTitle": "ファイルを削除する",
+        "confirmDeleteBody": "このファイルを削除してもよろしいですか？",
+        "deleteFileApiProcessing": "ファイルの削除",
+        "downloadingTitle": "SDカードファイルのダウンロード",
+        "downloadingStage1Title": "Zipファイルの準備",
+        "downloadingStage2Title": "Zipファイルのダウンロード"
+      },
       "tooltip": {
         "noFile": "ファイルを選択します"
       },
       "button": {
         "download": "ダウンロード",
         "remove": "削除"
-      },
-      "modal": {
-        "confirmDeleteTitle": "",
-        "confirmDeleteBody": "",
-        "deleteFileApiProcessing": "",
-        "downloadingTitle": "",
-        "downloadingBody": ""
       }
     }
   },
@@ -517,10 +533,12 @@
     "birthday": "正しい生年月日を入力してください",
     "countryCode": "国コードが間違っています",
     "duplicateName": "名前が重複しました、他の名前に設定してください",
-    "identicalIP": "",
+    "identicalIP": "メインデバイスと同じIPアドレス",
     "duplicateIP": "デバイスのIPアドレスが重複しています",
     "maxRecipient": "最大受信者数：64",
-    "duplicateEmail": "重複するメールアドレス"
+    "duplicateEmail": "重複するメールアドレス",
+    "invalidStayTime": "",
+    "invalidStayCountLimit": ""
   },
   "video": {
     "stream": {
@@ -553,6 +571,7 @@
         "confirmUpdateBody": "ストリーム設定を変更しますか？"
       },
       "codec": "コーデック",
+      "codecHelperText2": "注意：SDカード録画ではストリーム2に設定されているため、MJPEGおよびOFFの選択肢は無効になっています",
       "quality": "品質",
       "bandwidth": "ビットレート制御",
       "auto": "自動",
@@ -636,26 +655,33 @@
         "email-content-position-0": "本文の最初に置く",
         "email-content-position-1": "本文の最後に置く"
       },
+      "capactiy": "",
+      "intrusion": "",
       "filters": "フィルター",
       "enableNotifyResult": "認証結果に応じて通知する",
       "group": "グループ",
       "everyone": "すべてのユーザー、グループ限定しない",
+      "enableHD": "",
+      "hdOption": "",
+      "capacityCount": "",
+      "intrusionArea": "",
       "enableSchedule": "スケジュールを有効にする",
+      "enableSelectedDay": "",
       "tooltip": {
         "maxSchedules": "最大スケジュール数は5です",
-        "enterDatetime": "開始および終了日および時間を選択してください",
+        "enterDatetime": "開始日時 (日付と時刻) と終了日時 (日付と時刻) を選択してください",
         "disabledReceiverButton": "メールアドレスを入力してください",
         "unpin": "固定解除",
         "pin": "固定",
         "iconEmail": "メール: 有効",
-        "iconRecording": "",
+        "iconRecording": "録画: 有効",
         "iconOutput": "出力: 有効",
         "addNewCard": "通知カードを追加する"
       },
       "io": "デジタル入力および出力",
       "output1": "デジタル出力 1",
       "output2": "デジタル出力 2",
-      "sdRecording": "",
+      "sdRecording": "SDカードの録画",
       "email": "メール",
       "emailAttachment": "添付ファイル",
       "subject": "件名：",
@@ -668,7 +694,11 @@
       "defaultSubjectFR": "顔認証イベント [{{0}}]",
       "defaultSubjectMD": "動体検知イベント [{{0}}]",
       "defaultSubjectDI": "デジタル入力イベント [{{0}}]",
+      "defaultSubjectHD": "人体検知イベント [{{0}}]",
+      "defaultSubjectAG": "性別年齢推定イベント [{{0}}]",
       "defaultCardTitle": "通知カード名称を入力してください",
+      "confirmRepeatScheduleTitle": "",
+      "confirmRepeatScheduleBody": "",
       "schedule": "スケジュール",
       "rule": "ルール",
       "method": "通知方式",
@@ -735,6 +765,95 @@
         "sendingTestEmail": "テストメールは発送されました",
         "disablingOutgoingEmail": "SMTP送信を無効しました"
       }
+    }
+  },
+  "analytics": {
+    "report": {
+      "duration15Mins": "15分",
+      "duration30Mins": "30分",
+      "duration1Hour": "1時間",
+      "interval": "間隔",
+      "clearFilter": "クリアフィルター",
+      "date": "日付",
+      "ageInterval": "",
+      "enterCount": "カウントを入力",
+      "exitCount": "輸出数"
+    },
+    "license": {
+      "time": "日時",
+      "activatedBy": "有効にした者",
+      "authenticationKey": "ライセンスキー",
+      "activatedFunctions": "有効になった機能",
+      "enableStatus": "ステータス",
+      "constants": {
+        "key-thirtyThousand": "顔認証 30k",
+        "key-threeThousand": "顔認証 3k"
+      },
+      "ageGender": "性別年齢推定",
+      "humanDetection": "人体検知",
+      "activated": "有効にしました",
+      "activationRequired": "無効",
+      "toast": {
+        "activationFailedTitle": "アクティベーションに失敗しました",
+        "keyRegisteredBody": "ライセンスキーが使われています",
+        "activationSuccessTitle": "アクティベーションが成功しました",
+        "activationSuccessBody": "{{0}} 許可されました"
+      },
+      "title": "映像処理ライセンス",
+      "keyPlaceholder": "ライセンスキーを入力してください",
+      "activate": "有効化",
+      "facialRecognition": "顔認証"
+    },
+    "facialRecognition": {
+      "detectionZone": "検知領域",
+      "minDetectionSize": "最小検知顔サイズ",
+      "title": "顔認証",
+      "enableFR": "顔認証を有効にする",
+      "enableSpoof": "なりすまし防止機能を有効にする",
+      "tooltip": {
+        "frDisabled": "顔認証を無効になっています",
+        "detectionZoneToggle": "検知領域を表示する/非表示にする"
+      },
+      "modal": {
+        "spoofBody": "なりすまし防止のα版を有効にしてもよろしいですか？これは開発中機能で、 なりすましと判断された顔は認識されません。\n今後のソフトウェアアップデートでこの機能を最適化および改善する予定です。"
+      },
+      "accuracyLevel": "認証レベル",
+      "constants": {
+        "confidence-level-0": "低",
+        "confidence-level-1": "中",
+        "confidence-level-2": "高"
+      },
+      "detectionZoneHelper": "デフォルトは画面全体",
+      "enableDetectionSize": "最小検知顔サイズフィルターを有効にする",
+      "liveViewDisplay": "ライブ画面表示",
+      "displayName": "メンバー名",
+      "displayGroup": "グループ",
+      "displayUnknown": "未登録者",
+      "displaySpoof": "なりすまし"
+    },
+    "humanDetection": {
+      "area": "",
+      "enableHD": "人体検知を有効にする",
+      "triggerLine": "",
+      "triggerArea": "",
+      "enableOSD": "OSD",
+      "loiterTime": "",
+      "stayTimeUnit": "秒",
+      "capacityLimit": "",
+      "stayCountLimitUnit": "人"
+    },
+    "motionDetection": {
+      "detectionZone": "検知領域",
+      "title": "動体検知",
+      "enableMD": "動体検知を有効にする",
+      "mdHelper": "プレビュー画面に検知領域を追加してください",
+      "sensitivity": "感度",
+      "noteArea": "操作について",
+      "note1": "検知領域を追加する",
+      "drag": "ドラッグ",
+      "note2": "検知領域を削除する",
+      "or": "or",
+      "note3": "検知領域は最大四ヶ所まで設定可能です"
     }
   },
   "login": {
@@ -807,6 +926,13 @@
       "storage": "ストレージ",
       "facialRecognition": "顔認証",
       "motionDetection": "動体検知",
+      "humanDetection": "ヒューマノイド検出",
+      "settings": "設定",
+      "hdReport": "HD レポート",
+      "hdService": "HD サービス",
+      "ageGenderDetection": "年齢と性別検出",
+      "agReport": "AG レポート",
+      "agService": "AG サービス",
       "system": "システム設定",
       "administration": "管理",
       "dateTime": "日付と時刻",
@@ -833,73 +959,6 @@
       }
     }
   },
-  "analytics": {
-    "license": {
-      "time": "日時",
-      "activatedBy": "有効にした者",
-      "authenticationKey": "ライセンスキー",
-      "activatedFunctions": "有効になった機能",
-      "enableStatus": "ステータス",
-      "constants": {
-        "key-thirtyThousand": "顔認証 30k",
-        "key-threeThousand": "顔認証 3k"
-      },
-      "ageGender": "性別年齢推定",
-      "humanDetection": "人体検知",
-      "activated": "有効にしました",
-      "activationRequired": "無効",
-      "toast": {
-        "activationFailedTitle": "アクティベーションに失敗しました",
-        "keyRegisteredBody": "ライセンスキーが使われています",
-        "activationSuccessTitle": "アクティベーションが成功しました",
-        "activationSuccessBody": "{{0}} 許可されました"
-      },
-      "title": "映像処理ライセンス",
-      "keyPlaceholder": "ライセンスキーを入力してください",
-      "activate": "有効化",
-      "facialRecognition": "顔認証"
-    },
-    "facialRecognition": {
-      "detectionZone": "検知領域",
-      "minDetectionSize": "最小検知顔サイズ",
-      "title": "顔認証",
-      "enableFR": "顔認証を有効にする",
-      "enableSpoof": "なりすまし防止機能を有効にする",
-      "tooltip": {
-        "frDisabled": "顔認証を無効になっています",
-        "detectionZoneToggle": "検知領域を表示する/非表示にする"
-      },
-      "modal": {
-        "spoofBody": "なりすまし防止のα版を有効にしてもよろしいですか？これは開発中機能で、 なりすましと判断された顔は認識されません。\n今後のソフトウェアアップデートでこの機能を最適化および改善する予定です。"
-      },
-      "accuracyLevel": "認証レベル",
-      "constants": {
-        "confidence-level-0": "低",
-        "confidence-level-1": "中",
-        "confidence-level-2": "高"
-      },
-      "detectionZoneHelper": "デフォルトは画面全体",
-      "enableDetectionSize": "最小検知顔サイズフィルターを有効にする",
-      "liveViewDisplay": "ライブ画面表示",
-      "displayName": "メンバー名",
-      "displayGroup": "グループ",
-      "displayUnknown": "未登録者",
-      "displaySpoof": "なりすまし"
-    },
-    "motionDetection": {
-      "detectionZone": "検知領域",
-      "title": "動体検知",
-      "enableMD": "動体検知を有効にする",
-      "mdHelper": "プレビュー画面に検知領域を追加してください",
-      "sensitivity": "感度",
-      "noteArea": "操作について",
-      "note1": "検知領域を追加する",
-      "drag": "ドラッグ",
-      "note2": "検知領域を削除する",
-      "or": "or",
-      "note3": "検知領域は最大四ヶ所まで設定可能です"
-    }
-  },
   "audio": {
     "enable": "オーディオ入力を有効にする",
     "quality": "オーディオ品質",
@@ -909,6 +968,90 @@
     "inputSource": "入力ソース",
     "externalMicrophone": "外付けマイク",
     "title": "オーディオ設定"
+  },
+  "system": {
+    "dateTime": {
+      "syncTime": "同期する時刻",
+      "modal": {
+        "apiProcessModalTitle": "日付と時刻を更新",
+        "confirmUpdateBody": "デバイス時刻を変更しますか？時刻を変更するためには再度ログインする必要があります"
+      },
+      "title": "日付と時刻",
+      "deviceDateTime": "デバイスの日付と時刻",
+      "timeZone": "タイムゾーン",
+      "syncNTP": "ネットワークタイムサーバーと同期する (NTP)",
+      "ntpHost": "サーバーアドレス",
+      "hostPlaceholder": "NTPサーバーアドレスを入力します",
+      "syncInterval": "同期する頻度 (分)",
+      "syncWithComputer": "コンピューターと同期する",
+      "setManually": "手動設定"
+    },
+    "information": {
+      "software": "ソフトウェアバージョン",
+      "serialNumber": "シリアル番号",
+      "macAddress": "MACアドレス",
+      "title": "デバイス情報"
+    },
+    "systemLog": {
+      "title": "システムログ",
+      "systemLogFile": "システムログファイル",
+      "deleteLogs": "削除",
+      "modal": {
+        "confirmDeleteTitle": "システムログファイルを削除する",
+        "confirmDeleteBody": "システムログファイルを削除しますか？",
+        "apiProcessModalTitle": "システムログをダウンロード",
+        "downloadingBody": "ダウンロードの進行状況"
+      },
+      "download": "ダウンロード"
+    },
+    "deviceMaintenance": {
+      "importSystemSettings": "システム設定ファイルをインポートする",
+      "modal": {
+        "apiProcessModalTitleRebooting": "デバイス再起動しています",
+        "importSuccessBody": "デバイス設定をインポート完了再ログインして下さい",
+        "rebootSuccessBody": "デバイスは再起動しましたため、再度ログインしてください",
+        "confirmRebootBody": "デバイスを再起動しますか？",
+        "apiProcessModalTitleResetting": "初期化",
+        "resetSuccess": "初期化完了",
+        "resetAllSettingsSuccessBody": "クイックインストールガイドを参照して初期設定を行って下さい",
+        "resetDefaultSettingsSuccessBody": "デバイスが初期化済再ログインして下さい",
+        "confirmResetAllSettingsBody": "デバイスは出荷時の初期設定に戻り、すべてのデータと設定が削除されます",
+        "confirmRestoreDefaultSettingsBody": "デバイスは出荷時の初期設定に戻り、下記の項目を除き、すべてのデータと設定は削除されます:\n\n• メンバーリストとグループデータ \n• アカウント設定 \n• フォーカスとズーム設定 \n• RTSP設定 \n• インターネット/ネットワーク設定 \n• SDカード内のデータ"
+      },
+      "exportSystemSettings": "システム設定ファイルをエクスポートする",
+      "export": "エクスポート",
+      "import": "インポート",
+      "systemReboot": "デバイスを再起動する",
+      "reboot": "再起動する",
+      "restoreDefaultSettings": "設定を初期値に戻す",
+      "restoreAllSettings": "設定を初期値に戻す",
+      "tooltip": {
+        "restoreAllSettingsHelper": "初期化すると、メンバー、グループ、システムアカウント、フォーカスおよびズーム設定、RTSP設定、ネットワーク、app設定、SDカードのデータなどすべてのデータと設定を削除し、出荷時の設定に戻ります"
+      },
+      "reset": "初期化",
+      "title": "メンテナンス"
+    },
+    "softwareUpgrade": {
+      "modal": {
+        "uploadingBody": "※ アップグレード中にはブラウザを閉じないでください",
+        "apiProcessModalTitleUploading": "ソフトウェアをアップロードしています",
+        "apiProcessModalTitleInstalling": "ソフトウェアをインストールしています",
+        "apiProcessModalTitleShutDown": "デバイスをシャットダウンしています",
+        "apiProcessModalTitleRestarting": "デバイスを再起動しています",
+        "upgradeSuccess": "ソフトウェアアップグレードは成功しました",
+        "upgradeSuccessBody": "{{0}} 秒後に再度ログインページへリダイレクトします",
+        "stage1": "ステージ1",
+        "uploadSoftware": "ソフトウェアのアップロード",
+        "stage2": "ステージ2",
+        "installSoftware": "ソフトウェアのインストール",
+        "stage3": "ステージ3",
+        "shutDown": "デバイスをシャットダウンする",
+        "stage4": "ステージ4",
+        "restart": "デバイスを再起動する"
+      },
+      "title": "ソフトウェアアップグレード",
+      "importFile": "設定ファイルをインポートする"
+    }
   },
   "network": {
     "common": {
@@ -991,12 +1134,17 @@
     "notFound": "このページは表示できません",
     "backToHome": "ホームページへ戻る"
   },
+  "sdcard": {
+    "recording": {
+      "resolutionHelper": ""
+    }
+  },
   "setup": {
     "account": {
+      "accountHelper": "文字数1-32：半角英文字、数字、記号。但し記号には# % & `“ \\ /< >とスペースを使用できません",
       "permission": "権限",
       "account": "ユーザー名",
       "accountPlaceholder": "アカウント名を入力してください",
-      "accountHelper": "文字数1-32：大文字、小文字のアルファベット、数字、記号を混在するのは必須です。但し記号は# % & ` “ \\ / < >とスペースを使用できません",
       "done": "完了しました"
     },
     "language": {
@@ -1011,90 +1159,6 @@
       "welcomeText1": "よりいい使用体験のために、",
       "welcomeText2": "[続行]をクリックして、初期設定を完了してください",
       "continue": "続行"
-    }
-  },
-  "system": {
-    "dateTime": {
-      "modal": {
-        "apiProcessModalTitle": "日付と時刻を更新",
-        "confirmUpdateBody": "デバイス時刻を変更しますか？時刻を変更するためには再度ログインする必要があります"
-      },
-      "title": "日付と時刻",
-      "deviceDateTime": "デバイスの日付と時刻",
-      "timeZone": "タイムゾーン",
-      "syncNTP": "ネットワークタイムサーバーと同期する (NTP)",
-      "ntpHost": "サーバーアドレス",
-      "hostPlaceholder": "NTPサーバーアドレスを入力します",
-      "syncTime": "同期する時刻",
-      "syncInterval": "同期する頻度 (分)",
-      "syncWithComputer": "コンピューターと同期する",
-      "setManually": "手動設定"
-    },
-    "information": {
-      "software": "ソフトウェアバージョン",
-      "serialNumber": "S/N 碼",
-      "macAddress": "MACアドレス",
-      "title": "デバイス情報"
-    },
-    "systemLog": {
-      "title": "システムログ",
-      "systemLogFile": "システムログファイル",
-      "deleteLogs": "削除",
-      "modal": {
-        "confirmDeleteTitle": "システムログファイルを削除する",
-        "confirmDeleteBody": "システムログファイルを削除しますか？",
-        "apiProcessModalTitle": "システムログをダウンロード",
-        "downloadingBody": "ダウンロードの進行状況"
-      },
-      "download": "ダウンロード"
-    },
-    "deviceMaintenance": {
-      "importSystemSettings": "システム設定ファイルをインポートする",
-      "modal": {
-        "apiProcessModalTitleRebooting": "デバイス再起動しています",
-        "importSuccessBody": "デバイス設定をインポート完了再ログインして下さい",
-        "rebootSuccessBody": "デバイスは再起動しましたため、再度ログインしてください",
-        "confirmRebootBody": "デバイスを再起動しますか？",
-        "apiProcessModalTitleResetting": "初期化",
-        "resetSuccess": "初期化完了",
-        "resetAllSettingsSuccessBody": "クイックインストールガイドを参照して初期設定を行って下さい",
-        "resetDefaultSettingsSuccessBody": "デバイスが初期化済再ログインして下さい",
-        "confirmResetAllSettingsBody": "デバイスは出荷時の初期設定に戻り、すべてのデータと設定が削除されます",
-        "confirmRestoreDefaultSettingsBody": "デバイスは出荷時の初期設定に戻り、下記の項目を除き、すべてのデータと設定は削除されます:\n\n• メンバーリストとグループデータ \n• アカウント設定 \n• フォーカスとズーム設定 \n• RTSP設定 \n• インターネット/ネットワーク設定 \n• SDカード内のデータ"
-      },
-      "exportSystemSettings": "システム設定ファイルをエクスポートする",
-      "export": "エクスポート",
-      "import": "インポート",
-      "systemReboot": "デバイスを再起動する",
-      "reboot": "再起動する",
-      "restoreDefaultSettings": "設定を初期値に戻す",
-      "restoreAllSettings": "設定を初期値に戻す",
-      "tooltip": {
-        "restoreAllSettingsHelper": "初期化すると、メンバー、グループ、システムアカウント、フォーカスおよびズーム設定、RTSP設定、ネットワーク、app設定、SDカードのデータなどすべてのデータと設定を削除し、出荷時の設定に戻ります"
-      },
-      "reset": "初期化",
-      "title": "メンテナンス"
-    },
-    "softwareUpgrade": {
-      "modal": {
-        "uploadingBody": "※ アップグレード中にはブラウザを閉じないでください",
-        "apiProcessModalTitleUploading": "ソフトウェアをアップロードしています",
-        "apiProcessModalTitleInstalling": "ソフトウェアをインストールしています",
-        "apiProcessModalTitleShutDown": "デバイスをシャットダウンしています",
-        "apiProcessModalTitleRestarting": "デバイスを再起動しています",
-        "upgradeSuccess": "ソフトウェアアップグレードは成功しました",
-        "upgradeSuccessBody": "{{0}} 秒後に再度ログインページへリダイレクトします",
-        "stage1": "ステージ1",
-        "uploadSoftware": "ソフトウェアのアップロード",
-        "stage2": "ステージ2",
-        "installSoftware": "ソフトウェアのインストール",
-        "stage3": "ステージ3",
-        "shutDown": "デバイスをシャットダウンする",
-        "stage4": "ステージ4",
-        "restart": "デバイスを再起動する"
-      },
-      "title": "ソフトウェアアップグレード",
-      "importFile": "設定ファイルをインポートする"
     }
   },
   "documentTitle": {
@@ -1113,6 +1177,7 @@
     "analyticsSettings": "映像処理",
     "facialRecognition": "顔認証",
     "motionDetection": "動体検知",
+    "humanDetection": "ヒューマノイド検出",
     "license": "映像処理ライセンス",
     "userManagement": "ユーザー管理",
     "members": "メンバー",
@@ -1129,7 +1194,9 @@
     "softwareUpgrade": "アップグレード",
     "deviceMaintenance": "メンテナンス",
     "sdCardSettings": "SDカード設定",
-    "sdCardStorage": "ストレージ",
+    "storage": "SDカードストレージ管理",
+    "image": "SDカード画像管理",
+    "video": "SDカード動画管理",
     "systemLog": "システムログ",
     "information": "デバイス情報",
     "welcome": "ようこそ",

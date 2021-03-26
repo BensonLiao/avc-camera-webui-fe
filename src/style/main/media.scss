@@ -1,6 +1,8 @@
 .section-media {
-  padding: 48px;
-  min-width: 1000px;
+  padding: $top-sub-navigation-height;
+  padding: $top-table-height 33px;
+  min-height: calc(100vh - #{$top-navigation-height + $top-sub-navigation-height});
+  min-width: 800px;
 
   .video-wrapper {
     .btn {

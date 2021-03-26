@@ -1,8 +1,9 @@
 import React, {useRef} from 'react';
+import PropTypes from 'prop-types';
 import {useFormikContext, Field} from 'formik';
 import i18n from '../../../i18n';
 import MaskArea from '../../../core/components/fields/mask-area';
-import PropTypes from 'prop-types';
+import ImgWithFallback from '../../../core/components/img-with-fallback';
 
 const MotionDetectionMask = ({maskAreaStates, setMaskAreaStates}) => {
   const videoWrapperRef = useRef(null);
@@ -67,7 +68,7 @@ const MotionDetectionMask = ({maskAreaStates, setMaskAreaStates}) => {
   return (
     <div className="col-7 pl-3 pr-0">
       <div ref={videoWrapperRef} id="md-video-wrapper" className="video-wrapper">
-        <img
+        <ImgWithFallback
           className="img-fluid"
           draggable={false}
           src="/api/snapshot"

@@ -4,38 +4,67 @@ import {Formik, Form} from 'formik';
 import {getRouter} from '@benson.liao/capybara-router';
 import progress from 'nprogress';
 import PropTypes from 'prop-types';
-import React, {useState, useEffect} from 'react';
-import {withApiWrapper} from '../../../core/apis';
+import React, {useState} from 'react';
 import api from '../../../core/apis/web-api';
-import i18n from '../../../i18n';
-import {getPaginatedData, isArray} from '../../../core/utils';
-import BreadCrumb from '../../../core/components/fields/breadcrumb';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import CustomTooltip from '../../../core/components/tooltip';
+import {getPaginatedData} from '../../../core/utils';
+import i18n from '../../../i18n';
 import {ITEMS_PER_PAGE} from '../../../core/constants';
 import Pagination from '../../../core/components/pagination';
-import SDCardStorageSearchForm from './sd-card-storage-search-form';
 import SDCardStorageTable from './sd-card-storage-table';
+import SDCardStorageSearchForm from './sd-card-storage-search-form';
 import StageProgress from '../../../core/components/stage-progress';
+import {STAGE_PROGRESS_STATUS} from '../../../core/constants';
+import TableFixTopCaption from '../../../core/components/table-fixtop-caption';
+import {tableState} from '../../../core/components/checkbox-table';
+import {useConfirm} from '../../../core/components/confirm';
+import {useProcessing} from '../../../core/components/processing';
+import {withApiWrapper} from '../../../core/apis';
+import withGlobalStatus from '../../withGlobalStatus';
 
-const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
-  useEffect(() => {
-    if (window.isDebug === 'y') {
-      const {showSuccessNotification} = require('../../../core/notify');
-      showSuccessNotification({
-        title: 'Dev Note',
-        message: `The sd-card storage mock data are sync with computer time, 
-        update browser's local storage to see the latest data`
-      });
-    }
-  }, []);
+/*
+ * Image/Snapshot is removed due to hardware limitations.
+ * Codes regarding snapshot will remain in case this problem
+ * is solved in the future
+ */
+const FileType = {
+  image: 'image',
+  video: 'video'
+};
+
+const SDCardStorage = ({storage: {files, date, pageType}, rootDirectoryName}) => {
+  const confirm = useConfirm();
+  const processing = useProcessing();
+  const storageFileType = getRouter().currentRoute.name === 'web.sd-card.image' ? FileType.image : FileType.video;
+  const isRootDirectory = pageType === 'root';
+  const rootPath = pageType === 'image' ? rootDirectoryName[0]?.name : rootDirectoryName[1]?.name;
   const [pageNumber, setPage] = useState(0);
-  const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
-  const [fileToDelete, setFileToDelete] = useState();
-  const [isShowApiProcessModal, setIsShowApiProcessModal] = useState(false);
   const [isShowProgressModal, setIsShowProgressModal] = useState(false);
-  const [progressPercentage, setProgressPercentage] = useState(0);
+  const [progressPercentage, setProgressPercentage] = useState({
+    zipDownloadFiles: 0,
+    downloadFiles: 0
+  });
+  const [progressStatus, setProgressStatus] = useState({
+    zipDownloadFiles: STAGE_PROGRESS_STATUS.INIT,
+    downloadFiles: STAGE_PROGRESS_STATUS.INIT
+  });
+  const [folderName, setFolderName] = useState();
   const [currentDate, setCurrentDate] = useState(date);
+
+  const updateProgress = (stage, progress) => {
+    setProgressPercentage(prevState => ({
+      ...prevState,
+      [stage]: progress
+    }));
+  };
+
+  const updateProgressStatus = (stage, progressStatus) => {
+    setProgressStatus(prevState => ({
+      ...prevState,
+      [stage]: progressStatus
+    }));
+  };
 
   const generatePaginatedCheckList = files => {
     return getPaginatedData(files.map(file => ({
@@ -44,51 +73,91 @@ const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
     })), ITEMS_PER_PAGE);
   };
 
-  const getFinalSelectedList = list => isArray(list) ?
-    list.flat().filter(value => value.isChecked).map(value => value.path) :
-    [list];
+  const getFinalSelectedList = list => typeof list === 'string' ?
+    [list] :
+    tableState.current;
 
-  const showConfirmModal = () => setIsShowConfirmModal(true);
-
-  const hideConfirmModal = () => setIsShowConfirmModal(false);
-
-  const hideApiProcessModal = () => setIsShowApiProcessModal(false);
+  const goUpFolder = setFormValues => {
+    api.system.getSDCardStorageFiles(storageFileType, '')
+      .then(response => {
+        setFormValues(generatePaginatedCheckList(response.data));
+        setFolderName(undefined);
+        setPage(0);
+      });
+  };
 
   /**
    * Delete selected file
-   * @param {Array | String} list - Single or multilple files to be deleted
+   * @param {String | null} filePath - File to be deleted
    * @returns {void}
    */
-  const deleteFiles = list => _ => {
-    hideConfirmModal();
-    setIsShowApiProcessModal(true);
-    api.system.deleteSDCardStorageFiles(getFinalSelectedList(list))
-      .then(getRouter().reload)
-      .finally(hideApiProcessModal);
-  };
-
-  const confirmDelete = (filePath = null) => _ => {
-    showConfirmModal(true);
-    setFileToDelete(filePath);
+  const handleDelete = (filePath = null) => _ => {
+    confirm.open({
+      title: i18n.t('sdCard.storage.modal.confirmDeleteTitle'),
+      body: i18n.t('sdCard.storage.modal.confirmDeleteBody')
+    })
+      .then(isConfirm => {
+        if (isConfirm) {
+          processing.start({title: i18n.t('sdCard.storage.modal.deleteFileApiProcessing')});
+          api.system.deleteSDCardStorageFiles(storageFileType, getFinalSelectedList(filePath))
+            .then(getRouter().reload)
+            .finally(processing.done);
+        }
+      });
   };
 
   const downloadFiles = list => {
     progress.start();
     setIsShowProgressModal(true);
-    setProgressPercentage(0);
-    withApiWrapper()({
-      method: 'post',
-      url: '/api/system/systeminfo/sdcard-storage/download',
-      responseType: 'blob',
-      data: {files: getFinalSelectedList(list)},
-      onDownloadProgress: progressEvent => {
-        // Do whatever you want with the native progress event
-        setProgressPercentage(Math.round((progressEvent.loaded / progressEvent.total) * 100));
-      }
-    })
+    setProgressPercentage({
+      zipDownloadFiles: 0,
+      downloadFiles: 0
+    });
+    setProgressStatus({
+      zipDownloadFiles: STAGE_PROGRESS_STATUS.INIT,
+      downloadFiles: STAGE_PROGRESS_STATUS.INIT
+    });
+    api.system.downloadSDCardStorageFiles(storageFileType, getFinalSelectedList(list))
+      .then(() => new Promise(resolve => {
+        updateProgressStatus('zipDownloadFiles', STAGE_PROGRESS_STATUS.START);
+        const pingDownloadFilesStatus = () => {
+          api.system.getDownloadSDCardStorageFilesStatus()
+            .then(response => {
+              updateProgress('zipDownloadFiles', response.data.progress);
+              if (response.data.progress === 100) {
+                updateProgressStatus('zipDownloadFiles', STAGE_PROGRESS_STATUS.DONE);
+                updateProgressStatus('downloadFiles', STAGE_PROGRESS_STATUS.START);
+                resolve(withApiWrapper()({
+                  method: 'get',
+                  url: '/api/sdcard-storage/batchDownload',
+                  responseType: 'blob',
+                  onDownloadProgress: progressEvent => {
+                    // Do whatever you want with the native progress event
+                    updateProgress('downloadFiles', Math.round((progressEvent.loaded / progressEvent.total) * 100));
+                  }
+                }));
+              } else {
+                setTimeout(() => {
+                  pingDownloadFilesStatus();
+                }, 1000);
+              }
+            })
+            .catch(() => {
+              progress.done();
+              updateProgressStatus('zipDownloadFiles', STAGE_PROGRESS_STATUS.ERROR);
+            });
+        };
+
+        pingDownloadFilesStatus();
+      }))
       .then(response => {
+        updateProgressStatus('downloadFiles', STAGE_PROGRESS_STATUS.DONE);
         download(response.data, 'sdcard_files');
       })
+      .catch(() => {
+        updateProgressStatus('downloadFiles', STAGE_PROGRESS_STATUS.ERROR);
+      })
+      .finally(() => api.system.deleteDownloadedSDCardStorageFiles())
       .finally(() => {
         progress.done();
         setIsShowProgressModal(false);
@@ -97,37 +166,34 @@ const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
 
   return (
     <div className="main-content left-menu-active bg-white">
-      <div className="section-media">
+      <div className="section-media p-0">
         <div className="container-fluid">
           <div className="row">
-            <BreadCrumb
-              className="px-0"
-              path={[i18n.t('navigation.sidebar.sdCardSettings'), i18n.t('navigation.sidebar.storage')]}
-              routes={['/sd-card/settings']}
-            />
             <Formik
               initialValues={generatePaginatedCheckList(files)}
             >
               {form => {
-                const disableButton = !form.values.flat().some(value => value.isChecked);
+                const isButtonDisabled = (tableState && tableState.current === null) || tableState.current.length <= 0;
                 return (
-                  <Form className="card-body">
-                    <div className="col-12 d-flex justify-content-between align-items-center mb-4">
+                  <div className="card-body col-12 px-32px py-0">
+                    <div className="d-flex justify-content-between align-items-center mt-4">
                       <SDCardStorageSearchForm
                         generatePaginatedCheckList={generatePaginatedCheckList}
                         initialSearchCondition={{date: currentDate}}
-                        availableDates={availableDates}
                         setCurrentDate={setCurrentDate}
                         updateSearchResult={values => form.setValues(values)}
+                        storageFileType={storageFileType}
+                        isRootDirectory={isRootDirectory}
+                        setFolderName={setFolderName}
                       />
                       <div className="float-right d-inline-flex">
-                        <CustomTooltip placement="top" show={disableButton} title={i18n.t('sdCard.storage.tooltip.noFile')}>
+                        <CustomTooltip placement="top" show={isButtonDisabled} title={i18n.t('sdCard.storage.tooltip.noFile')}>
                           <div className="ml-3">
                             <button
                               className="btn btn-outline-primary rounded-pill"
                               type="button"
-                              disabled={disableButton}
-                              style={{pointerEvents: disableButton ? 'none' : 'auto'}}
+                              disabled={isButtonDisabled || isRootDirectory}
+                              style={{pointerEvents: isButtonDisabled ? 'none' : 'auto'}}
                               onClick={() => downloadFiles(form.values)}
                             >
                               <i className="fas fa-download mr-2"/>
@@ -135,70 +201,117 @@ const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
                             </button>
                           </div>
                         </CustomTooltip>
-                        <CustomTooltip placement="top" show={disableButton} title={i18n.t('sdCard.storage.tooltip.noFile')}>
-                          <div className="ml-3">
-                            <button
-                              className="btn btn-outline-primary rounded-pill"
-                              type="button"
-                              disabled={disableButton}
-                              style={{pointerEvents: disableButton ? 'none' : 'auto'}}
-                              onClick={confirmDelete()}
-                            >
-                              <i className="far fa-trash-alt fa-lg fa-fw mr-2"/>
-                              {i18n.t('sdCard.storage.button.remove')}
-                            </button>
+                        <div className="dropdown">
+                          <button
+                            className="btn no-highlight text-primary shadow-none"
+                            type="button"
+                            disabled={isRootDirectory}
+                            data-toggle="dropdown"
+                          >
+                            <i className="fas fa-ellipsis-v fa-fw text-primary"/>
+                          </button>
+                          <div className="dropdown-menu dropdown-menu-right shadow text-primary">
+                            <CustomTooltip placement="top" show={isButtonDisabled} title={i18n.t('sdCard.storage.tooltip.noFile')}>
+                              <div style={isButtonDisabled ? {cursor: 'not-allowed'} : {}}>
+                                <button
+                                  className="dropdown-item"
+                                  type="button"
+                                  disabled={isButtonDisabled}
+                                  style={{pointerEvents: isButtonDisabled ? 'none' : 'auto'}}
+                                  onClick={handleDelete()}
+                                >
+                                  {i18n.t('sdCard.storage.button.remove')}
+                                </button>
+                              </div>
+                            </CustomTooltip>
                           </div>
-                        </CustomTooltip>
+                        </div>
+
                       </div>
                     </div>
-                    <SDCardStorageTable
-                      pageNumber={pageNumber}
-                      currentDate={currentDate}
-                      confirmDelete={confirmDelete}
-                      downloadFiles={downloadFiles}
+                    <div
+                      className="horizontal-border"
+                      style={{
+                        width: 'calc(100% + 4rem)',
+                        marginLeft: '-2rem'
+                      }}
                     />
-                    <Pagination
-                      name="page"
-                      index={pageNumber}
-                      size={ITEMS_PER_PAGE}
-                      total={form.values.flat().length}
-                      currentPageItemQuantity={form.values[pageNumber] ? form.values[pageNumber].length : 0}
-                      hrefTemplate=""
-                      setPageIndexState={setPage}
-                    />
-                    {/* Delete confirmation */}
-                    <CustomNotifyModal
-                      backdrop="static"
-                      isShowModal={isShowConfirmModal}
-                      modalTitle={i18n.t('sdCard.storage.modal.confirmDeleteTitle')}
-                      modalBody={i18n.t('sdCard.storage.modal.confirmDeleteBody')}
-                      onHide={hideConfirmModal}
-                      onConfirm={deleteFiles(fileToDelete ? fileToDelete : form.values)}
-                    />
-                  </Form>
+                    {
+                      isRootDirectory ? (
+                        <TableFixTopCaption isShow hasBorder={false}>
+                          <span className="sd-path"><i className="fas fa-sd-card fa-lg mr-3"/>SDCard <span className="mx-2">&gt;</span> Android</span>
+                        </TableFixTopCaption>
+                      ) : (
+                        <TableFixTopCaption isShow>
+                          <button
+                            type="button"
+                            className="btn btn-link p-0"
+                            onClick={() => folderName ? goUpFolder(form.setValues) : getRouter().go({name: 'web.sd-card.storage'})}
+                          >
+                            <i className="fas fa-angle-left fa-lg text-primary"/>
+                          </button>
+                          {/* eslint-disable react/jsx-child-element-spacing */}
+                          <span className="sd-path"><i className="fas fa-sd-card fa-lg mr-3"/>
+                            SDCard
+                            <span className="mx-2">&gt;</span>
+                            Android
+                            <span className="mx-2">&gt;</span>
+                            {rootPath}
+                            {
+                              folderName && (
+                                <>
+                                  <span className="mx-2">&gt;</span>
+                                  {folderName}
+                                </>
+                              )
+                            }
+                          </span>
+                        </TableFixTopCaption>
+                      )
+                    }
+                    <Form>
+                      <SDCardStorageTable
+                        pageNumber={pageNumber}
+                        handleDelete={handleDelete}
+                        downloadFiles={downloadFiles}
+                        generatePaginatedCheckList={generatePaginatedCheckList}
+                        storageFileType={storageFileType}
+                        pageType={pageType}
+                        isRootDirectory={isRootDirectory}
+                        setFolderName={setFolderName}
+                      />
+                      <Pagination
+                        name="page"
+                        index={pageNumber}
+                        size={ITEMS_PER_PAGE}
+                        total={form.values.flat().length}
+                        currentPageItemQuantity={form.values[pageNumber] ? form.values[pageNumber].length : 0}
+                        hrefTemplate=""
+                        setPageIndexState={setPage}
+                      />
+                    </Form>
+                  </div>
                 );
               }}
             </Formik>
-            {/* API processing modal */}
-            <CustomNotifyModal
-              modalType="process"
-              backdrop="static"
-              isShowModal={isShowApiProcessModal}
-              modalTitle={i18n.t('sdCard.storage.modal.deleteFileApiProcessing')}
-              onHide={hideApiProcessModal}
-            />
             {/* download progress modal */}
             <CustomNotifyModal
               modalType="process"
-              backdrop="static"
+              backdrop={progressStatus.zipDownloadFiles === STAGE_PROGRESS_STATUS.ERROR ? true : 'static'}
               isShowModal={isShowProgressModal}
               modalTitle={i18n.t('sdCard.storage.modal.downloadingTitle')}
               modalBody={[
                 <StageProgress
                   key="stage 1"
-                  title={i18n.t('sdCard.storage.modal.downloadingBody')}
-                  progressStatus="start"
-                  progressPercentage={progressPercentage}
+                  title={i18n.t('sdCard.storage.modal.downloadingStage1Title')}
+                  progressStatus={progressStatus.zipDownloadFiles}
+                  progressPercentage={progressPercentage.zipDownloadFiles}
+                />,
+                <StageProgress
+                  key="stage 2"
+                  title={i18n.t('sdCard.storage.modal.downloadingStage2Title')}
+                  progressStatus={progressStatus.downloadFiles}
+                  progressPercentage={progressPercentage.downloadFiles}
                 />
               ]}
               onHide={() => setIsShowProgressModal(false)}
@@ -222,10 +335,13 @@ SDCardStorage.propTypes = {
     date: PropTypes.oneOfType([
       PropTypes.instanceOf(Date),
       PropTypes.instanceOf(dayjs)
-    ]).isRequired
+    ]).isRequired,
+    pageType: PropTypes.string.isRequired
   }),
-  dateList: PropTypes.arrayOf(PropTypes.string).isRequired
+  rootDirectoryName: PropTypes.arrayOf(PropTypes.shape({name: PropTypes.string}))
 };
 
-export default SDCardStorage;
+SDCardStorage.defaultProps = {rootDirectoryName: []};
+
+export default withGlobalStatus(SDCardStorage);
 

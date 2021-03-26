@@ -11,7 +11,7 @@ import withGlobalStatus from '../../withGlobalStatus';
 import {useContextState} from '../../stateProvider';
 import utils from '../../../core/utils';
 
-const Cards = ({groups, systemInformation: {modelName}, cards: {items: cards}}) => {
+const Cards = ({groups, systemInformation: {modelName}, cards: {items: cards}, authStatus, humanDetectionSettings: {triggerArea}}) => {
   const {isApiProcessing} = useContextState();
 
   const [isShowCardDetailsModal, setIsShowCardDetailsModal] = useState(false);
@@ -86,6 +86,8 @@ const Cards = ({groups, systemInformation: {modelName}, cards: {items: cards}}) 
               modelName={modelName}
               isApiProcessing={isApiProcessing}
               isTop={isTop}
+              authStatus={authStatus}
+              triggerArea={triggerArea}
               setIsTop={setIsTop}
               cardLimitError={cardLimitError}
               isShowCardDetailsModal={isShowCardDetailsModal}
@@ -114,7 +116,13 @@ const Cards = ({groups, systemInformation: {modelName}, cards: {items: cards}}) 
 Cards.propTypes = {
   cards: PropTypes.shape({items: PropTypes.arrayOf(CardsForm.propTypes.cardDetails)}).isRequired,
   groups: PropTypes.shape(CardsForm.propTypes.groups.items).isRequired,
-  systemInformation: PropTypes.shape({modelName: PropTypes.string}).isRequired
+  systemInformation: PropTypes.shape({modelName: PropTypes.string}).isRequired,
+  authStatus: PropTypes.shape({
+    isEnableFaceRecognitionKey: PropTypes.bool.isRequired,
+    isEnableAgeGenderKey: PropTypes.bool.isRequired,
+    isEnableHumanoidDetectionKey: PropTypes.bool.isRequired
+  }).isRequired,
+  humanDetectionSettings: PropTypes.shape({triggerArea: PropTypes.array.isRequired})
 };
 
 export default withGlobalStatus(Cards);

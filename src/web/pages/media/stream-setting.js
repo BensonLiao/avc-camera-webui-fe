@@ -20,6 +20,7 @@ const utils = require('../../../core/utils');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const Dropdown = require('../../../core/components/fields/dropdown');
 const SelectField = require('../../../core/components/fields/select-field');
+const SDCardRecordingStream = require('webserver-form-schema/constants/sdcard-recording-stream');
 
 const getBandwidthManagementOption = x => {
   switch (x) {
@@ -364,19 +365,31 @@ module.exports = class StreamSetting extends Base {
 
   fieldsRender = (fieldNamePrefix, options, values, setFieldValue, allValues) => {
     const {homePage} = this.props;
-
+    const {sdRecordingStream} = this.props.sdCardRecordingSettings;
     return (
       <>
         <SelectField
+          noMb={fieldNamePrefix === 'channelB' && values.codec === StreamCodec.h264 && sdRecordingStream === Number(SDCardRecordingStream[2])}
           labelName={i18n.t('video.stream.codec')}
           readOnly={homePage}
           name={`${fieldNamePrefix}.codec`}
           onChange={event => this.onUpdateCodecField(event, fieldNamePrefix, allValues, setFieldValue)}
         >
           {options.codec.map(option => (
-            <option key={option.value} value={option.value}>{option.label}</option>
+            <option
+              key={option.value}
+              disabled={(option.value === StreamCodec.mjpeg || option.value === StreamCodec.off) &&
+                  sdRecordingStream === Number(SDCardRecordingStream[2])}
+              value={option.value}
+            >{option.label}
+            </option>
           ))}
         </SelectField>
+        {fieldNamePrefix === 'channelB' && values.codec === StreamCodec.h264 && sdRecordingStream === Number(SDCardRecordingStream[2]) && (
+          <p className="text-size-14 text-muted mt-2">
+            {i18n.t('video.stream.codecHelperText2')}
+          </p>
+        )}
         <SelectField
           labelName={i18n.t('video.stream.resolution')}
           readOnly={homePage}

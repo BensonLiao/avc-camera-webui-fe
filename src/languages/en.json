@@ -5,7 +5,7 @@
         "selected": "Selected"
       },
       "tooltip": {
-        "deselectall": "Deselect All"
+        "deselectall": "Deselect all"
       }
     },
     "tooltip": {
@@ -30,8 +30,16 @@
       "on": "ON",
       "off": "OFF",
       "resetDefault": "Reset to Default Settings",
+      "downloadReport": "Download Report",
       "apply": "Apply",
       "create": "Create"
+    },
+    "dateTimePicker": {
+      "date": "Date",
+      "startTime": "Start Time",
+      "endTime": "End Time",
+      "time": "Time",
+      "manualDateTime": "Manual DateTime"
     },
     "password": {
       "hidePassword": "Hide Password",
@@ -48,14 +56,18 @@
     },
     "loading": "Loading",
     "pagination": {
-      "stats": "{{0}}-{{1}} items. Total: {{2}}"
+      "total": "Total",
+      "items": "Items"
     },
     "volumeBar": {
-      "freeSpace": "Free:",
+      "recordingPercentage": "Recording",
+      "snapshotPercentage": "Snapshot",
+      "freePercentage": "Free",
       "total": "Total:",
+      "usedPercentage": "Used",
       "sdStorageStatus": "Free: {{0}}, Total: {{1}}",
-      "used": "Used: {{0}}",
-      "free": "Free: {{0}}"
+      "reserved": "Reserved",
+      "others": "Others"
     },
     "toast": {
       "Duplicate Member Names": "Duplicate Member Names",
@@ -100,21 +112,18 @@
       "Invalid Key": "Invalid Key",
       "Duplicate Key": "Duplicate Key",
       "Cannot Support Database Downgrade from 30,000 to 3000 People": "Cannot Support Database Downgrade from 30,000 to 3000 People",
-      "DEVICE_CONNECTION_FAIL": "Device Connection Failed",
-      "DEVICE_LOGIN_FAIL": "Device Login Failed",
-      "DUPLICATE_DEVICE_IP": "Duplicate device IP address",
-      "INVALID_DEVICE_ID": "Invalid Device ID",
-      "DHCP Test Failed": "DHCP Testing Failed"
-    },
-    "dateTimePicker": {
-      "date": "Date",
-      "time": "Time",
-      "startTime": "Start Time",
-      "endTime": "End Time",
-      "manualDateTime": "Manual DateTime"
+      "Device Connection Fail": "Device Connection Failed",
+      "Device Login Fail": "Device Login Failed",
+      "Duplicate Device IP": "Duplicate device IP address",
+      "Invalid Device ID": "Invalid Device ID",
+      "Device Amount Over Limit": "Device Amount Over Limit",
+      "Sync Target Amount Over Limit": "Sync Target Amount Over Limit",
+      "DHCP Test Failed": "DHCP Testing Failed",
+      "Not Enough Zipping Space": "Not Enough Space for Zipping. Please Free up Space or Choose Fewer Files",
+      "File Does Not Exist": "File Does Not Exist"
     },
     "fileHandler": {
-      "importHelper": "Only ZIP file format is supported.",
+      "importHelper": "Only Zip file format is supported.",
       "selectFile": "Select File",
       "noFileSelected": "No file selected.",
       "tooltip": {
@@ -159,43 +168,47 @@
           "exportApiProcessModalTitle": "Exporting Member Database",
           "importApiProcessModalTitle": "Importing Member Database",
           "successTitle": "Setting Success",
-          "successBody": "New settings applied",
-          "title": "Database Encryption"
+          "successBody": "New Settings Applied",
+          "title": "Database Encryption",
+          "enableSyncSchedule": "Enable Scheduling",
+          "interval": "Schedule Interval",
+          "intervalPlaceholder": "Enter Interval",
+          "intervalHelper": "Range: 1 - 365 days",
+          "scheduleTime": "Schedule Time",
+          "select": "Select Device"
         },
         "deviceSync": {
           "modifyDeviceTitle": "Edit Device",
           "newDeviceTitle": "New Device",
-          "hostPlaceholder": "Enter device IP",
+          "hostPlaceholder": "Enter device IP address",
           "port": "Port",
-          "portPlaceholder": "e.g. 8080",
+          "portPlaceholder": "e.g. 80",
           "addDeviceApiProcessingModal": "Adding Device",
           "editDeviceApiProcessingModal": "Adding Device",
           "cancelDeviceApiProcessingModal": "Cancelling",
-          "refreshDeviceApiProcessingModal": "Refreshing Device",
+          "refreshDeviceApiProcessingModal": "Reconnecting and Updating Device Status",
+          "confirmDeleteBody": "Are you sure you want to delete {{0}} ?",
           "numberOfDevices": "Number of Devices",
           "confirmMultipleDeleteBody": "Are you sure you want to delete these devices?",
-          "confirmDeleteBody": "Are you sure you want to delete the device?",
-          "deleteDeviceApiProcessingModal": "Deleting Device",
-          "confirmDeleteTitle": "Delete Device"
+          "confirmDeleteTitle": "Delete Device",
+          "deleteDeviceApiProcessingModal": "Deleting Device"
         }
       },
       "tooltip": {
         "photoLimitExceeded": "Photo Limit of Member Database Exceeded",
-        "uploadPrimaryFirst": "Upload the Primary Photo First",
-        "groupLimitExceeded": "Group number limit exceeded.",
+        "uploadPrimaryFirst": "Upload the primary photo first",
+        "groupLimitExceeded": "Group Number Limit Exceeded",
         "notConnected": "Disconnected",
         "loginFailed": "Login Failed",
         "exportFailed": "Export Failed",
         "unzipFailed": "Unzip Failed",
-        "wrongPassword": "Wrong Database Password",
-        "databaseOverLimit": "Database Member License Limit",
+        "wrongPassword": "Wrong Password for Database File",
+        "databaseOverLimit": "License Limit of Member Database Exceeded",
         "connected": "Connected",
-        "invalidSelection": "Un-linked Device Selected",
-        "maxSelectedDeviceReached": "Max Devices to Sync Reached",
-        "noDevice": "Select a Device",
-        "maxDeviceReached": "Max Device Reached",
+        "maxSelectedDeviceReached": " Device Number Limit Exceeded",
+        "noDevice": "Select a device",
         "editGroupWithName": "Edit Group: {{0}}",
-        "createGroup": "Create a Group",
+        "createGroup": "Create a group",
         "deleteGroupWithName": "Delete Group: {{0}}",
         "editMemberWithName": "Edit Member: {{0}}",
         "deleteMemberWithName": "Delete Member: {{0}}"
@@ -207,6 +220,7 @@
       "notePlaceholder": "Enter a note",
       "noteHelper": "Maximum length: 256 characters",
       "delete": "Delete",
+      "noData": "Couldn't find any data.",
       "databaseSettings": "Database Settings",
       "encryptionSettings": "Encryption Settings",
       "edit": "Edit",
@@ -221,13 +235,15 @@
         "connectFailBody": "Unable to Connect the Device"
       },
       "host": "Host",
+      "syncSchedule": "Synchronize Schedule",
+      "deviceName": "Device Name",
+      "lastUpdated": "Last Updated",
       "failed": "Failed",
       "cancelledByUser": "Cancelled",
       "syncing": "Syncing",
       "done": "Done",
-      "lastUpdated": "Last Updated",
+      "unlinkedSelectedWarning": "Select linked devices only",
       "synchronize": "Synchronize",
-      "deviceName": "Device Name",
       "status": "Status",
       "actions": "Actions",
       "noDevice": "Please click 'Add' first to add a device to your list.",
@@ -235,19 +251,20 @@
       "disconnected": "Disconnected",
       "success": "Success",
       "all": "All",
+      "maxDeviceReached": " Device Number Limit Exceeded",
+      "selectDevicesToSync": "Select devices to synchronize",
+      "numberOfDevicesLeft": "You have <1>{{devicesLeftCount}}</1> more device to select for synchronization",
+      "numberOfDevicesLeft_plural": "You have <1>{{devicesLeftCount}}</1> more devices to select for synchronization",
       "cancelling": "Cancelling",
       "stop": "Stop",
-      "refresh": "Refresh",
-      "removeUnlinked": "Remove Disconnected Devices",
       "searchPlaceholder": "Enter keywords",
       "search": "Search",
       "title": "Members",
       "allMembers": "All Members",
-      "groups": "Groups",
       "database": "Database",
       "deviceSynchronization": "Device Synchronization",
+      "groups": "Groups",
       "userPicture": "User Picture",
-      "noData": "Couldn't find any data.",
       "addNewMember": "Add a New Member",
       "addMemberFromEvent": "Add a Member from Events"
     },
@@ -299,8 +316,7 @@
       "group": "Group",
       "organization": "Organization",
       "note": "Note",
-      "addNewMember": "Add a New Member",
-      "total": "Total"
+      "addNewMember": "Add a New Member"
     },
     "accounts": {
       "constants": {
@@ -313,7 +329,6 @@
         "usernamePlaceholder": "Enter a name for this account",
         "modifyUserTitle": "Modify User",
         "newUserTitle": "New User",
-        "usernameHelper": "1-32 characters: letters, numbers and symbols excluding #, %, &, `, \", \\, /, <, >, and space",
         "confirmDeleteTitle": "Delete Account",
         "confirmDeleteBody": "Are you sure you want to delete account {{0}}?"
       },
@@ -400,75 +415,76 @@
         "Nonfunctioning": "Nonfunctioning",
         "Read-only Access": "Read-only Access",
         "Unknown Error": "Unknown Error",
-        "sdcard-recording-type-0": "Failover recording",
+        "sdcard-recording-type-0": "RTSP offline recording",
         "sdcard-recording-type-1": "Event recording",
         "sdcard-recording-type-2": "Continuous recording",
-        "sdcard-recording-stream-0": "Stream 1",
-        "sdcard-recording-stream-1": "Stream 2",
+        "sdcard-recording-stream-0": "Stream 01",
+        "sdcard-recording-stream-1": "Stream 02",
         "sdcard-recording-limit-0": "Stop recording",
-        "sdcard-recording-limit-1": "Start rotation",
-        "unknownStatus": "UNKNOWN STATUS",
-        "storageToFull": "All Available Space"
+        "sdcard-recording-limit-1": "Start recycling",
+        "unknownStatus": "UNKNOWN STATUS"
       },
-      "operation": "Operation",
-      "format": "Format",
-      "mount": "Mount",
+      "enable": "Enable SD Card",
+      "status": "Status",
+      "recording": "Recording",
+      "filesystem": "Filesystem",
+      "unrecognized": "Unrecognized",
       "unmount": "Unmount",
+      "format": "Format",
+      "operation": "Operation",
+      "mount": "Mount",
       "errorNotification": "Error Notification",
       "notificationSet": "Email Notification Set",
       "enableOutgoingEmail": "Enable Outgoing Email",
       "emailNotification": "Email Notification",
+      "snapshotAmount": "Number of Snapshots to Save",
+      "snapshotRange": "Range: 1000-131071 Default: 12000",
+      "modal": {
+        "recordingOnOffTitle": "Restart Recording",
+        "recordingOnBody": "Are you sure you want to change SD card recording settings? This will restart SD card recording.",
+        "recordingOffBody": "Are you sure you want to turn off SD card recording? This will stop the current recording process."
+      },
       "enableRecording": "Enable Recording",
-      "recordingType": "When to Start Recording",
+      "recordingType": "Automatic Recording Mode",
       "recordingResolution": "Resolution",
       "fps": "Frame Rate",
       "codec": "Codec",
       "recordingDuration": "Recording Duration (minutes)",
       "prerecordingDuration": "Pre-Recording Duration (seconds)",
       "recordingLimit": "When Storage Is Full",
-      "modal": {
-        "recordingOnOffTitle": "Restart Recording Functionality",
-        "recordingOnBody": "Are you sure you want to change SD card recording settings? This will restart SD card recording functionality according to your settings.",
-        "recordingOffBody": "Are you sure you want to turn off SD card recording? This will stop the current recording."
-      },
-      "title": "SD Card",
-      "enable": "Enable SD Card",
-      "status": "Status",
-      "recording": "Recording",
-      "filesystem": "Filesystem",
-      "unrecognized": "Unrecognized"
+      "title": "SD Card"
+    },
+    "modal": {
+      "disabledUnmountButton": "Are you sure you want to unmount the SD card?",
+      "disabledFormatButton": "Are you sure you want to format the SD card?",
+      "disableTitle": "Disable SD Card",
+      "disableBody": "Event photos will not be available after the SD card is disabled. Are you sure you want to continue?"
     },
     "tooltip": {
       "disabledOperationButton": "Please disable the SD card first.",
       "disabledNotificationButton": "Please enable Outgoing Email first."
     },
-    "modal": {
-      "disabledFormatButton": "Are you sure you want to format the SD card?",
-      "disabledUnmountButton": "Are you sure you want to unmount the SD card?",
-      "disableTitle": "Disabling SD Card",
-      "disableBody": "Event photos will not be available after the SD card is disabled. Are you sure you want to continue?"
-    },
     "storage": {
       "files": {
-        "date": "DATE",
         "name": "FILE NAME",
         "size": "FILE SIZE",
         "actions": "Actions"
       },
       "noFile": "No files available",
+      "modal": {
+        "confirmDeleteTitle": "Delete File",
+        "confirmDeleteBody": "Are you sure you want to delete selected file(s)?",
+        "deleteFileApiProcessing": "Deleting File",
+        "downloadingTitle": "Downloading SD Card Files",
+        "downloadingStage1Title": "Preparing Zip Files",
+        "downloadingStage2Title": "Downloading Zip Files"
+      },
       "tooltip": {
         "noFile": "Select a file"
       },
       "button": {
         "download": "Download",
         "remove": "Delete"
-      },
-      "modal": {
-        "confirmDeleteTitle": "Delete File",
-        "confirmDeleteBody": "Are you sure you want to delete file?",
-        "deleteFileApiProcessing": "Deleting File",
-        "downloadingTitle": "Downloading SD Card Files",
-        "downloadingBody": "Download progress"
       }
     }
   },
@@ -517,10 +533,12 @@
     "birthday": "This field must be a valid birthday.",
     "countryCode": "This field must be a valid country code.",
     "duplicateName": "This name already exists in the system. Please use a different name.",
-    "identicalIP": "Same IP as current device",
+    "identicalIP": "Same IP as the main device",
     "duplicateIP": "Duplicate device IP",
     "maxRecipient": "The maximum number of recipients is 64.",
-    "duplicateEmail": "Duplicate email address."
+    "duplicateEmail": "Duplicate email address.",
+    "invalidStayTime": "Loiter time must be between 0 and 60 seconds",
+    "invalidStayCountLimit": "Capacity Limit must be between 1 and 10"
   },
   "video": {
     "stream": {
@@ -553,6 +571,7 @@
         "confirmUpdateBody": "Are you sure you want to update stream settings?"
       },
       "codec": "Codec",
+      "codecHelperText2": "Note: MJPEG and OFF options are disabled because SD Recording is set to Stream 2",
       "quality": "Quality",
       "bandwidth": "Bandwidth Management",
       "auto": "Auto",
@@ -636,21 +655,28 @@
         "email-content-position-0": "Beginning",
         "email-content-position-1": "End"
       },
+      "capactiy": "Capcity",
+      "intrusion": "Intrusion",
       "filters": "Filters",
       "enableNotifyResult": "Notify by Recognition Result",
       "group": "Group",
       "everyone": "Everyone",
+      "enableHD": "Notify by Human Detection",
+      "hdOption": "HD Option",
+      "capacityCount": "Capacity Count",
+      "intrusionArea": "Intrusion Area",
       "enableSchedule": "Enable Schedule",
+      "enableSelectedDay": "Repeat",
       "tooltip": {
         "maxSchedules": "The maximum number of allowed schedules is 5.",
-        "enterDatetime": "Please enter start and end time.",
+        "enterDatetime": "Enter start and end time.",
         "disabledReceiverButton": "Please enter an email address.",
         "unpin": "Unpin this card",
         "pin": "Pin this card",
         "iconEmail": "Email: On",
         "iconRecording": "Recording: On",
         "iconOutput": "Output: On",
-        "addNewCard": "Add a New Notification Card"
+        "addNewCard": "Add a new notification card"
       },
       "io": "I/O",
       "output1": "Output 1",
@@ -668,7 +694,11 @@
       "defaultSubjectFR": "Face Recognition Event on [{{0}}]",
       "defaultSubjectMD": "Motion Detection Event on [{{0}}]",
       "defaultSubjectDI": "Digital Input Event on [{{0}}]",
+      "defaultSubjectHD": "Human Detection Event on [{{0}}]",
+      "defaultSubjectAG": "Age Gender Event on [{{0}}]",
       "defaultCardTitle": "Enter card title",
+      "confirmRepeatScheduleTitle": "Schedule Mode",
+      "confirmRepeatScheduleBody": "Are you sure you want to change schedule mode? Switching schedule mode will clear all time periods",
       "schedule": "Schedule",
       "rule": "Rule",
       "method": "Method",
@@ -732,9 +762,100 @@
       "intervalRange": "5 - 1,800 Seconds",
       "toast": {
         "emailSettingSuccess": "Email Setting Success",
-        "sendingTestEmail": "Sending Test Email",
+        "sendingTestEmail": "Test Email Sent",
         "disablingOutgoingEmail": "Outgoing Email Disabled"
       }
+    }
+  },
+  "analytics": {
+    "report": {
+      "duration15Mins": "15 Mins",
+      "duration30Mins": "30 Mins",
+      "duration1Hour": "1 Hour",
+      "interval": "Interval",
+      "clearFilter": "Clear filter",
+      "date": "Date",
+      "ageInterval": "Age Interval",
+      "enterCount": "Enter Count",
+      "exitCount": "Exit Count"
+    },
+    "license": {
+      "time": "Time",
+      "activatedBy": "Activated by",
+      "authenticationKey": "Authentication Key",
+      "activatedFunctions": "Activated Functions",
+      "enableStatus": "Status",
+      "constants": {
+        "key-thirtyThousand": "Face Recognition 30k",
+        "key-threeThousand": "Face Recognition 3k"
+      },
+      "ageGender": "Age & Gender",
+      "humanDetection": "Human Detection",
+      "activated": "Activated",
+      "activationRequired": "Activation Required",
+      "toast": {
+        "activationFailedTitle": "Activation Failed",
+        "keyRegisteredBody": "Key Already Registered",
+        "activationSuccessTitle": "Activated Success",
+        "activationSuccessBody": "{{0}} authorized successfully!"
+      },
+      "title": "License",
+      "keyPlaceholder": "Enter your authentication key",
+      "activate": "Activate",
+      "facialRecognition": "Facial Recognition"
+    },
+    "facialRecognition": {
+      "detectionZone": "Detection Zone",
+      "minDetectionSize": "Min. Facial Detection Size",
+      "title": "Facial Recognition",
+      "enableFR": "Enable Facial Recognition",
+      "enableSpoof": "Enable Anti-Image Spoof",
+      "tooltip": {
+        "frDisabled": "Facial Recognition is disabled.",
+        "detectionZoneToggle": "Show/Hide Detection Zone"
+      },
+      "modal": {
+        "spoofBody": "Are you sure you want to enable the Alpha version of Anti-Image Spoof? The Anti-Image Spoof Alpha will not perform Facial Recognition once a face is detected as a spoofing face image. We will continue improving this function through future software updates."
+      },
+      "accuracyLevel": "Level of Accuracy",
+      "constants": {
+        "confidence-level-0": "Low",
+        "confidence-level-1": "Medium",
+        "confidence-level-2": "High"
+      },
+      "detectionZoneHelper": "The default is the whole live view screen.",
+      "enableDetectionSize": "Enable Facial Detection Size",
+      "liveViewDisplay": "Live View Display",
+      "displayName": "Name",
+      "displayGroup": "Group",
+      "displayUnknown": "Unknown",
+      "displaySpoof": "Display Image Spoof"
+    },
+    "humanDetection": {
+      "area": "Area",
+      "enableHD": "Enable Human Detection",
+      "triggerLine": "Trigger Line",
+      "triggerArea": "Intrusion Area",
+      "enableOSD": "Enable OSD",
+      "loiterTime": "Loiter Time",
+      "stayTimeUnit": "second",
+      "stayTimeUnit_plural": "seconds",
+      "capacityLimit": "Capacity Limit",
+      "stayCountLimitUnit": "person",
+      "stayCountLimitUnit_plural": "people"
+    },
+    "motionDetection": {
+      "detectionZone": "Detection Zone",
+      "title": "Motion Detection",
+      "enableMD": "Enable Motion Detection",
+      "mdHelper": "Create detection zones on the live view screen.",
+      "sensitivity": "Sensitivity",
+      "noteArea": "Note ",
+      "note1": "To set a zone:",
+      "drag": "Drag",
+      "note2": "To erase a zone:",
+      "or": "or",
+      "note3": "Up to 4 detection zones can be set."
     }
   },
   "login": {
@@ -807,6 +928,13 @@
       "storage": "Storage",
       "facialRecognition": "Facial Recognition",
       "motionDetection": "Motion Detection",
+      "humanDetection": "Humanoid Detection",
+      "settings": "Settings",
+      "hdReport": "HD Report",
+      "hdService": "HD Service",
+      "ageGenderDetection": "Age and Gender Detection",
+      "agReport": "AG Report",
+      "agService": "AG Service",
       "system": "System Settings",
       "administration": "Administration",
       "dateTime": "Date & Time",
@@ -833,73 +961,6 @@
       }
     }
   },
-  "analytics": {
-    "license": {
-      "time": "Time",
-      "activatedBy": "Activated by",
-      "authenticationKey": "Authentication Key",
-      "activatedFunctions": "Activated Functions",
-      "enableStatus": "Status",
-      "constants": {
-        "key-thirtyThousand": "Face Recognition 30k",
-        "key-threeThousand": "Face Recognition 3k"
-      },
-      "ageGender": "Age & Gender",
-      "humanDetection": "Human Detection",
-      "activated": "Activated",
-      "activationRequired": "Activation Required",
-      "toast": {
-        "activationFailedTitle": "Activation Failed",
-        "keyRegisteredBody": "Key Already Registered",
-        "activationSuccessTitle": "Activated Success",
-        "activationSuccessBody": "{{0}} authorized successfully!"
-      },
-      "title": "License",
-      "keyPlaceholder": "Enter your authentication key",
-      "activate": "Activate",
-      "facialRecognition": "Facial Recognition"
-    },
-    "facialRecognition": {
-      "detectionZone": "Detection Zone",
-      "minDetectionSize": "Min. Facial Detection Size",
-      "title": "Facial Recognition",
-      "enableFR": "Enable Facial Recognition",
-      "enableSpoof": "Enable Anti-Image Spoof",
-      "tooltip": {
-        "frDisabled": "Facial Recognition is disabled.",
-        "detectionZoneToggle": "Show/Hide Detection Zone"
-      },
-      "modal": {
-        "spoofBody": "Are you sure you want to enable the Alpha version of Anti-Image Spoof? The Anti-Image Spoof Alpha will not perform Facial Recognition once a face is detected as a spoofing face image. We will continue improving this function through future software updates."
-      },
-      "accuracyLevel": "Level of Accuracy",
-      "constants": {
-        "confidence-level-0": "Low",
-        "confidence-level-1": "Medium",
-        "confidence-level-2": "High"
-      },
-      "detectionZoneHelper": "The default is the whole live view screen.",
-      "enableDetectionSize": "Enable Facial Detection Size",
-      "liveViewDisplay": "Live View Display",
-      "displayName": "Name",
-      "displayGroup": "Group",
-      "displayUnknown": "Unknown",
-      "displaySpoof": "Display Image Spoof"
-    },
-    "motionDetection": {
-      "detectionZone": "Detection Zone",
-      "title": "Motion Detection",
-      "enableMD": "Enable Motion Detection",
-      "mdHelper": "Create detection zones on the live view screen.",
-      "sensitivity": "Sensitivity",
-      "noteArea": "Note ",
-      "note1": "To set a zone:",
-      "drag": "Drag",
-      "note2": "To erase a zone:",
-      "or": "or",
-      "note3": "Up to 4 detection zones can be set."
-    }
-  },
   "audio": {
     "enable": "Enable Audio Input",
     "quality": "Audio Quality",
@@ -909,6 +970,90 @@
     "inputSource": "Input Source",
     "externalMicrophone": "External Microphone",
     "title": "Audio"
+  },
+  "system": {
+    "dateTime": {
+      "syncTime": "Sync Time",
+      "modal": {
+        "apiProcessModalTitle": "Updating Date & Time",
+        "confirmUpdateBody": "Updating date and time requires you to log in again. Are you sure you want to continue?"
+      },
+      "title": "Date & Time",
+      "deviceDateTime": "Date and Time of the Device",
+      "timeZone": "Time Zone",
+      "syncNTP": "Sync with Network Time Server (NTP)",
+      "ntpHost": "Host Name or IP Address",
+      "hostPlaceholder": "Enter NTP server address",
+      "syncInterval": "Sync Interval (minutes)",
+      "syncWithComputer": "Sync with Your Computer",
+      "setManually": "Set the Date & Time Manually"
+    },
+    "information": {
+      "software": "Software",
+      "serialNumber": "Serial Number",
+      "macAddress": "MAC Address",
+      "title": "Information"
+    },
+    "systemLog": {
+      "title": "System Log",
+      "systemLogFile": "System Log File",
+      "deleteLogs": "Delete logs",
+      "modal": {
+        "confirmDeleteTitle": "Delete System Log File",
+        "confirmDeleteBody": "Are you sure you want to delete system logs?",
+        "apiProcessModalTitle": "Downloading System Log File",
+        "downloadingBody": "Download progress"
+      },
+      "download": "Download"
+    },
+    "deviceMaintenance": {
+      "importSystemSettings": "Import System Settings",
+      "modal": {
+        "apiProcessModalTitleRebooting": "Rebooting",
+        "importSuccessBody": "Device settings have imported. Please log in again.",
+        "rebootSuccessBody": "The device has rebooted. Please log in again.",
+        "confirmRebootBody": "Are you sure you want to reboot the device?",
+        "apiProcessModalTitleResetting": "Resetting",
+        "resetSuccess": "Reset Success",
+        "resetAllSettingsSuccessBody": "Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.",
+        "resetDefaultSettingsSuccessBody": "Device has reset. Please log in again.",
+        "confirmResetAllSettingsBody": "The system will revert to factory default settings. All data and configurations you have saved will be overwritten.",
+        "confirmRestoreDefaultSettingsBody": "The system will reset the device. All configurations will be overwritten and settings will revert back to default, except the following:\n\n• Members and Groups \n• System Accounts \n• Focus and Zoom of Image settings \n• RTSP settings \n• Internet & Network settings \n• Data on the SD Card"
+      },
+      "exportSystemSettings": "Export System Settings",
+      "export": "Export",
+      "import": "Import",
+      "systemReboot": "System Reboot",
+      "reboot": "Reboot",
+      "restoreDefaultSettings": "Restore to Default Settings",
+      "restoreAllSettings": "Restore All Settings",
+      "tooltip": {
+        "restoreAllSettingsHelper": "Check this option to overwrite these settings: Members and Groups, System Accounts, Focus and Zoom of Image settings, RTSP settings, Internet & Network settings, app settings and data on the SD Card."
+      },
+      "reset": "Reset",
+      "title": "Device Maintenance"
+    },
+    "softwareUpgrade": {
+      "modal": {
+        "uploadingBody": "※ Please do not close your browser during the upgrade.",
+        "apiProcessModalTitleUploading": "Uploading Software",
+        "apiProcessModalTitleInstalling": "Installing Software",
+        "apiProcessModalTitleShutDown": "Shutting Down",
+        "apiProcessModalTitleRestarting": "Restarting",
+        "upgradeSuccess": "Software Upgrade Success",
+        "upgradeSuccessBody": "Redirect to the login page in {{0}} seconds",
+        "stage1": "Stage 1",
+        "uploadSoftware": "Upload Software",
+        "stage2": "Stage 2",
+        "installSoftware": "Install Software",
+        "stage3": "Stage 3",
+        "shutDown": "Shut Down",
+        "stage4": "Stage 4",
+        "restart": "Restart"
+      },
+      "title": "Software Upgrade",
+      "importFile": "Import File"
+    }
   },
   "network": {
     "common": {
@@ -991,12 +1136,17 @@
     "notFound": "Not Found",
     "backToHome": "Back to Home"
   },
+  "sdcard": {
+    "recording": {
+      "resolutionHelper": "Stream 2 is not allowed if the codec setting is MJPEG"
+    }
+  },
   "setup": {
     "account": {
+      "accountHelper": "1-32 characters: letters, numbers and symbols excluding #, %, &, `, \", \\, /, <, >, and space",
       "permission": "Permission",
       "account": "Username",
       "accountPlaceholder": "Enter a name for this account",
-      "accountHelper": "1-32 characters: letters, numbers and symbols excluding #, %, &, `, \", \\, /, <, >, and space",
       "done": "Done"
     },
     "language": {
@@ -1011,90 +1161,6 @@
       "welcomeText1": "For a better experience,",
       "welcomeText2": "Please click Continue to complete the initial setup!",
       "continue": "Continue"
-    }
-  },
-  "system": {
-    "dateTime": {
-      "modal": {
-        "apiProcessModalTitle": "Updating Date & Time",
-        "confirmUpdateBody": "Updating date and time requires you to log in again. Are you sure you want to continue?"
-      },
-      "title": "Date & Time",
-      "deviceDateTime": "Date and Time of the Device",
-      "timeZone": "Time Zone",
-      "syncNTP": "Sync with Network Time Server (NTP)",
-      "ntpHost": "Host Name or IP Address",
-      "hostPlaceholder": "Enter NTP server address",
-      "syncTime": "Sync Time",
-      "syncInterval": "Sync Interval (minutes)",
-      "syncWithComputer": "Sync with Your Computer",
-      "setManually": "Set the Date & Time Manually"
-    },
-    "information": {
-      "software": "Software",
-      "serialNumber": "S/N Code",
-      "macAddress": "MAC Address",
-      "title": "Information"
-    },
-    "systemLog": {
-      "title": "System Log",
-      "systemLogFile": "System Log File",
-      "deleteLogs": "Delete logs",
-      "modal": {
-        "confirmDeleteTitle": "Delete System Log File",
-        "confirmDeleteBody": "Are you sure you want to delete system logs?",
-        "apiProcessModalTitle": "Downloading System Log File",
-        "downloadingBody": "Download progress"
-      },
-      "download": "Download"
-    },
-    "deviceMaintenance": {
-      "importSystemSettings": "Import System Settings",
-      "modal": {
-        "apiProcessModalTitleRebooting": "Rebooting",
-        "importSuccessBody": "Device settings have imported. Please log in again.",
-        "rebootSuccessBody": "The device has rebooted. Please log in again.",
-        "confirmRebootBody": "Are you sure you want to reboot the device?",
-        "apiProcessModalTitleResetting": "Resetting",
-        "resetSuccess": "Reset Success",
-        "resetAllSettingsSuccessBody": "Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.",
-        "resetDefaultSettingsSuccessBody": "Device has reset. Please log in again.",
-        "confirmResetAllSettingsBody": "The system will revert to factory default settings. All data and configurations you have saved will be overwritten.",
-        "confirmRestoreDefaultSettingsBody": "The system will reset the device. All configurations will be overwritten and settings will revert back to default, except the following:\n\n• Members and Groups \n• System Accounts \n• Focus and Zoom of Image settings \n• RTSP settings \n• Internet & Network settings \n• Data on the SD Card"
-      },
-      "exportSystemSettings": "Export System Settings",
-      "export": "Export",
-      "import": "Import",
-      "systemReboot": "System Reboot",
-      "reboot": "Reboot",
-      "restoreDefaultSettings": "Restore to Default Settings",
-      "restoreAllSettings": "Restore All Settings",
-      "tooltip": {
-        "restoreAllSettingsHelper": "Check this option to overwrite these settings: Members and Groups, System Accounts, Focus and Zoom of Image settings, RTSP settings, Internet & Network settings, app settings and data on the SD Card."
-      },
-      "reset": "Reset",
-      "title": "Device Maintenance"
-    },
-    "softwareUpgrade": {
-      "modal": {
-        "uploadingBody": "※ Please do not close your browser during the upgrade.",
-        "apiProcessModalTitleUploading": "Uploading Software",
-        "apiProcessModalTitleInstalling": "Installing Software",
-        "apiProcessModalTitleShutDown": "Shutting Down",
-        "apiProcessModalTitleRestarting": "Restarting",
-        "upgradeSuccess": "Software Upgrade Success",
-        "upgradeSuccessBody": "Redirect to the login page in {{0}} seconds",
-        "stage1": "Stage 1",
-        "uploadSoftware": "Upload Software",
-        "stage2": "Stage 2",
-        "installSoftware": "Install Software",
-        "stage3": "Stage 3",
-        "shutDown": "Shut Down",
-        "stage4": "Stage 4",
-        "restart": "Restart"
-      },
-      "title": "Software Upgrade",
-      "importFile": "Import File"
     }
   },
   "documentTitle": {
@@ -1113,6 +1179,7 @@
     "analyticsSettings": "Analytics Settings",
     "facialRecognition": "Facial Recognition",
     "motionDetection": "Motion Detection",
+    "humanDetection": "Human Detection",
     "license": "License",
     "userManagement": "User Management",
     "members": "Members",
@@ -1129,7 +1196,9 @@
     "softwareUpgrade": "Upgrade",
     "deviceMaintenance": "Maintenance",
     "sdCardSettings": "SD Card Settings",
-    "sdCardStorage": "Storage",
+    "storage": "SD-Card Storage",
+    "image": "SD-Card Image",
+    "video": "SD-Card Video",
     "systemLog": "System Log",
     "information": "Information",
     "welcome": "Welcome",

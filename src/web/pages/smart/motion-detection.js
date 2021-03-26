@@ -39,7 +39,7 @@ const MotionDetection = ({motionDetectionSettings, motionDetectionSettings: {are
           <Form className="row">
             <BreadCrumb
               path={[i18n.t('navigation.sidebar.analyticsSettings'), i18n.t('navigation.sidebar.motionDetection')]}
-              routes={['/analytic/face-recognition']}
+              routes={[window.defaultSmartPageLink]}
             />
             <MotionDetectionMask
               setMaskAreaStates={setMaskAreaStates}

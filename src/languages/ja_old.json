@@ -27,5 +27,20 @@
         "certificate-type-2.reserve": "本デバイスの署名証明書を生成する"
       }
     }
+  },
+  "sdCard": {
+    "storage": {
+      "files": {
+        "date": "日付"
+      }
+    }
+  },
+  "documentTitle": {
+    "sdCardStorage": "ストレージ"
+  },
+  "userManagement": {
+    "members": {
+      "refresh": "更新"
+    }
   }
 }

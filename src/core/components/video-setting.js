@@ -235,7 +235,13 @@ module.exports = class VideoSetting extends React.PureComponent {
           <hr className="my-0"/>
           <div className="card-body pb-0">
             <h2>
-              <button className="btn btn-link btn-block text-left" type="button" disabled={disableInput} data-toggle="collapse" data-target="#lightness">
+              <button
+                className="btn btn-link btn-block text-left"
+                type="button"
+                disabled={disableInput}
+                data-toggle="collapse"
+                data-target="#lightness"
+              >
                 <i className="fas fa-chevron-up"/>{i18n.t('videoSetting.adjustments')}
               </button>
             </h2>
@@ -462,7 +468,13 @@ module.exports = class VideoSetting extends React.PureComponent {
           <hr className="my-0"/>
           <div className="card-body pb-0">
             <h2>
-              <button className="btn btn-link btn-block text-left collapsed" type="button" disabled={disableInput} data-toggle="collapse" data-target="#video">
+              <button
+                className="btn btn-link btn-block text-left collapsed"
+                type="button"
+                disabled={disableInput}
+                data-toggle="collapse"
+                data-target="#video"
+              >
                 <i className="fas fa-chevron-up"/>{i18n.t('videoSetting.advanced')}
               </button>
             </h2>

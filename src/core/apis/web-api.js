@@ -415,6 +415,36 @@ module.exports = {
     }),
     /**
      * @returns {Promise<Response>}
+     * @response 200 Object
+     * - recordingVideoNumber {Number}
+     * - recordingVideoBytes {Number}
+     * - snapshotImageCount {Number}
+     * - snapshotImageBytes {Number}
+     * - sdCardTotalBytes {Number}
+     * - sdCardAvailableBytes {Number}
+     * - sdcardReservedBytes {Number}
+     * - isInitialized {Number}
+     */
+    getSDCardSpaceAllocationInfo: () => api({
+      method: 'get',
+      url: '/api/system/systeminfo/sd-space-allocation-info'
+    }),
+    /**
+     * @returns {Promise<Response>}
+     * @response 200 Object
+     * - snapshotMaxNumber {Number} // - 0 ~ 131071
+     */
+    getSDCardSnapshotMaxNumber: () => api({
+      method: 'get',
+      url: '/api/system/snapshot/max-entry'
+    }),
+    updateSDCardSnapshotMaxNumber: ({snapshotMaxNumber}) => api({
+      method: 'put',
+      url: '/api/system/snapshot/max-entry',
+      data: {snapshotMaxNumber}
+    }),
+    /**
+     * @returns {Promise<Response>}
      * @response 204
      * - sdEnabled {boolean}
      * - sdAlertEnabled {boolean}
@@ -450,46 +480,79 @@ module.exports = {
       url: '/api/system/systeminfo/sdcard/mount'
     }),
     /**
+     * @param {String} type - Type of file, `video` or `image`
+     * @param {String} directoryName - Folder or file
      * @param {String} date - Filter files by date, format is `YYYY-MM-DD`
      * @param {String} folder - what folder to find files, default is `/storage/sdcard1/Android/data/com.avc.service.rtsp/files`.
      * @returns {Promise<Response>}
      * @response 200 {Array<Object>}
-     * - [].id {Number}
      * - [].bytes {Number}
-     * - [].name {String}
-     * - [].path {String}
-     * - [].type {String}
+     * - [].name {String} display name
+     * - [].path {String} for delete/download/etc need
+     * - [].type {String} folder or file
+     * - [].extension {String} `video` or `image` or something else
+     * - [].timestamp {String|Number}
+     * - [].ownerId {String} app id that created it
      */
-    getSDCardStorageFiles: (date, folder) => api({
+    getSDCardStorageFiles: (type, directoryName, date, folder) => api({
       method: 'post',
       url: '/api/system/systeminfo/sdcard-storage',
       data: {
+        type,
+        directoryName,
         folder,
         date
       }
     }),
     /**
-     * e.g. ['2020-12-20', '2020-12-22', '2020-12-23']
-     * @param {String} folder - what folder to find files.
+     * Request a batch download of files.
+     * @param {String} type - type of file, `image` or `video`.
+     * @param {Array<String>} files - what files to download.
      * @returns {Promise<Response>}
-     * @response 200 {Array<String>}
+     * @response 204
      */
-    getSDCardStorageDateList: folder => api({
+    downloadSDCardStorageFiles: (type, files) => api({
       method: 'post',
-      url: '/api/system/systeminfo/sdcard-storage/date-list',
-      data: {folder}
+      url: '/api/sdcard-storage/batchDownload',
+      data: {
+        type,
+        fileList: files
+      }
+    }),
+    /**
+     * Request a batch download of files.
+     * @returns {Promise<Response>}
+     * @response 200 {Objet}
+     *  - progress {Number}
+     */
+    getDownloadSDCardStorageFilesStatus: () => api({
+      method: 'get',
+      url: '/api/sdcard-storage/batchDownloadStatus'
+    }),
+    /**
+     * Request to delete downloaded zip file.
+     * @returns {Promise<Response>}
+     * @response 204
+     */
+    deleteDownloadedSDCardStorageFiles: () => api({
+      method: 'delete',
+      url: '/api/sdcard-storage/batchDownload'
     }),
     /**
      * e.g. `files`: ["/sdcard/test/file1.txt", "/sdcard/test/file2.txt", "/sdcard/test/folder1/file2.txt"]
+     * @param {String} type - Type of file, `image` or `video`
      * @param {Array<String>} files - what files to delete.
      * @returns {Promise<Response>}
      * @response 200 {Object}
      * - status
      */
-    deleteSDCardStorageFiles: files => api({
+    deleteSDCardStorageFiles: (type, files) => api({
       method: 'delete',
       url: '/api/system/systeminfo/sdcard-storage/delete',
-      data: {files}
+      data: {
+        type,
+        files
+      }
     }),
     /**
      * Clears system log
@@ -744,6 +807,7 @@ module.exports = {
      * - title {string}
      * - isTop {boolean}
      * - isEnableTime {boolean}
+     * - isEnableSchedule {boolean}
      * - timePeriods {Array<{start: string, end: string, isRepeat: boolean}>}
      * - isEnableGPIO {boolean}
      * - isEnableGPIO1 {boolean}
@@ -761,6 +825,11 @@ module.exports = {
      * - groups {Array<string>}
      * - isEnableFaceRecognition {boolean}
      * - faceRecognitionCondition {string}
+     * - selectedDay {object}
+     * - hdIntrusionAreaId {number}
+     * - hdEnabled {boolean}
+     * - hdOption {string}
+     * - hdCapacity {number}
      */
     getCards: () => api({
       method: 'get',
@@ -771,6 +840,7 @@ module.exports = {
       title,
       isTop,
       isEnableTime,
+      isEnableSchedule,
       timePeriods,
       isEnableGPIO,
       isEnableGPIO1,
@@ -787,7 +857,12 @@ module.exports = {
       emailContentPosition,
       groups,
       isEnableFaceRecognition,
-      faceRecognitionCondition
+      faceRecognitionCondition,
+      selectedDay,
+      hdIntrusionAreaId,
+      hdEnabled,
+      hdOption,
+      hdCapacity
     }) => api({
       method: 'post',
       url: '/api/notification/cards',
@@ -796,6 +871,7 @@ module.exports = {
         title,
         isTop,
         isEnableTime,
+        isEnableSchedule,
         timePeriods,
         isEnableGPIO,
         isEnableGPIO1,
@@ -812,7 +888,12 @@ module.exports = {
         emailContentPosition,
         groups,
         isEnableFaceRecognition,
-        faceRecognitionCondition
+        faceRecognitionCondition,
+        selectedDay,
+        hdIntrusionAreaId,
+        hdEnabled,
+        hdOption,
+        hdCapacity
       }
     }),
     updateCard: ({
@@ -821,6 +902,7 @@ module.exports = {
       title,
       isTop,
       isEnableTime,
+      isEnableSchedule,
       timePeriods,
       isEnableGPIO,
       isEnableGPIO1,
@@ -837,7 +919,12 @@ module.exports = {
       emailContentPosition,
       groups,
       isEnableFaceRecognition,
-      faceRecognitionCondition
+      faceRecognitionCondition,
+      selectedDay,
+      hdIntrusionAreaId,
+      hdEnabled,
+      hdOption,
+      hdCapacity
     }) => api({
       method: 'put',
       url: `/api/notification/cards/${id}`,
@@ -846,6 +933,7 @@ module.exports = {
         title,
         isTop,
         isEnableTime,
+        isEnableSchedule,
         timePeriods,
         isEnableGPIO,
         isEnableGPIO1,
@@ -862,7 +950,12 @@ module.exports = {
         emailContentPosition,
         groups,
         isEnableFaceRecognition,
-        faceRecognitionCondition
+        faceRecognitionCondition,
+        selectedDay,
+        hdIntrusionAreaId,
+        hdEnabled,
+        hdOption,
+        hdCapacity
       }
     }),
     deleteCard: cardId => api({
@@ -1174,6 +1267,154 @@ module.exports = {
         isEnable,
         sensibility,
         areas
+      }
+    }),
+    /**
+     * Get Human detection report
+     * @param {Number} index
+     * @param {Number} interval
+     * @param {Number} size
+     * @param {Date|null} start The start time.
+     * @param {Date|null} end The end time.
+     * @returns {Promise<Response>}
+     * @response 200 {Object}
+     *   - index: {Number} The current page index.
+     *   - size: {Number} The current page size.
+     *   - total: {Number} The total item quantity.
+     *   - items: {Array<Object>}
+     *   - - date: {String}
+     *   - - timeInterval: {String}
+     *   - - enterCount: {Number}
+     *   - - exitCount: {Number}
+     */
+    getHdReport: ({index, start, end, interval, size = null}) => api({
+      method: 'get',
+      url: '/api/human-detection/report',
+      params: {
+        index,
+        start,
+        end,
+        interval,
+        size
+      }
+    }),
+    /**
+     * Get Human detection settings
+     * @returns {Promise<Response>}
+     * @response 200 {Object}
+     * - {Boolean}  isEnable                   Human Detection status (True: Enabled, False: Disabled)
+     * - {Object[]} triggerArea                Human detection trigger area
+     * - {String}   triggerArea.id             ID of trigger area
+     * - {Boolean}  triggerArea.isEnable       Trigger area status (True: Enabled, False: Disabled)
+     * - {Boolean}  triggerArea.isDisplay      Display trigger area on OSD (True: Display, False: Hide)
+     * - {Number}   triggerArea.stayTime       How many stayed seconds before triggers in area
+     * - {Number}   triggerArea.stayCountLimit How many people to engage triggers in area
+     * - {String}   triggerArea.name           Name of trigger area
+     * - {Object}   triggerArea.rect           The four points to define trigger area in rectangle
+     * - {Number}   triggerArea.rect.bottom    The bottom point of trigger area
+     * - {Number}   triggerArea.rect.left      The left point of trigger area
+     * - {Number}   triggerArea.rect.right     The right point of trigger area
+     * - {Number}   triggerArea.rect.top       The top point of trigger area
+     * - {Object[]} triggerLine                Human detection trigger lines
+     * - {String}   triggerLine.id             ID of trigger line
+     * - {Boolean}  triggerLine.isEnable       Trigger line status (True: Enabled, False: Disabled)
+     * - {Boolean}  triggerLine.isDisplay      Display trigger line on OSD (True: Display, False: Hide)
+     * - {String}   triggerLine.name           Name of trigger line
+     * - {Array}    triggerLine.point          Array of points to define trigger line
+     * - {Number}   triggerLine.point.x        1st point of trigger line
+     * - {Number}   triggerLine.point.y        2nd point of trigger line
+     */
+    getHumanDetectionSettings: () => api({
+      method: 'get',
+      url: '/api/human-detection/settings'
+    }),
+    /**
+     * Update Human detection settings
+     * @returns {Promise<Response>}
+     * @param {Boolean}   isEnable                   Human Detection status (True: Enabled, False: Disabled)
+     * @param {Object[]}  triggerArea                Human detection trigger area
+     * @param {String}    triggerArea.id             ID of trigger area
+     * @param {Boolean}   triggerArea.isEnable       Trigger area status (True: Enabled, False: Disabled)
+     * @param {Boolean}   triggerArea.isDisplay      Display trigger area on OSD (True: Display, False: Hide)
+     * @param {Number}    triggerArea.stayTime       How many stayed seconds before triggers in area
+     * @param {Number}    triggerArea.stayCountLimit How many people to engage triggers in area
+     * @param {String}    triggerArea.name           Name of trigger area
+     * @param {Object}    triggerArea.rect           The four points to define trigger area in rectangle
+     * @param {Number}    triggerArea.rect.bottom    The bottom point of trigger area
+     * @param {Number}    triggerArea.rect.left      The left point of trigger area
+     * @param {Number}    triggerArea.rect.right     The right point of trigger area
+     * @param {Number}    triggerArea.rect.top       The top point of trigger area
+     * @param {Object[]}  triggerLine                Human detection trigger lines
+     * @param {String}    triggerLine.id             ID of trigger line
+     * @param {Boolean}   triggerLine.isEnable       Trigger line status (True: Enabled, False: Disabled)
+     * @param {Boolean}   triggerLine.isDisplay      Display trigger line on OSD (True: Display, False: Hide)
+     * @param {String}    triggerLine.name           Name of trigger line
+     * @param {Array}     triggerLine.point          Array of points to define trigger line
+     * @param {Number}    triggerLine.point.x        1st point of trigger line
+     * @param {Number}    triggerLine.point.y        2nd point of trigger line
+     *
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - {Boolean}  isEnable                   Human Detection status (True: Enabled, False: Disabled)
+     * - {Object[]} triggerArea                Human detection trigger area
+     * - {String}   triggerArea.id             ID of trigger area
+     * - {Boolean}  triggerArea.isEnable       Trigger area status (True: Enabled, False: Disabled)
+     * - {Boolean}  triggerArea.isDisplay      Display trigger area on OSD (True: Display, False: Hide)
+     * - {Number}   triggerArea.stayTime       How many stayed seconds before triggers in area
+     * - {Number}   triggerArea.stayCountLimit How many people to engage triggers in area
+     * - {String}   triggerArea.name           Name of trigger area
+     * - {Object}   triggerArea.rect           The four points to define trigger area in rectangle
+     * - {Number}   triggerArea.rect.bottom    The bottom point of trigger area
+     * - {Number}   triggerArea.rect.left      The left point of trigger area
+     * - {Number}   triggerArea.rect.right     The right point of trigger area
+     * - {Number}   triggerArea.rect.top       The top point of trigger area
+     * - {Object[]} triggerLine                Human detection trigger lines
+     * - {String}   triggerLine.id             ID of trigger line
+     * - {Boolean}  triggerLine.isEnable       Trigger line status (True: Enabled, False: Disabled)
+     * - {Boolean}  triggerLine.isDisplay      Display trigger line on OSD (True: Display, False: Hide)
+     * - {String}   triggerLine.name           Name of trigger line
+     * - {Array}    triggerLine.point          Array of points to define trigger line
+     * - {Number}   triggerLine.point.x        1st point of trigger line
+     * - {Number}   triggerLine.point.y        2nd point of trigger line
+     */
+    updateHumanDetectionSettings: ({isEnable, triggerArea, triggerLine}) => api({
+      method: 'put',
+      url: '/api/human-detection/settings',
+      data: {
+        isEnable,
+        triggerArea,
+        triggerLine
+      }
+    }),
+    /**
+    * Get age & gender detection report
+    * @param {Number} index        Page number index
+    * @param {Number} interval     Specify the maximum number of entries to be returned per query
+    * @param {Number} size         Specify the time interval of report to be generated
+    * @param {Date|null} start     Start time.
+    * @param {Date|null} end       End time.
+    * @returns {Promise<Response>}
+    * @response 200 {Object}
+    * - {Number}         index                     The current page index.
+    * - {Number}         size                      The current page size.
+    * - {Number}         total                     The total item quantity.
+    * - {Number}         ageInterval               Age group interval
+    * - {Array<Object>}  items                     Array of age & gender grouped objects
+    * - {String}         items.date                Date of concerned count stat
+    * - {String}         items.timeInterval        Time interval of concerned count stat
+    * - {Array<Object>}  items.age                 Array of particular age group stat
+    * - {Number}         items.age.male            Number of male counted for the age group
+    * - {Number}         items.age.female          Number of female counted for the age group
+    */
+    getAgReport: ({index, start, end, interval, size = null}) => api({
+      method: 'get',
+      url: '/api/age-gender-detection/report',
+      params: {
+        index,
+        start,
+        end,
+        interval,
+        size
       }
     })
   },
@@ -1535,6 +1776,28 @@ module.exports = {
       method: 'post',
       url: '/api/members/sync-db',
       data: devices
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     */
+    getSyncSchedule: () => api({
+      method: 'get',
+      url: '/api/members/sync-schedule'
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     */
+    updateSyncSchedule: ({isEnabled, interval, time, deviceList}) => api({
+      method: 'put',
+      url: '/api/members/sync-schedule',
+      data: {
+        isEnabled,
+        interval,
+        time,
+        deviceList
+      }
     })
   },
   multimedia: {
@@ -1812,6 +2075,10 @@ module.exports = {
         end,
         sort
       }
+    }),
+    getEventReport: () => api({
+      method: 'get',
+      url: '/api/face-events/report'
     })
   },
   authKey: {

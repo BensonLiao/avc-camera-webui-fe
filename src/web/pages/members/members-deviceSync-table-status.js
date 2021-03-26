@@ -14,7 +14,7 @@ import ProgressIndicator from '../../../core/components/progress-indicator';
  * @param {number} syncStatus
  * @returns {JSX} - Device status
  */
-const DeviceSyncTableStatus = ({device, syncStatus}) => {
+const DeviceSyncTableStatus = React.memo(({device, syncStatus}) => {
   const renderUnlinkedStatus = () => {
     return (
       <CustomTooltip title={(() => {
@@ -122,7 +122,7 @@ const DeviceSyncTableStatus = ({device, syncStatus}) => {
   }
 
   return renderUnlinkedStatus();
-};
+});
 
 DeviceSyncTableStatus.propTypes = {
   device: PropTypes.shape({

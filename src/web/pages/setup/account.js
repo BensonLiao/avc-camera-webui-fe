@@ -117,7 +117,11 @@ const SetupAccount = () => {
                       <ErrorMessage component="div" name="confirmPassword" className="invalid-feedback"/>
                     </div>
 
-                    <button disabled={isApiProcessing || !utils.isObjectEmpty(errors)} type="submit" className="btn btn-primary btn-block rounded-pill">
+                    <button
+                      disabled={isApiProcessing || !utils.isObjectEmpty(errors)}
+                      type="submit"
+                      className="btn btn-primary btn-block rounded-pill"
+                    >
                       {i18n.t('setup.account.done')}
                     </button>
                   </div>

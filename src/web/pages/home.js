@@ -8,13 +8,14 @@ const DeviceNameSchema = require('webserver-form-schema/device-name-schema');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const videoSettingsSchema = require('webserver-form-schema/video-settings-schema');
 const Base = require('./shared/base');
-const i18n = require('../../i18n').default;
 const api = require('../../core/apis/web-api');
 const deviceNameValidator = require('../validations/system/device-name-validator');
+const i18n = require('../../i18n').default;
+const LiveView = require('../../core/components/live-view');
 const {SD_STATUS_LIST} = require('../../core/constants');
 const VideoSetting = require('../../core/components/video-setting');
-const VolumeProgressBar = require('../../core/components/volume-progress-bar').default;
-const LiveView = require('../../core/components/live-view');
+const VolumeDistributionChart = require('../../core/components/volume-distribution-chart').default;
+
 module.exports = class Home extends Base {
   static get propTypes() {
     return {
@@ -79,6 +80,17 @@ module.exports = class Home extends Base {
     super(props);
     this.submitPromise = Promise.resolve();
     this.state.deviceName = props.systemInformation.deviceName || '';
+    const {
+      sdCardTotalBytes,
+      recordingVideoBytes,
+      snapshotImageBytes
+    } = props.sdSpaceAllocation;
+
+    this.getUsedSnapshotPercentage = Math.ceil((snapshotImageBytes / sdCardTotalBytes) * 100);
+
+    this.getUsedRecordingPercentage = Math.ceil((recordingVideoBytes / sdCardTotalBytes) * 100);
+
+    this.getFreeDiskVolume = sdCardTotalBytes - (snapshotImageBytes + recordingVideoBytes);
   }
 
   componentWillUnmount() {
@@ -157,6 +169,14 @@ module.exports = class Home extends Base {
         sdUsage,
         sdTotal,
         sdStatus
+      },
+      sdSpaceAllocation: {
+        sdCardTotalBytes,
+        recordingVideoBytes,
+        snapshotImageBytes,
+        sdCardAvailableBytes,
+        sdcardReservedBytes,
+        isInitialized
       },
       authStatus: {
         isEnableFaceRecognitionKey,
@@ -239,9 +259,21 @@ module.exports = class Home extends Base {
                             )}
                           </td>
                           <td className={classNames('align-top', sdStatus === 0 ? '' : 'd-none')}>
-                            <VolumeProgressBar
-                              total={sdTotal}
-                              usage={sdUsage}
+                            <VolumeDistributionChart
+                              total={isInitialized ? sdCardTotalBytes : sdTotal}
+                              free={isInitialized ? sdCardAvailableBytes : sdTotal - sdUsage}
+                              usageCategory={
+                                isInitialized ?
+                                  [
+                                    {[i18n.t('common.volumeBar.reserved')]: sdcardReservedBytes},
+                                    {[i18n.t('common.volumeBar.recordingPercentage')]: recordingVideoBytes},
+                                    {[i18n.t('common.volumeBar.snapshotPercentage')]: snapshotImageBytes},
+                                    {[i18n.t('common.volumeBar.others')]: sdCardTotalBytes - recordingVideoBytes - snapshotImageBytes - sdCardAvailableBytes - sdcardReservedBytes}
+                                  ] : [
+                                    {[i18n.t('common.volumeBar.usedPercentage')]: sdUsage}
+                                  ]
+                              }
+                              errorMessage={SD_STATUS_LIST[sdStatus] || i18n.t('sdCard.basic.constants.unknownStatus')}
                             />
                           </td>
                           <td className={classNames('align-top', sdStatus === 0 ? 'd-none' : '')}>

@@ -16,7 +16,8 @@ module.exports = new Router({
       isAbstract: true,
       resolve: {
         systemInformation: () => api.system.getInformation().then(response => response.data),
-        networkSettings: () => api.system.getNetworkSettings().then(response => response.data)
+        networkSettings: () => api.system.getNetworkSettings().then(response => response.data),
+        authStatus: () => api.authKey.getAuthStatus().then(response => response.data)
       },
       component: require('./pages/layout')
     },
@@ -40,16 +41,38 @@ module.exports = new Router({
       )
     },
     {
+      name: 'isolatedLayout',
+      uri: '',
+      isAbstract: true,
+      component: require('./pages/isolatedLayout')
+    },
+    {
+      name: 'isolatedLayout.hdReport',
+      uri: '/hdreport?index?interval?start?end',
+      resolve: {report: params => api.smartFunction.getHdReport(params).then(response => response.data)},
+      loadComponent: () => import(
+        './pages/hdReport'
+      )
+    },
+    {
+      name: 'isolatedLayout.agReport',
+      uri: '/agreport?index?interval?start?end',
+      resolve: {report: params => api.smartFunction.getAgReport(params).then(response => response.data)},
+      loadComponent: () => import(
+        './pages/agReport'
+      )
+    },
+    {
       name: 'web.home',
       uri: '/',
       onEnter: () => {
         document.title = `${i18n.t('documentTitle.home')} - ${_title}`;
       },
       resolve: {
+        sdSpaceAllocation: () => api.system.getSDCardSpaceAllocationInfo().then(response => response.data),
         videoSettings: () => api.video.getSettings().then(response => response.data),
         streamSettings: () => api.multimedia.getStreamSettings().then(response => response.data),
         systemDateTime: () => api.system.getSystemDateTime().then(response => response.data),
-        authStatus: () => api.authKey.getAuthStatus().then(response => response.data),
         faceRecognitionStatus: () => api.smartFunction.getFaceRecognitionStatus().then(response => response.data)
       },
       component: require('./pages/home')
@@ -71,7 +94,10 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${i18n.t('documentTitle.streams')} - ${i18n.t('documentTitle.videoSettings')} - ${_title}`;
       },
-      resolve: {streamSettings: () => api.multimedia.getStreamSettings().then(response => response.data)},
+      resolve: {
+        streamSettings: () => api.multimedia.getStreamSettings().then(response => response.data),
+        sdCardRecordingSettings: () => api.system.getSDCardRecordingSettings().then(response => response.data)
+      },
       loadComponent: () => import(
         /* webpackChunkName: "page-media" */
         './pages/media/stream'
@@ -188,7 +214,8 @@ module.exports = new Router({
       },
       resolve: {
         groups: () => api.group.getGroups().then(response => response.data),
-        cards: () => api.notification.getCards().then(response => response.data)
+        cards: () => api.notification.getCards().then(response => response.data),
+        humanDetectionSettings: () => api.smartFunction.getHumanDetectionSettings().then(response => response.data)
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-notification" */
@@ -231,15 +258,24 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.smart.human-detection',
+      uri: '/human-detection',
+      onEnter: () => {
+        document.title = `${i18n.t('documentTitle.humanDetection')} - ${i18n.t('documentTitle.analyticsSettings')} - ${_title}`;
+      },
+      resolve: {humanDetectionSettings: () => api.smartFunction.getHumanDetectionSettings().then(response => response.data)},
+      loadComponent: () => import(
+        /* webpackChunkName: "page-smart-human-detection" */
+        './pages/smart/human-detection'
+      )
+    },
+    {
       name: 'web.smart.license',
       uri: '/license',
       onEnter: () => {
         document.title = `${i18n.t('documentTitle.license')} - ${i18n.t('documentTitle.analyticsSettings')} - ${_title}`;
       },
-      resolve: {
-        authKeys: () => api.authKey.getAuthKeys().then(response => response.data),
-        authStatus: () => api.authKey.getAuthStatus().then(response => response.data)
-      },
+      resolve: {authKeys: () => api.authKey.getAuthKeys().then(response => response.data)},
       loadComponent: () => import(
         /* webpackChunkName: "page-license" */
         './pages/license/license'
@@ -395,7 +431,6 @@ module.exports = new Router({
       resolve: {
         faceEvents: params => api.event.getFaceEvents(params).then(response => response.data),
         groups: () => api.group.getGroups().then(response => response.data),
-        authStatus: () => api.authKey.getAuthStatus().then(response => response.data),
         systemDateTime: () => api.system.getSystemDateTime().then(response => response.data),
         remainingPictureCount: () => api.member.remainingPictureCount().then(response => response.data)
       },
@@ -523,9 +558,12 @@ module.exports = new Router({
         document.title = `${i18n.t('documentTitle.sdCardSettings')} - ${_title}`;
       },
       resolve: {
+        systemInformation: () => api.system.getInformation().then(response => response.data),
         smtpSettings: () => api.notification.getSMTPSettings().then(response => response.data),
         sdCardRecordingSettings: () => api.system.getSDCardRecordingSettings().then(response => response.data),
-        streamSettings: () => api.multimedia.getStreamSettings().then(response => response.data)
+        streamSettings: () => api.multimedia.getStreamSettings().then(response => response.data),
+        snapshotAllocation: () => api.system.getSDCardSnapshotMaxNumber().then(response => response.data),
+        sdSpaceAllocation: () => api.system.getSDCardSpaceAllocationInfo().then(response => response.data)
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-sd-card" */
@@ -533,23 +571,77 @@ module.exports = new Router({
       )
     },
     {
+      // SD-card root directory
       name: 'web.sd-card.storage',
       uri: '/storage',
       onEnter: () => {
-        document.title = `${i18n.t('documentTitle.sdCardStorage')} - ${_title}`;
+        document.title = `${i18n.t('documentTitle.storage')} - ${_title}`;
       },
       resolve: {
         storage: () => {
           const date = dayjs();
-          return api.system.getSDCardStorageFiles(date.format('YYYY-MM-DD'))
+
+          return api.system.getSDCardStorageFiles('root', '')
             .then(response => {
               return {
                 files: response.data,
-                date
+                date,
+                pageType: 'root'
+              };
+            });
+        }
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-sd-card" */
+        './pages/sdcard/sd-card-storage'
+      )
+    },
+    // Snapshot/image is removed due to hardware limitations and loading.
+    //
+    // {
+    //   name: 'web.sd-card.image',
+    //   uri: '/image',
+    //   onEnter: () => {
+    //     document.title = `${i18n.t('documentTitle.image')} - ${_title}`;
+    //   },
+    //   resolve: {
+    //     storage: () => {
+    //       const date = dayjs();
+    //       return api.system.getSDCardStorageFiles('image', '')
+    //         .then(response => {
+    //           return {
+    //             files: response.data,
+    //             date,
+    //             pageType: 'image'
+    //           };
+    //         });
+    //     },
+    //     rootDirectoryName: () => api.system.getSDCardStorageFiles('root', '').then(response => response.data)
+    //   },
+    //   loadComponent: () => import(
+    //     /* webpackChunkName: "page-sd-card" */
+    //     './pages/sdcard/sd-card-storage'
+    //   )
+    // },
+    {
+      name: 'web.sd-card.video',
+      uri: '/video',
+      onEnter: () => {
+        document.title = `${i18n.t('documentTitle.video')} - ${_title}`;
+      },
+      resolve: {
+        storage: () => {
+          const date = dayjs();
+          return api.system.getSDCardStorageFiles('video', '')
+            .then(response => {
+              return {
+                files: response.data,
+                date,
+                pageType: 'video'
               };
             });
         },
-        dateList: () => api.system.getSDCardStorageDateList().then(response => response.data)
+        rootDirectoryName: () => api.system.getSDCardStorageFiles('root', '').then(response => response.data)
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-sd-card" */

@@ -9,20 +9,21 @@ import DateTimePicker from '../../../core/components/fields/datetime-picker';
 import i18n from '../../../i18n';
 import {SDCARD_STORAGE_DATE_FORMAT} from '../../../core/constants';
 import {useContextState} from '../../stateProvider';
-import withGlobalStatus from '../../withGlobalStatus';
 
 const SDCardStorageSearchForm = ({
   generatePaginatedCheckList,
   initialSearchCondition,
   availableDates,
   setCurrentDate,
-  updateSearchResult
+  updateSearchResult,
+  storageFileType,
+  isRootDirectory,
+  setFolderName
 }) => {
   const {isApiProcessing} = useContextState();
   const [state, setState] = useState({isShowStartDatePicker: false});
 
   const {isShowStartDatePicker} = state;
-
   const formInitialValues = {date: new Date(initialSearchCondition.date)};
 
   const toggleStartDatePicker = () => setState(prevState => ({isShowStartDatePicker: !prevState.isShowStartDatePicker}));
@@ -38,7 +39,10 @@ const SDCardStorageSearchForm = ({
    * @returns {void}
    */
   const onSubmitSearchForm = ({date}) => {
-    api.system.getSDCardStorageFiles(dayjs(date).format(SDCARD_STORAGE_DATE_FORMAT.API))
+    setFolderName(dayjs(date).format(SDCARD_STORAGE_DATE_FORMAT.API));
+    api.system.getSDCardStorageFiles(storageFileType,
+      dayjs(date).format(SDCARD_STORAGE_DATE_FORMAT.API),
+      dayjs(date).format(SDCARD_STORAGE_DATE_FORMAT.API))
       .then(response => {
         setCurrentDate(dayjs(date));
         updateSearchResult(generatePaginatedCheckList(response.data));
@@ -54,6 +58,7 @@ const SDCardStorageSearchForm = ({
         <div className="d-inline-flex">
           <div className="form-row datepicker-wrapper">
             <Field
+              disabled={isRootDirectory}
               name="date"
               component={DateTimePicker}
               dateTabText={i18n.t('common.dateTimePicker.date')}
@@ -71,8 +76,8 @@ const SDCardStorageSearchForm = ({
           </div>
           <div className="form-row">
             <div className="col-auto px-0 ml-3">
-              <button className="btn btn-outline-primary rounded-pill px-3" type="submit" disabled={isApiProcessing}>
-                <i className="fas fa-search fa-fw"/> {i18n.t('userManagement.events.search')}
+              <button className="btn btn-outline-primary rounded-pill px-3" type="submit" disabled={isApiProcessing || isRootDirectory}>
+                <i className="fas fa-search fa-fw mx-2"/>
               </button>
             </div>
           </div>
@@ -92,7 +97,10 @@ SDCardStorageSearchForm.propTypes = {
   }).isRequired,
   availableDates: PropTypes.arrayOf(PropTypes.string),
   setCurrentDate: PropTypes.func.isRequired,
-  updateSearchResult: PropTypes.func.isRequired
+  updateSearchResult: PropTypes.func.isRequired,
+  storageFileType: PropTypes.string.isRequired,
+  isRootDirectory: PropTypes.bool.isRequired,
+  setFolderName: PropTypes.func.isRequired
 };
 
-export default withGlobalStatus(SDCardStorageSearchForm);
+export default SDCardStorageSearchForm;

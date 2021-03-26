@@ -70,7 +70,13 @@ module.exports = class LiveView extends React.PureComponent {
         }
 
         if (this.state.isPlayStream || error.code === 'ECONNABORTED') {
-          // Wait 500ms to retry.
+          // Wait 500ms to retry in production mode, load static image in dev mode.
+          if (window.isDebug === 'y') {
+            const fakeLiveView = require('../../resource/video-liveview.png');
+            this.setState({streamImageUrl: fakeLiveView});
+            return;
+          }
+
           this.fetchSnapshotTimeoutId = setTimeout(this.fetchSnapshot, 500);
         }
       });

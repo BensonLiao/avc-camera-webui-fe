@@ -7,23 +7,26 @@ import DeviceSyncStatusSchema from 'webserver-form-schema/constants/members-devi
 import MasterSyncStatusSchema from 'webserver-form-schema/constants/members-master-sync-status';
 import SourceStatusSchema from 'webserver-form-schema/constants/members-sync-source-status';
 import api from '../../../core/apis/web-api';
-import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import DeviceSyncAddDevice from './members-deviceSync-add';
 import DeviceSyncTable from './members-deviceSync-table';
-import {getPaginatedData, isArray} from '../../../core/utils';
+import {getPaginatedData} from '../../../core/utils';
 import i18n from '../../../i18n';
 import {MEMBER_PAGES, ITEMS_PER_PAGE, MAX_SELECTED_DEVICES} from '../../../core/constants';
 import Pagination from '../../../core/components/pagination';
 import DeviceSyncTopBar from './members-deviceSync-topbar';
+import {useConfirm} from '../../../core/components/confirm';
 import {useNonInitialEffect} from '../../../core/utils';
+import {useProcessing} from '../../../core/components/processing';
+import {tableState} from '../../../core/components/checkbox-table';
 
 // Sync API ping frequency, in seconds
 const REFRESH_LIST_INTERVAL = 5;
 
 const DeviceSync = ({deviceSync, ipAddress}) => {
+  const confirm = useConfirm();
+  const processing = useProcessing();
   const [propsDeviceSync, setPropsDeviceSync] = useState(deviceSync);
   const {devices, syncStatus} = propsDeviceSync;
-  const [deleteDeviceID, setDeleteDeviceID] = useState();
   const [devicesInSync, setDevicesInSync] = useState([]);
   const [filterType, setFilterType] = useState();
   const [pageNumber, setPageNumber] = useState(0);
@@ -31,20 +34,10 @@ const DeviceSync = ({deviceSync, ipAddress}) => {
     isShow: false,
     device: null
   });
-  const [confirmModal, setConfirmModal] = useState({
-    isShow: false,
-    body: ''
-  });
-  const [apiProcessModal, setApiProcessModal] = useState({
-    isShow: false,
-    title: ''
-  });
   const [disableInput, setDisableInput] = useState({
     noneSelectedDisableButton: true,
-    invalidSelection: false,
     maxSelectedDevicesReached: false
   });
-  const [checkedItems, setCheckedItems] = useState([]);
   const [isUpdateList, setIsUpdateList] = useState(false);
   const [isCancelSync, setIsCancelSync] = useState(false);
   const savedFilterState = useRef();
@@ -57,7 +50,7 @@ const DeviceSync = ({deviceSync, ipAddress}) => {
   const generatePaginatedDeviceList = (devices, retainCheckedStatus = false) => {
     return getPaginatedData(devices.map(device => ({
       ...device,
-      isChecked: retainCheckedStatus ? checkedItems.some(id => id === device.id) : false
+      isChecked: retainCheckedStatus ? tableState.current?.some(id => id === device.id) : false
     })), ITEMS_PER_PAGE);
   };
 
@@ -72,16 +65,6 @@ const DeviceSync = ({deviceSync, ipAddress}) => {
     isShow: false,
     device: null
   });
-
-  const hideConfirmModal = () => setConfirmModal(state => ({
-    ...state,
-    isShow: false
-  }));
-
-  const hideApiProcessModal = () => setApiProcessModal(state => ({
-    ...state,
-    isShow: false
-  }));
 
   /**
    * Filter device list
@@ -111,7 +94,9 @@ const DeviceSync = ({deviceSync, ipAddress}) => {
             return deviceToFilter.filter(device =>
               device.syncStatus !== DeviceSyncStatusSchema.syncFinished &&
               device.syncStatus !== DeviceSyncStatusSchema.syncNotStarted &&
-              device.syncStatus !== DeviceSyncStatusSchema.syncOngoing
+              device.syncStatus !== DeviceSyncStatusSchema.syncOngoing &&
+              !(device.syncStatus === DeviceSyncStatusSchema.syncAbnormal &&
+              device.connectionStatus !== ConnectionStatusSchema.connectionSuccess)
             );
           case ('success'):
             return deviceToFilter.filter(device =>
@@ -132,96 +117,63 @@ const DeviceSync = ({deviceSync, ipAddress}) => {
   };
 
   /**
-   * Return array of selected items from given list
-   * @param {Object} list - Formik form values
-   * @param {String} type - Type of key to return (id, ip..., etc.)
-   * @returns {Array}
-   */
-  const checkedItemsToArray = (list, type = 'id') => list.flat().filter(device => device.isChecked)
-    .reduce((arr, item) => {
-      arr.push(item[type]);
-      return arr;
-    }, []);
-
-  /**
    * Refresh selected device
-   * @param {Array | String} list - Single device ID or a list to filter for devices selected to be refreshed
+   * @param {number} deviceId - Single device ID to filter for devices selected to be refreshed
    * @returns {void}
    */
-  const refreshDevice = list => _ => {
-    setApiProcessModal({
-      isShow: true,
-      title: i18n.t('userManagement.members.modal.deviceSync.refreshDeviceApiProcessingModal')
-    });
-    const isDeviceArray = isArray(list);
-    api.member.refreshDevice({devices: isDeviceArray ? checkedItems : [list]})
+  const refreshDevice = (deviceId = null) => _ => {
+    processing.start({title: i18n.t('userManagement.members.modal.deviceSync.refreshDeviceApiProcessingModal')});
+    api.member.refreshDevice({devices: deviceId ? [deviceId] : tableState.current})
       .then(setIsUpdateList(prevState => !prevState))
-      .finally(hideApiProcessModal);
+      .finally(processing.done);
   };
 
   /**
    * Show delete confirm modal for selected device
-   * @param {number} deviceToDelete
+   * @param {number} deviceId
    * @returns {void}
    */
-  const confirmDelete = deviceToDelete => _ => {
-    const isListArray = isArray(deviceToDelete);
-    if (isListArray) {
-      let ipList = checkedItemsToArray(deviceToDelete, 'ip');
-      ipList.unshift(`${i18n.t('userManagement.members.modal.deviceSync.numberOfDevices')}: ${ipList.length}`);
-      ipList.unshift(i18n.t('userManagement.members.modal.deviceSync.confirmMultipleDeleteBody'));
-      setConfirmModal({
-        isShow: true,
-        body: ipList
-      });
+  const handleDelete = (deviceId = null) => e => {
+    e?.preventDefault();
+    let confirmBody;
+    if (deviceId) {
+      confirmBody = i18n.t('userManagement.members.modal.deviceSync.confirmDeleteBody', [devices.find(device => device.id === deviceId)?.ip]);
     } else {
-      setConfirmModal({
-        isShow: true,
-        body: i18n.t('userManagement.members.modal.deviceSync.confirmDeleteBody')
-      });
+      confirmBody = tableState.current?.map(id => devices.find(device => device.id === id).ip);
+      confirmBody.unshift(`${i18n.t('userManagement.members.modal.deviceSync.numberOfDevices')}: ${confirmBody.length}`);
+      confirmBody.unshift(i18n.t('userManagement.members.modal.deviceSync.confirmMultipleDeleteBody'));
     }
 
-    setDeleteDeviceID(deviceToDelete);
-  };
-
-  /**
-   * Delete selected device
-   * @param {Array | String} list - Single device ID or a list to filter for devices selected to be deleted
-   * @returns {void}
-   */
-  const deleteDevice = list => _ => {
-    hideConfirmModal();
-    setApiProcessModal({
-      isShow: true,
-      title: i18n.t('userManagement.members.modal.deviceSync.deleteDeviceApiProcessingModal')
-    });
-    const isListArray = isArray(list);
-    api.member.deleteDevice({devices: isListArray ? checkedItems : [list]})
-      .then(setIsUpdateList(prevState => !prevState))
-      .finally(hideApiProcessModal);
+    confirm.open({
+      title: i18n.t('userManagement.members.modal.deviceSync.confirmDeleteTitle'),
+      body: confirmBody
+    })
+      .then(isConfirm => {
+        if (isConfirm) {
+          processing.start({title: i18n.t('userManagement.members.modal.deviceSync.deleteDeviceApiProcessingModal')});
+          api.member.deleteDevice({devices: deviceId ? [deviceId] : tableState.current})
+            .then(() => {
+              setIsUpdateList(prevState => !prevState);
+              tableState.current = [];
+            })
+            .finally(processing.done);
+        }
+      });
   };
 
   /**
    * Formik effect function, set various states for disabling button
-   * @param {Object} formValues - Formik form values
+   * @param {Object} selectedItems - Checked items (taken from checkbox-table component)
    * @returns {void}
    */
-  const onFormChange = formValues => () => {
+  const onFormChange = selectedItems => {
     if (syncStatus === MasterSyncStatusSchema.syncNotStarted) {
-      const flattenedFormValues = formValues.flat();
-      const checkedItems = checkedItemsToArray(flattenedFormValues);
-      setCheckedItems(checkedItems);
       // Disable Sync button:
       setDisableInput({
       // None selected
-        noneSelectedDisableButton: checkedItems.length === 0,
-        // Has disconnected devices
-        invalidSelection: flattenedFormValues.some(device => device.isChecked && (
-          device.connectionStatus === ConnectionStatusSchema.connectionFail ||
-        device.connectionStatus === ConnectionStatusSchema.loginFail
-        )),
+        noneSelectedDisableButton: selectedItems.length === 0,
         // Reached limit for selected devices to sync
-        maxSelectedDevicesReached: checkedItems.length > MAX_SELECTED_DEVICES
+        maxSelectedDevicesReached: selectedItems.length > MAX_SELECTED_DEVICES
       });
     }
   };
@@ -233,14 +185,15 @@ const DeviceSync = ({deviceSync, ipAddress}) => {
    */
   const syncDB = () => {
     localStorage.setItem('currentTab', MEMBER_PAGES.SYNC);
-    api.member.syncDB({devices: checkedItems})
+    api.member.syncDB({devices: tableState.current})
       .then(getRouter().reload);
   };
 
   /**
-   * Update latest filter type state for setInterval function in sync useEffect
+   * Filter list and update latest filter type state for setInterval function in sync useEffect (filtered items remains on deviceList update)
    */
   useNonInitialEffect(() => {
+    filterDevices(filterType);
     savedFilterState.current = filterType;
   }, [filterType]);
 
@@ -332,78 +285,55 @@ const DeviceSync = ({deviceSync, ipAddress}) => {
   }, [deviceList]);
 
   return (
-    <div>
+    <>
       <Formik
         enableReinitialize
         initialValues={deviceList}
         onSubmit={syncDB}
       >
-        {form => {
-          return (
-            <Form className="card-body p-0">
-              <DeviceSyncTopBar
-                form={form}
-                devices={devices}
-                devicesInSync={devicesInSync}
-                syncStatus={syncStatus}
-                disableInput={disableInput}
-                isCancelSync={isCancelSync}
-                savedFilterState={savedFilterState}
-                refreshDevice={refreshDevice}
-                confirmDelete={confirmDelete}
-                showDeviceModal={showDeviceModal}
-                filterDevices={filterDevices}
-                setFilterType={setFilterType}
-                setIsCancelSync={setIsCancelSync}
-                setApiProcessModal={setApiProcessModal}
-              />
-              <DeviceSyncAddDevice
-                device={deviceModal.device}
-                devices={devices}
-                ipAddress={ipAddress}
-                isShowDeviceModal={deviceModal.isShow}
-                hideDeviceModal={hideDeviceModal}
-                setIsUpdateList={setIsUpdateList}
-              />
-              <DeviceSyncTable
-                syncStatus={syncStatus}
-                pageNumber={pageNumber}
-                confirmDelete={confirmDelete}
-                setDeviceModal={setDeviceModal}
-                refreshDevice={refreshDevice}
-                onFormChange={onFormChange}
-              />
-              <Pagination
-                name="page"
-                index={pageNumber}
-                size={ITEMS_PER_PAGE}
-                total={form.values.flat().length}
-                currentPageItemQuantity={form.values[pageNumber] ? form.values[pageNumber].length : 0}
-                hrefTemplate=""
-                setPageIndexState={setPageNumber}
-              />
-              {/* Delete confirmation */}
-              <CustomNotifyModal
-                backdrop="static"
-                isShowModal={confirmModal.isShow}
-                modalTitle={i18n.t('userManagement.members.modal.deviceSync.confirmDeleteTitle')}
-                modalBody={confirmModal.body}
-                onHide={hideConfirmModal}
-                onConfirm={deleteDevice(deleteDeviceID ? deleteDeviceID : form.values)}
-              />
-            </Form>
-          );
-        }}
+        <Form className="card-body p-0">
+          <DeviceSyncTopBar
+            devices={devices}
+            devicesInSync={devicesInSync}
+            syncStatus={syncStatus}
+            disableInput={disableInput}
+            isCancelSync={isCancelSync}
+            filterType={filterType}
+            refreshDevice={refreshDevice}
+            handleDelete={handleDelete}
+            showDeviceModal={showDeviceModal}
+            setFilterType={setFilterType}
+            setIsCancelSync={setIsCancelSync}
+          />
+          <DeviceSyncAddDevice
+            device={deviceModal.device}
+            devices={devices}
+            ipAddress={ipAddress}
+            isShowDeviceModal={deviceModal.isShow}
+            hideDeviceModal={hideDeviceModal}
+            setIsUpdateList={setIsUpdateList}
+          />
+          <DeviceSyncTable
+            syncStatus={syncStatus}
+            pageNumber={pageNumber}
+            disableInput={disableInput}
+            handleDelete={handleDelete}
+            setDeviceModal={setDeviceModal}
+            refreshDevice={refreshDevice}
+            onFormChange={onFormChange}
+          />
+        </Form>
       </Formik>
-      {/* API processing modal */}
-      <CustomNotifyModal
-        modalType="process"
-        backdrop="static"
-        isShowModal={apiProcessModal.isShow}
-        modalTitle={apiProcessModal.title}
-        onHide={hideApiProcessModal}
+      <Pagination
+        name="page"
+        index={pageNumber}
+        size={ITEMS_PER_PAGE}
+        total={deviceList.flat().length}
+        currentPageItemQuantity={deviceList[pageNumber]?.length ?? 0}
+        hrefTemplate=""
+        setPageIndexState={setPageNumber}
       />
-    </div>
+    </>
   );
 };
 

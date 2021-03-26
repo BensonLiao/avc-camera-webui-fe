@@ -1,6 +1,6 @@
 .page-events {
-  padding: $top-table-height 33px;
-  min-height: calc(100vh - #{$top-navigation-height});
+  // 48px is the height of the sub navbar
+  min-height: calc(100vh - #{$top-navigation-height + 48px});
   min-width: 800px;
 
   .input-group {
@@ -43,24 +43,15 @@
     }
   }
 
-  .table {
-    th {
-      white-space: nowrap;
-      padding: 12px !important;
-      color: #1a1a1a !important;
-
-      a {
-        color: #1a1a1a;
+  #{$table-wrapper} {
+    #{$table} {
+      #{$table-head-cell},
+      #{$table-body-cell} {
+        padding: 12px;
       }
-    }
 
-    td {
-      @extend .text-truncate;
-
-      padding: 12px !important;
-
-      a {
-        cursor: pointer;
+      #{$table-body-cell} {
+        @extend .text-truncate;
       }
     }
   }
@@ -69,12 +60,26 @@
     margin: 4px 0;
     height: 8px;
   }
+
+  .events-table {
+    height: calc(100vh - 240px);
+    min-height: 20rem;
+  }
 }
 
 // Add photo to existing member
 .events-search-member-modal {
   .modal-dialog {
     min-width: 800px;
+
+    .modal-body {
+      min-height: calc(100vh - 120px);
+    }
+
+    .search-member-table {
+      // max-height: calc(100vh - 310px);
+      height: calc(100vh - 330px);
+    }
   }
 
   .event-photo {

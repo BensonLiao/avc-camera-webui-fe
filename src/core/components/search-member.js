@@ -11,6 +11,7 @@ import notify from '../notify';
 import utils from '../utils';
 import i18n from '../../i18n';
 import i18nUtils from '../../i18n/utils';
+import {ITEMS_PER_PAGE} from '../../core/constants';
 
 class SearchMember extends React.PureComponent {
   static propTypes = {
@@ -57,7 +58,7 @@ class SearchMember extends React.PureComponent {
         keyword: keyword,
         index: index,
         sort: null,
-        size: 6
+        size: ITEMS_PER_PAGE
       })
         .then(response =>
           this.setState({
@@ -146,7 +147,10 @@ class SearchMember extends React.PureComponent {
             onHide();
           }}
         >
-          <Modal.Header closeButton={!(isApiProcessing || isFetching || isVerifying || photoNotFound)} className="d-flex justify-content-between align-items-center">
+          <Modal.Header
+            closeButton={!(isApiProcessing || isFetching || isVerifying || photoNotFound)}
+            className="d-flex justify-content-between align-items-center"
+          >
             <Modal.Title as="h5">{i18n.t('userManagement.events.addExistingMember')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -205,112 +209,108 @@ class SearchMember extends React.PureComponent {
                 </Form>
               </Formik>
             </div>
-            <div
-              className="col-12 mb-2"
-              style={{
-                maxHeight: 'calc(100vh - 328px)',
-                overflowY: 'auto'
-              }}
-            >
-              <table className="table custom-style mb-4" style={{tableLayout: 'fixed'}}>
-                <thead>
-                  <tr className="shadow">
-                    <th style={{width: '40%'}}>{i18n.t('userManagement.events.userPicture')}</th>
-                    <th style={{width: '40%'}}>{i18n.t('userManagement.events.name')}</th>
-                    <th style={{width: '20%'}}>{i18n.t('userManagement.events.actions')}</th>
-                  </tr>
-                </thead>
-                <tbody>
-
-                  {/* Inital message  */}
-                  {!members && !isFetching && (
-                    <tr className="disable-highlight">
-                      <td className="text-size-16 text-center pt-3" colSpan="10">
-                        <i className="fas fa-search fa-fw"/> {i18n.t('userManagement.events.modal.initialMessage')}
-                      </td>
+            <div className="table-wrapper search-member-table">
+              <div className="table-responsive">
+                <table className="table custom-style" style={{tableLayout: 'fixed'}}>
+                  <thead>
+                    <tr>
+                      <th style={{width: '40%'}}>{i18n.t('userManagement.events.userPicture')}</th>
+                      <th style={{width: '40%'}}>{i18n.t('userManagement.events.name')}</th>
+                      <th style={{width: '20%'}}>{i18n.t('userManagement.events.actions')}</th>
                     </tr>
-                  )}
+                  </thead>
+                  <tbody>
 
-                  {/* Empty search message */}
-                  { members && !members.items.length && members.items.length === 0 && (
-                    <tr className="disable-highlight">
-                      <td className="text-size-16 text-center" colSpan="10">
-                        <i className="fas fa-exclamation-triangle fa-fw text-dark"/> {i18n.t('userManagement.events.noData')}
-                      </td>
-                    </tr>
-                  )}
-
-                  {/* Search result list */}
-                  {members && members.items.map((member, index) => {
-                    const tdClass = classNames({'border-bottom': index >= members.items.length - 1});
-
-                    return (
-                      <tr key={member.id}>
-                        <td className={classNames(tdClass)}>
-                          {member.pictures.map((picture, index) => {
-                            // declaration to bypass eslint `no index in key`
-                            const uniqueKey = member.id + index;
-                            return (
-                              <img
-                                key={uniqueKey}
-                                className="rounded-circle"
-                                src={`data:image/jpeg;base64,${picture}`}
-                              />
-                            );
-                          })}
-                        </td>
-                        <td className={tdClass}>
-                          <CustomTooltip placement="top-start" title={member.name}>
-                            <div>
-                              {member.name}
-                            </div>
-                          </CustomTooltip>
-                        </td>
-                        <td className={classNames('text-left group-btn', tdClass)}>
-                          <CustomTooltip title={
-                            isVerifying ?
-                              i18n.t('userManagement.events.modal.verifyingPhoto') :
-                              verifyStatus ?
-                                (member.pictures.length >= 5 ?
-                                  i18n.t('userManagement.events.tooltip.photoLimitExceeded') :
-                                  i18n.t('userManagement.events.tooltip.addWithName', {0: member.name})) :
-                                i18n.t('userManagement.events.tooltip.invalidPhoto')
-                          }
-                          >
-                            <div>
-                              <button
-                                disabled={member.pictures.length >= 5 || verifyStatus === false}
-                                className="btn btn-link"
-                                type="button"
-                                onClick={() => this.addToMember({
-                                  member: member,
-                                  convertedPicture
-                                })}
-                              >
-                                {i18n.t('common.button.add')}
-                              </button>
-                            </div>
-                          </CustomTooltip>
+                    {/* Inital message  */}
+                    {!members && !isFetching && (
+                      <tr className="disable-highlight">
+                        <td className="text-size-16 text-center pt-3 border-0" colSpan="10">
+                          <i className="fas fa-search fa-fw"/> {i18n.t('userManagement.events.modal.initialMessage')}
                         </td>
                       </tr>
-                    );
-                  })}
+                    )}
 
-                  {/* Loading indicator */}
-                  {isFetching && (
-                    <tr>
-                      <td className="loading" colSpan="10">
-                        <div className="spinner">
-                          <div className="bounce1"/>
-                          <div className="bounce2"/>
-                          <div className="bounce3"/>
-                        </div>
-                      </td>
-                    </tr>
-                  )}
+                    {/* Empty search message */}
+                    { members && !members.items.length && members.items.length === 0 && (
+                      <tr className="disable-highlight">
+                        <td className="text-size-16 text-center border-0" colSpan="10">
+                          <i className="fas fa-exclamation-triangle fa-fw text-dark"/> {i18n.t('userManagement.events.noData')}
+                        </td>
+                      </tr>
+                    )}
 
-                </tbody>
-              </table>
+                    {/* Search result list */}
+                    {members && members.items.map((member, index) => {
+                      const tdClass = classNames({'border-bottom': index >= members.items.length - 1});
+
+                      return (
+                        <tr key={member.id}>
+                          <td className={classNames(tdClass)}>
+                            {member.pictures.map((picture, index) => {
+                            // declaration to bypass eslint `no index in key`
+                              const uniqueKey = member.id + index;
+                              return (
+                                <img
+                                  key={uniqueKey}
+                                  className="rounded-circle"
+                                  src={`data:image/jpeg;base64,${picture}`}
+                                />
+                              );
+                            })}
+                          </td>
+                          <td className={tdClass}>
+                            <CustomTooltip placement="top-start" title={member.name}>
+                              <div>
+                                {member.name}
+                              </div>
+                            </CustomTooltip>
+                          </td>
+                          <td className={classNames('text-left group-btn', tdClass)}>
+                            <CustomTooltip title={
+                              isVerifying ?
+                                i18n.t('userManagement.events.modal.verifyingPhoto') :
+                                verifyStatus ?
+                                  (member.pictures.length >= 5 ?
+                                    i18n.t('userManagement.events.tooltip.photoLimitExceeded') :
+                                    i18n.t('userManagement.events.tooltip.addWithName', {0: member.name})) :
+                                  i18n.t('userManagement.events.tooltip.invalidPhoto')
+                            }
+                            >
+                              <div>
+                                <button
+                                  disabled={member.pictures.length >= 5 || verifyStatus === false}
+                                  className="btn btn-link"
+                                  type="button"
+                                  onClick={() => this.addToMember({
+                                    member: member,
+                                    convertedPicture
+                                  })}
+                                >
+                                  {i18n.t('common.button.add')}
+                                </button>
+                              </div>
+                            </CustomTooltip>
+                          </td>
+                        </tr>
+                      );
+                    })}
+
+                    {/* Loading indicator */}
+                    {isFetching && (
+                      <tr>
+                        <td className="loading border-0" colSpan="10">
+                          <div className="spinner">
+                            <div className="bounce1"/>
+                            <div className="bounce2"/>
+                            <div className="bounce3"/>
+                          </div>
+                        </td>
+                      </tr>
+                    )}
+
+                  </tbody>
+                </table>
+              </div>
             </div>
             {/* Custom pagination component */}
             { members && members.items.length !== 0 && (
@@ -394,22 +394,24 @@ class Pagination extends React.PureComponent {
     }
 
     return (
-      <div className="col-12">
+      <div className="col-12 border border-top-none pagination-component">
         <nav
           className="d-flex justify-content-center align-items-center"
           style={{
             padding: '0px 2px',
-            height: '36px'
+            height: '42px'
           }}
         >
-          <p className="text-size-14 text-muted mb-0 mr-auto invisible">
-            {i18n.t('common.pagination.stats', {
-              0: startItem,
-              1: endItem,
-              2: total
-            })}
-          </p>
-          <ul className="pagination my-auto">
+          <div className="border rounded d-flex align-items-center">
+            <span className="text-size-14 text-muted mx-2 my-1">
+              {`${i18n.t('common.pagination.total')}: ${total}`}
+            </span>
+            <div className="vertical-border m-0" style={{height: '1.85rem'}}/>
+            <span className="text-size-14 text-muted mx-2 my-1">
+              {`${startItem} - ${endItem} ${i18n.t('common.pagination.items')}`}
+            </span>
+          </div>
+          <ul className="pagination my-auto ml-auto">
             <li className={classNames('page-item', {disabled: !hasPrevious})}>
               <a className="page-link prev" tabIndex={0} onClick={() => onSearch(index - 1)}>
                 &laquo;
@@ -445,13 +447,6 @@ class Pagination extends React.PureComponent {
               </a>
             </li>
           </ul>
-          <p className="text-size-14 text-muted mb-0 ml-auto">
-            {i18n.t('common.pagination.stats', {
-              0: startItem,
-              1: endItem,
-              2: total
-            })}
-          </p>
         </nav>
       </div>
     );

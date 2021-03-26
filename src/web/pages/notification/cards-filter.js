@@ -8,7 +8,9 @@ const CardsFilter = ({cardTypeFilter, setCardTypeFilter}) => {
   const cardTypeCheck = {
     faceRecognition: cardTypeFilter === NotificationCardType.faceRecognition,
     motionDetection: cardTypeFilter === NotificationCardType.motionDetection,
-    digitalInput: cardTypeFilter === NotificationCardType.digitalInput
+    digitalInput: cardTypeFilter === NotificationCardType.digitalInput,
+    humanoidDetection: cardTypeFilter === NotificationCardType.humanoidDetection,
+    ageGender: cardTypeFilter === NotificationCardType.ageGender
   };
 
   const changeCardTypeFilter = cardType => _ => setCardTypeFilter(cardType);
@@ -54,6 +56,26 @@ const CardsFilter = ({cardTypeFilter, setCardTypeFilter}) => {
         onClick={changeCardTypeFilter(NotificationCardType.digitalInput)}
       >
         {i18n.t('notification.cards.constants.notification-card-5')}
+      </button>
+      <button
+        className={classNames(
+          'btn rounded-pill chips-outline shadow-sm ml-4',
+          {active: cardTypeCheck.humanoidDetection}
+        )}
+        type="button"
+        onClick={changeCardTypeFilter(NotificationCardType.humanoidDetection)}
+      >
+        {i18n.t('notification.cards.constants.notification-card-2')}
+      </button>
+      <button
+        className={classNames(
+          'btn rounded-pill chips-outline shadow-sm ml-4',
+          {active: cardTypeCheck.ageGender}
+        )}
+        type="button"
+        onClick={changeCardTypeFilter(NotificationCardType.ageGender)}
+      >
+        {i18n.t('notification.cards.constants.notification-card-1')}
       </button>
     </div>
 

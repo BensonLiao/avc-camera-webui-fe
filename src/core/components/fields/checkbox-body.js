@@ -1,6 +1,7 @@
 import {Field} from 'formik';
 import PropTypes from 'prop-types';
 import React from 'react';
+import {useContextState} from '../../../web/stateProvider';
 
 /**
  * Render checkbox in table body
@@ -11,6 +12,7 @@ import React from 'react';
  * @returns {component}
  */
 const CheckboxBody = ({id, pageNumber, index, disabled = false}) => {
+  const {tableState: {current: selectedRow}} = useContextState();
   return (
     <td className="text-center td-checkbox">
       <Field
@@ -18,6 +20,8 @@ const CheckboxBody = ({id, pageNumber, index, disabled = false}) => {
         name={`${pageNumber}.${index}.isChecked`}
         id={id}
         type="checkbox"
+        checked={selectedRow ? selectedRow.indexOf(id) !== -1 : false}
+        value={selectedRow ? selectedRow.indexOf(id) !== -1 : false}
       />
       <label htmlFor={id}/>
     </td>

@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types';
-import React, {useState, useRef, useEffect, useCallback} from 'react';
+import React, {createRef, useState, useRef, useEffect, useCallback} from 'react';
 import {StateProvider} from '../../web/stateProvider';
 import {connectForm} from './form-connect';
 import FormikEffect from './formik-effect';
+import {setRefToArray} from '../utils';
+
+export const tableState = createRef();
 
 /**
  * Render table with checkbox, with indeterminate state
@@ -16,16 +19,33 @@ const TableWithCheckBox = connectForm(({formik, pageNumber, customHandler = () =
   const [isSelectAll, setIsSelectAll] = useState(false);
   const selectAllRef = useRef();
 
+  // Initialise tableState ref on unmount
+  // Note. clear on mount has execution order issue so the other components may not render correctly
+  useEffect(() => {
+    setRefToArray(tableState, []);
+    return () => {
+      setRefToArray(tableState, []);
+    };
+  }, []);
+
   /**
    * Select or un-select all checkboxes on current page
    * @returns {void}
    */
   const selectAllHandler = () => {
+    let newSelectedRow = [];
+    let currentSelectedRow = tableState.current;
     if (formik.values[pageNumber]) {
       formik.setValues(formik.values.map((value, index) => {
         return index === pageNumber ?
           value.map(value => {
             value.isChecked = !isSelectAll;
+            // Clear current table row data from `selectedRow`
+            currentSelectedRow = currentSelectedRow.filter(row => row !== value.id);
+            if (value.isChecked) {
+              newSelectedRow.push(value.id);
+            }
+
             return value;
           }) :
           value;
@@ -33,6 +53,45 @@ const TableWithCheckBox = connectForm(({formik, pageNumber, customHandler = () =
     }
 
     setIsSelectAll(prevState => (!prevState));
+    setRefToArray(tableState, [...currentSelectedRow, ...newSelectedRow]);
+  };
+
+  /**
+   * Select or un-select entire table row on current page
+   * @param {String} rowId Selected row id
+   * @returns {void}
+   */
+  const selectRowHandler = rowId => {
+    const selectedRowIndex = tableState.current?.indexOf(rowId);
+    let newSelectedRow = [];
+    if (selectedRowIndex === -1) {
+      newSelectedRow = newSelectedRow.concat(tableState.current, rowId);
+    } else if (selectedRowIndex === 0) {
+      newSelectedRow = newSelectedRow.concat(tableState.current?.slice(1));
+    } else if (selectedRowIndex === tableState.current.length - 1) {
+      newSelectedRow = newSelectedRow.concat(tableState.current?.slice(0, -1));
+    } else if (selectedRowIndex > 0) {
+      newSelectedRow = newSelectedRow.concat(
+        tableState.current?.slice(0, selectedRowIndex),
+        tableState.current?.slice(selectedRowIndex + 1)
+      );
+    }
+
+    if (formik.values[pageNumber]) {
+      formik.setValues(formik.values.map((value, index) => {
+        return index === pageNumber ?
+          value.map(value => {
+            if (value.id === rowId) {
+              value.isChecked = newSelectedRow.indexOf(rowId) !== -1;
+            }
+
+            return value;
+          }) :
+          value;
+      }));
+    }
+
+    setRefToArray(tableState, newSelectedRow);
   };
 
   /**
@@ -48,6 +107,7 @@ const TableWithCheckBox = connectForm(({formik, pageNumber, customHandler = () =
     }));
 
     setIsSelectAll(false);
+    setRefToArray(tableState, []);
   };
 
   /**
@@ -67,7 +127,7 @@ const TableWithCheckBox = connectForm(({formik, pageNumber, customHandler = () =
      */
   const onFormValueChange = ({nextValues}) => {
     // Run custom function for form onChange
-    customHandler();
+    customHandler(tableState.current);
     if (nextValues.length && nextValues.length > 0) {
       selectAllCheckboxState(nextValues);
     }
@@ -79,35 +139,38 @@ const TableWithCheckBox = connectForm(({formik, pageNumber, customHandler = () =
    * @returns {void}
    */
   const selectAllCheckboxState = useCallback(values => {
-    // Check if any checkboxes has been selected
-    if (values[pageNumber] && values[pageNumber].some(value => value.isChecked)) {
+    selectAllRef.current.indeterminate = false;
+    // Check if any checkboxes has been selected and if page data contains in selectedRow
+    if (values[pageNumber]?.some(value => value.isChecked) ||
+      (values[pageNumber]?.some(value => tableState.current?.indexOf(value.id) !== -1) &&
+      tableState.current?.length > 0)) {
       // Check if all or some checkboxes has been selected
       if (values[pageNumber].some(value => !value.isChecked)) {
         // Some checkboxes are selected, set to indetermindate state
         selectAllRef.current.indeterminate = true;
       } else {
         // Manually selected all checkboxes
-        selectAllRef.current.indeterminate = false;
         setIsSelectAll(true);
       }
     } else {
       // No checkboxes has been selected
-      selectAllRef.current.indeterminate = false;
       setIsSelectAll(false);
     }
   }, [pageNumber]);
 
   return (
-    <div className="col-12 pt-4 mb-5 table-responsive">
+    <div className="table-wrapper">
       <FormikEffect onChange={onFormValueChange}/>
       <StateProvider initialState={{
         selectAllRef,
         isSelectAll,
+        tableState,
+        selectRowHandler,
         selectAllHandler,
         deselectAllHandler
       }}
       >
-        <table className="table custom-style">
+        <table className="table">
           {children}
         </table>
         {popoverAction}

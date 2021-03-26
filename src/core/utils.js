@@ -568,7 +568,6 @@ module.exports.pingAndRedirectPage = url => {
  * @returns {object} - A Promise resolve object if shutdown is successful.
  */
 module.exports.pingToCheckShutdown = (resolve, interval, type = 'web') => {
-  console.log('api.ping', api.ping);
   const test = () => {
     api.ping(type)
       .then(() => {
@@ -662,4 +661,174 @@ module.exports.useNonInitialEffect = (effect, deps) => {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
+};
+
+/**
+ * Makes sure the ref.current property is set to a value that is an array
+ * A typechecking mechanism to ensure the property is correct
+ *
+ * @param {Ref} ref
+ * @param {Array} array
+ * @return {void}
+ */
+module.exports.setRefToArray = (ref, array) => {
+  if (!Array.isArray(array)) {
+    throw new Error('refSetter only accepts arrays');
+  }
+
+  ref.current = array;
+};
+
+/**
+ * Help to convert hex color code to rgba format and hand over the control on alpha.
+ * @param {*} hexCode - the hex code. e.g `#000000`
+ * @param {*} alpha - the ouput opacity, default is `1`.
+ * @returns {string}
+ */
+module.exports.hexToRGBA = (hexCode, alpha = 1) => {
+  let r = 0;
+  let g = 0;
+  let b = 0;
+
+  // 3 digits
+  if (hexCode.length === 4) {
+    r = '0x' + hexCode[1] + hexCode[1];
+    g = '0x' + hexCode[2] + hexCode[2];
+    b = '0x' + hexCode[3] + hexCode[3];
+
+  // 6 digits
+  } else if (hexCode.length === 7) {
+    r = '0x' + hexCode[1] + hexCode[2];
+    g = '0x' + hexCode[3] + hexCode[4];
+    b = '0x' + hexCode[5] + hexCode[6];
+  }
+
+  return `rgba(${Number(r)},${Number(g)},${Number(b)},${alpha})`;
+};
+
+/**
+   * Tansform coordinate from api data to canvas directional line generator format
+   * @param {object} data
+   * @returns {object}
+   */
+module.exports.transformLineCoordinates = (data = [{
+  x: 0,
+  y: 0
+}, {
+  x: 0,
+  y: 0
+}]) => {
+  const coordinates = [];
+  data.forEach(coordinate => {
+    coordinates.push(coordinate.x, coordinate.y);
+  });
+
+  return coordinates;
+};
+
+/**
+ * Convert into canvas coordinate based on screen size 1920*1080
+ * @param {object} data
+ * @param {number} canvasWidth
+ * @param {number} canvasHeight
+ * @param {number} workareaWidth
+ * @param {number} workareaHeight
+ * @returns {array}
+ */
+module.exports.convertToCanvasLineCoordinate = (
+  data,
+  canvasWidth = 1200,
+  canvasHeight = 675,
+  workareaWidth = 1920,
+  workareaHeight = 1080
+) => {
+  const [x1, y1, x2, y2] = data;
+  const xOffset = Math.round((workareaWidth - canvasWidth) / 2);
+  const yOffset = Math.round((workareaHeight - canvasHeight) / 2);
+
+  return [x1 - xOffset, y1 - yOffset, x2 - xOffset, y2 - yOffset];
+};
+
+/**
+ * Convert into api coordinate based on screen size 1920*1080
+ * @param {object} data
+ * @param {number} canvasWidth
+ * @param {number} canvasHeight
+ * @param {number} workareaWidth
+ * @param {number} workareaHeight
+ * @returns {array}
+ */
+module.exports.convertToApiLineCoordinate = (
+  data,
+  canvasWidth = 1200,
+  canvasHeight = 675,
+  workareaWidth = 1920,
+  workareaHeight = 1080
+) => {
+  const {x, y} = data;
+  const xOffset = Math.round((workareaWidth - canvasWidth) / 2);
+  const yOffset = Math.round((workareaHeight - canvasHeight) / 2);
+
+  return {
+    x: Math.round(x + xOffset),
+    y: Math.round(y + yOffset)
+  };
+};
+
+/**
+ * Convert into canvas coordinate based on screen size 1920*1080
+ * @param {object} data
+ * @param {number} canvasWidth
+ * @param {number} canvasHeight
+ * @param {number} workareaWidth
+ * @param {number} workareaHeight
+ * @returns {object}
+ */
+module.exports.convertToCanvasRectCoordinate = (
+  data,
+  canvasWidth = 1200,
+  canvasHeight = 675,
+  workareaWidth = 1920,
+  workareaHeight = 1080
+) => {
+  const {left, top, bottom, right} = data;
+  const xOffset = Math.round((workareaWidth - canvasWidth) / 2);
+  const yOffset = Math.round((workareaHeight - canvasHeight) / 2);
+
+  return {
+    x: left - xOffset,
+    y: top - yOffset,
+    width: right - left,
+    height: bottom - top
+  };
+};
+
+/**
+ * Convert into api coordinate based on screen size 1920*1080
+ * @param {object} data
+ * @param {number} canvasWidth
+ * @param {number} canvasHeight
+ * @param {number} workareaWidth
+ * @param {number} workareaHeight
+ * @returns {object}
+ */
+module.exports.convertToApiRectCoordinate = (
+  data,
+  canvasWidth = 1200,
+  canvasHeight = 675,
+  workareaWidth = 1920,
+  workareaHeight = 1080
+) => {
+  const {left, top, width, height} = data;
+  const xOffset = Math.round((workareaWidth - canvasWidth) / 2);
+  const yOffset = Math.round((workareaHeight - canvasHeight) / 2);
+  const offsetLeft = left + xOffset;
+  const offsetTop = top + yOffset;
+
+  return {
+    bottom: Math.round(offsetTop + height),
+    left: Math.round(offsetLeft),
+    right: Math.round(offsetLeft + width),
+    top: Math.round(offsetTop)
+  };
 };

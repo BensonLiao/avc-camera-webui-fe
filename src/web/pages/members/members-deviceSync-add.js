@@ -12,7 +12,7 @@ import notify from '../../../core/notify';
 import Password from '../../../core/components/fields/password';
 import {useContextState} from '../../stateProvider';
 
-const DeviceSyncAddDevice = ({device, devices, ipAddress, isShowDeviceModal, hideDeviceModal, setIsUpdateList}) => {
+const DeviceSyncAddDevice = React.memo(({device, devices, ipAddress, isShowDeviceModal, hideDeviceModal, setIsUpdateList}) => {
   const {isApiProcessing} = useContextState();
   const [isShowApiProcessModal, setIsShowApiProcessModal] = useState(false);
   const ipList = devices.reduce((arr, item) => {
@@ -73,7 +73,7 @@ const DeviceSyncAddDevice = ({device, devices, ipAddress, isShowDeviceModal, hid
    */
   const onSubmitForm = values => {
     if (!values.port) {
-      values.port = 8080;
+      values.port = 80;
     }
 
     setIsShowApiProcessModal(true);
@@ -199,7 +199,7 @@ const DeviceSyncAddDevice = ({device, devices, ipAddress, isShowDeviceModal, hid
       />
     </>
   );
-};
+});
 
 DeviceSyncAddDevice.propTypes = {
   device: PropTypes.shape({
@@ -229,6 +229,8 @@ DeviceSyncAddDevice.propTypes = {
   hideDeviceModal: PropTypes.func.isRequired,
   setIsUpdateList: PropTypes.func.isRequired
 };
+
+DeviceSyncAddDevice.defaultProps = {device: null};
 
 export default DeviceSyncAddDevice;
 

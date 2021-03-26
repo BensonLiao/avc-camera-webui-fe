@@ -1,16 +1,10 @@
 .page-users {
-  padding: $top-table-height 33px;
-  min-height: calc(100vh - #{$top-navigation-height});
+  // 48px is the height of the sub navbar
+  min-height: calc(100vh - #{$top-navigation-height + 48px});
   min-width: 800px;
 
   .card-body .card {
     border-radius: 8px;
-  }
-
-  .table .custom-style {
-    th {
-      color: #1a1a1a;
-    }
   }
 
   .badge {
@@ -23,5 +17,9 @@
     &.badge-admin {
       background-color: $primary;
     }
+  }
+
+  .users-table {
+    height: calc(100vh - 240px);
   }
 }

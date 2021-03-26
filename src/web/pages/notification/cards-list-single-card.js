@@ -1,8 +1,10 @@
 import classNames from 'classnames';
+import dayjs from 'dayjs';
 import {getRouter} from '@benson.liao/capybara-router';
 import progress from 'nprogress';
 import PropTypes from 'prop-types';
 import React from 'react';
+import NotificationCardType from 'webserver-form-schema/constants/notification-card-type';
 import api from '../../../core/apis/web-api';
 import CustomTooltip from '../../../core/components/tooltip';
 import i18n from '../../../i18n';
@@ -10,6 +12,8 @@ import i18nUtils from '../../../i18n/utils';
 import outputIcon from '../../../resource/icon-output-40px.svg';
 import utils from '../../../core/utils';
 import ErrorDisplay from '../../../core/components/error-display';
+
+const weekdayOrder = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 
 const CardsListSingleCard = ({card, groups, isApiProcessing, clickCardHandler, toggleIsTopHandler}) => {
   const deleteCardHandler = cardId => event => {
@@ -80,21 +84,48 @@ const CardsListSingleCard = ({card, groups, isApiProcessing, clickCardHandler, t
                 <td>{i18nUtils.getNotificationCardTypeI18N(card.type, <ErrorDisplay/>)}</td>
               </tr>
               {
-                card.timePeriods.map((timePeriod, index) => {
-                  const key = `${index}`;
+                card.isEnableTime && (
+                  card.timePeriods.map((timePeriod, index) => {
+                    const key = `${index}`;
 
-                  return (
-                    <tr key={key}>
-                      <th>{index === 0 ? i18n.t('notification.cards.schedule') : ''}</th>
-                      <td>{`${utils.formatDate(timePeriod.start)} - ${utils.formatDate(timePeriod.end)}`}</td>
-                    </tr>
-                  );
-                })
+                    return (
+                      <tr key={key}>
+                        <th>{index === 0 ? i18n.t('notification.cards.schedule') : ''}</th>
+                        <td>{`${utils.formatDate(timePeriod.start, card.isEnableSchedule && {format: 'LT'})} - ${utils.formatDate(timePeriod.end, card.isEnableSchedule && {format: 'LT'})}`}</td>
+                      </tr>
+                    );
+                  })
+                )
               }
-              <tr>
-                <th>{i18n.t('notification.cards.rule')}</th>
-                <td>{i18nUtils.getNotificationFRConditionI18N(card.faceRecognitionCondition, <ErrorDisplay/>)}</td>
-              </tr>
+              {card.isEnableTime && card.isEnableSchedule && (
+                <tr>
+                  <th>{i18n.t('notification.cards.enableSelectedDay')}</th>
+                  <td>
+                    {Object.entries(card.selectedDay).map(([key, value]) => (
+                      <span
+                        key={key}
+                        className={classNames({'mr-2': Boolean(value)})}
+                      >
+                        {value && dayjs().day(weekdayOrder.indexOf(key)).format('dd').replace(/\.$/, '')}
+                      </span>
+                    ))}
+                  </td>
+                </tr>
+              )}
+              { card.isEnableFaceRecognition &&
+                card.type === NotificationCardType.faceRecognition && (
+                <tr>
+                  <th>{i18n.t('notification.cards.rule')}</th>
+                  <td>{i18nUtils.getNotificationFRConditionI18N(card.faceRecognitionCondition, <ErrorDisplay/>)}</td>
+                </tr>
+              )}
+              { card.hdEnabled &&
+                card.type === NotificationCardType.humanoidDetection && (
+                <tr>
+                  <th>{i18n.t('notification.cards.rule')}</th>
+                  <td>{i18nUtils.getNotificationHDOptionI18N(card.hdOption, <ErrorDisplay/>)}</td>
+                </tr>
+              )}
             </tbody>
           </table>
           <div className="chips-wrapper">
@@ -146,12 +177,18 @@ CardsListSingleCard.propTypes = {
     isEnableGPIO: PropTypes.bool.isRequired,
     isEnableGPIO1: PropTypes.bool.isRequired,
     isEnableGPIO2: PropTypes.bool.isRequired,
-    isEnableTime: PropTypes.bool.isRequired,
+    isEnableSchedule: PropTypes.bool.isRequired,
     isEnableSDCardRecording: PropTypes.bool.isRequired,
     isTop: PropTypes.bool.isRequired,
     timePeriods: PropTypes.array.isRequired,
     title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired
+    type: PropTypes.string.isRequired,
+    isEnableTime: PropTypes.bool.isRequired,
+    selectedDay: PropTypes.object.isRequired,
+    hdIntrusionAreaId: PropTypes.string.isRequired,
+    hdEnabled: PropTypes.bool.isRequired,
+    hdOption: PropTypes.string.isRequired,
+    hdCapacity: PropTypes.number.isRequired
   }).isRequired,
   groups: PropTypes.shape({
     items: PropTypes.arrayOf(PropTypes.shape({

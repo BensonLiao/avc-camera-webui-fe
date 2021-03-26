@@ -50,84 +50,90 @@ const MembersTable = ({params, members, groups, filterHandler, deleteMemberModal
   );
 
   return (
-    <div className="col-12 mb-5 table-responsive">
-      <table className="table custom-style">
-        <thead>
-          <tr className="shadow">
-            <th className="text-center" style={{width: '20%'}}>{i18n.t('userManagement.members.userPicture')}</th>
-            <th style={{width: '15%'}}>
-              <a href="#name" onClick={sort.name.handler}>{i18n.t('userManagement.members.name')}</a>
-              <i className={sort.name.icon}/>
-            </th>
-            <th style={{width: '15%'}}>
-              <a href="#organization" onClick={sort.organization.handler}>{i18n.t('userManagement.members.organization')}</a>
-              <i className={sort.organization.icon}/>
-            </th>
-            <th style={{width: '15%'}}>
-              <a href="#group" onClick={sort.group.handler}>{i18n.t('userManagement.members.group')}</a>
-              <i className={sort.group.icon}/>
-            </th>
-            <th style={{width: '20%'}}>{i18n.t('userManagement.members.note')}</th>
-            <th style={{width: '15%'}}>{i18n.t('userManagement.members.actions')}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
+    <div className="members-table">
+      <div className="table-wrapper">
+        <table className="table">
+          <thead>
+            <tr>
+              <th
+                className="text-center"
+                style={{width: '20%'}}
+              >{i18n.t('userManagement.members.userPicture')}
+              </th>
+              <th style={{width: '15%'}}>
+                <a href="#name" onClick={sort.name.handler}>{i18n.t('userManagement.members.name')}</a>
+                <i className={sort.name.icon}/>
+              </th>
+              <th style={{width: '15%'}}>
+                <a href="#organization" onClick={sort.organization.handler}>{i18n.t('userManagement.members.organization')}</a>
+                <i className={sort.organization.icon}/>
+              </th>
+              <th style={{width: '15%'}}>
+                <a href="#group" onClick={sort.group.handler}>{i18n.t('userManagement.members.group')}</a>
+                <i className={sort.group.icon}/>
+              </th>
+              <th style={{width: '20%'}}>{i18n.t('userManagement.members.note')}</th>
+              <th style={{width: '15%'}}>{i18n.t('userManagement.members.actions')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
             /* Empty Search Message */
-            !members.items.length && (
-              <tr className="disable-highlight">
-                <td className="text-size-20 text-center" colSpan="10">
-                  <i className="fas fa-frown-open fa-fw text-dark"/> {i18n.t('userManagement.members.noData')}
-                </td>
-              </tr>
-            )
-          }
-          {
-            members.items.map(member => {
-              return (
-                <tr key={member.id}>
-                  <td className="text-center">
-                    <div className="thumbnail-wrapper">
-                      <div className="rounded-circle overflow-hidden circle-crop">
-                        <div className="thumbnail" style={{backgroundImage: `url('data:image/jpeg;base64,${member.pictures[0]}')`}}/>
-                      </div>
-                    </div>
-                  </td>
-                  {tableItems(member.name, 'member-name')}
-                  {tableItems(member.organization)}
-                  {tableItems((groups.items.find(x => x.id === member.groupId) || {}).name || '')}
-                  {tableItems(member.note)}
-                  <td className="text-left group-btn">
-                    <CustomTooltip title={i18n.t('userManagement.members.tooltip.editMemberWithName', {0: member.name})}>
-                      <Link
-                        className="btn btn-link"
-                        to={{
-                          name: 'web.users.members.details',
-                          params: {
-                            ...params,
-                            memberId: member.id
-                          }
-                        }}
-                      >
-                        <i className="fas fa-pen fa-lg fa-fw"/>
-                      </Link>
-                    </CustomTooltip>
-                    <CustomTooltip title={i18n.t('userManagement.members.tooltip.deleteMemberWithName', {0: member.name})}>
-                      <button
-                        className="btn btn-link"
-                        type="button"
-                        onClick={deleteMemberModal(member)}
-                      >
-                        <i className="far fa-trash-alt fa-lg fa-fw"/>
-                      </button>
-                    </CustomTooltip>
+              !members.items.length && (
+                <tr className="disable-highlight">
+                  <td className="text-size-20 text-center border-0" colSpan="10">
+                    <i className="fas fa-frown-open fa-fw text-dark"/> {i18n.t('userManagement.members.noData')}
                   </td>
                 </tr>
-              );
-            })
-          }
-        </tbody>
-      </table>
+              )
+            }
+            {
+              members.items.map(member => {
+                return (
+                  <tr key={member.id}>
+                    <td className="text-center">
+                      <div className="thumbnail-wrapper">
+                        <div className="rounded-circle overflow-hidden circle-crop">
+                          <div className="thumbnail" style={{backgroundImage: `url('data:image/jpeg;base64,${member.pictures[0]}')`}}/>
+                        </div>
+                      </div>
+                    </td>
+                    {tableItems(member.name, 'member-name')}
+                    {tableItems(member.organization)}
+                    {tableItems((groups.items.find(x => x.id === member.groupId) || {}).name || '')}
+                    {tableItems(member.note)}
+                    <td className="text-left group-btn">
+                      <CustomTooltip title={i18n.t('userManagement.members.tooltip.editMemberWithName', {0: member.name})}>
+                        <Link
+                          className="btn btn-link"
+                          to={{
+                            name: 'web.users.members.details',
+                            params: {
+                              ...params,
+                              memberId: member.id
+                            }
+                          }}
+                        >
+                          <i className="fas fa-pen fa-lg fa-fw"/>
+                        </Link>
+                      </CustomTooltip>
+                      <CustomTooltip title={i18n.t('userManagement.members.tooltip.deleteMemberWithName', {0: member.name})}>
+                        <button
+                          className="btn btn-link"
+                          type="button"
+                          onClick={deleteMemberModal(member)}
+                        >
+                          <i className="far fa-trash-alt fa-lg fa-fw"/>
+                        </button>
+                      </CustomTooltip>
+                    </td>
+                  </tr>
+                );
+              })
+            }
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import {Link} from '@benson.liao/capybara-router';
+import {getRouter, Link} from '@benson.liao/capybara-router';
 import PropTypes from 'prop-types';
 import React from 'react';
 import i18n from '../../../i18n';
@@ -12,6 +12,8 @@ const MembersSidebar = ({params, groups, filterHandler, deleteGroupHandler, setT
   const switchTab = tab => e => {
     e.preventDefault();
     setTab(tab);
+    getRouter().go('/users/members');
+    return localStorage.setItem('currentTab', tab);
   };
 
   return (
@@ -32,6 +34,37 @@ const MembersSidebar = ({params, groups, filterHandler, deleteGroupHandler, setT
         </nav>
         <hr/>
         <div className="groups">
+          <div className="sub-title py-3 px-4">
+            <h3>{i18n.t('userManagement.members.database')}</h3>
+          </div>
+          <nav className="nav flex-column">
+            <a
+              href=""
+              className={classNames('nav-link text-size-14 py-2 px-3 users-nav',
+                {active: tab === MEMBER_PAGES.DATABASE},
+                {'bg-light': tab === MEMBER_PAGES.DATABASE}
+              )}
+              onClick={switchTab(MEMBER_PAGES.DATABASE)}
+            >
+              <i className="fas fa-cog pl-2 pr-4"/>
+              {i18n.t('userManagement.members.databaseSettings')}
+            </a>
+            <a
+              href=""
+              className={classNames('nav-link text-size-14 py-2 px-3 users-nav',
+                {active: tab === MEMBER_PAGES.SYNC},
+                {'bg-light': tab === MEMBER_PAGES.SYNC}
+              )}
+              onClick={switchTab(MEMBER_PAGES.SYNC)}
+            >
+              <div className="sidebar-database">
+                <i className="fas fa-database pl-2 pr-4"/>
+                <i className="fas fa-sync"/>
+              </div>
+              {i18n.t('userManagement.members.deviceSynchronization')}
+            </a>
+          </nav>
+          <hr/>
           <div className="sub-title py-1 px-4">
             <h3>{i18n.t('userManagement.members.groups')}</h3>
             <CustomTooltip
@@ -83,37 +116,6 @@ const MembersSidebar = ({params, groups, filterHandler, deleteGroupHandler, setT
               </div>
             ))
           }
-          <hr/>
-          <div className="sub-title py-3 px-4">
-            <h3>{i18n.t('userManagement.members.database')}</h3>
-          </div>
-          <nav className="nav flex-column">
-            <a
-              href=""
-              className={classNames('nav-link text-size-14 py-2 px-3 users-nav',
-                {active: tab === MEMBER_PAGES.DATABASE},
-                {'bg-light': tab === MEMBER_PAGES.DATABASE}
-              )}
-              onClick={switchTab(MEMBER_PAGES.DATABASE)}
-            >
-              <i className="fas fa-cog pl-2 pr-4"/>
-              {i18n.t('userManagement.members.databaseSettings')}
-            </a>
-            <a
-              href=""
-              className={classNames('nav-link text-size-14 py-2 px-3 users-nav',
-                {active: tab === MEMBER_PAGES.SYNC},
-                {'bg-light': tab === MEMBER_PAGES.SYNC}
-              )}
-              onClick={switchTab(MEMBER_PAGES.SYNC)}
-            >
-              <div className="sidebar-database">
-                <i className="fas fa-database pl-2 pr-4"/>
-                <i className="fas fa-sync"/>
-              </div>
-              {i18n.t('userManagement.members.deviceSynchronization')}
-            </a>
-          </nav>
         </div>
       </div>
     </>

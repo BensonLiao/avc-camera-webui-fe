@@ -118,7 +118,7 @@ const CardsFormSubject = ({setFieldValue, values, validateField, errors, touched
               name="emailAttachmentType"
             >
               {NotificationEmailAttachmentType.all().map(attachmentType => (
-                !(values.type === NotificationCardType.motionDetection &&
+                !(values.type !== NotificationCardType.faceRecognition &&
                   attachmentType === NotificationEmailAttachmentType.faceThumbnail) && (
                   <option
                     key={attachmentType}

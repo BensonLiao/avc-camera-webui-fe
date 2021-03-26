@@ -49,7 +49,8 @@
         "group": {
           "editGroupTitle.avn": "Modify Group"
         }
-      }
+      },
+      "refresh": "Refresh"
     },
     "accounts": {
       "tooltip": {
@@ -84,7 +85,8 @@
     "video.avn": "Video",
     "analytics.avn": "Analytics",
     "notificationSettings.avn": "Notification Settings",
-    "notificationMethod.avn": "Notification Method"
+    "notificationMethod.avn": "Notification Method",
+    "sdCardStorage": "Storage"
   },
   "navigation": {
     "sidebar": {
@@ -101,6 +103,13 @@
         "productSelector.avn": "Product Selector",
         "technicalUpdates.avn": "Technical Updates",
         "resources.avn": "Resources"
+      }
+    }
+  },
+  "sdCard": {
+    "storage": {
+      "files": {
+        "date": "DATE"
       }
     }
   }
