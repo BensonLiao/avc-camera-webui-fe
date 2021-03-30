@@ -37,3 +37,7 @@ $ npm run build
   2. Push commits to your new branch.
   3. Create a merge-request from your new branch to `avn`.
   + note: Don't merge avn into master.
+
+
+## Design Spec
+[figma](https://www.figma.com/file/1YNr3FrGz9ILu8jOiymcNl/Web-UI_UI-Spec_v2.6.1)
