@@ -40,4 +40,5 @@ $ npm run build
 
 
 ## Design Spec
-[figma](https://www.figma.com/file/1YNr3FrGz9ILu8jOiymcNl/Web-UI_UI-Spec_v2.6.1)
+ - [figma](https://www.figma.com/file/1YNr3FrGz9ILu8jOiymcNl/Web-UI_UI-Spec_v2.6.1)
+ - [behance](https://www.behance.net/gallery/110448371/Smart-AI-Camera-System)
