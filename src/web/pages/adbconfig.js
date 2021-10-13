@@ -3,10 +3,10 @@ const ReactDOM = require('react-dom');
 const PropTypes = require('prop-types');
 const {Formik, Form, Field} = require('formik');
 const Modal = require('react-bootstrap/Modal').default;
-const SimpleCrypto = require('simple-crypto-js').default;
+// const SimpleCrypto = require('simple-crypto-js').default;
 const api = require('../../core/apis/web-api');
 const Password = require('../../core/components/fields/password');
-const simpleCrypto = new SimpleCrypto(SimpleCrypto.generateRandom);
+// const simpleCrypto = new SimpleCrypto(SimpleCrypto.generateRandom);
 
 module.exports = class ADBConfig extends React.PureComponent {
   static get propTypes() {
@@ -30,9 +30,9 @@ module.exports = class ADBConfig extends React.PureComponent {
 
   onSubmitForm = values => {
     const {params} = this.props;
-    if (values.rootPassword !== simpleCrypto.decrypt(window.rootPassword)) {
-      return;
-    }
+    // if (values.rootPassword !== simpleCrypto.decrypt(window.rootPassword)) {
+    //   return;
+    // }
 
     if (params.enable) {
       api.system.updateADBConfig({

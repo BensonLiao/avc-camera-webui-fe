@@ -6,12 +6,26 @@ const expressHandlebars = require('express-handlebars');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const handlebars = require('handlebars');
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+
 const errors = require('./models/errors');
 const webRouter = require('./routers/web-router');
 const baseHandler = require('./handlers/base-handler');
 
 const app = express();
 const server = http.createServer(app);
+
+const webpackConfig = require('../webpack.config.js')();
+const compiler = webpack(webpackConfig);
+
+// Tell express to use the webpack-dev-middleware and use the webpack.config.js
+// configuration file as a base.
+app.use(
+  webpackDevMiddleware(compiler, {
+    publicPath: webpackConfig.output.publicPath,
+  })
+);
 
 // Setup handlebars
 const hbs = expressHandlebars.create({

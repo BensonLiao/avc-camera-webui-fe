@@ -22,7 +22,7 @@ const elementResizeDetectorMaker = require('element-resize-detector');
 const React = require('react');
 const ReactDOM = require('react-dom');
 const ReactNotification = require('react-notifications-component').default;
-const SimpleCrypto = require('simple-crypto-js').default;
+// const SimpleCrypto = require('simple-crypto-js').default;
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const CertificateType = require('webserver-form-schema/constants/certificate-type');
 const SystemModelName = require('webserver-form-schema/constants/system-model-name');
@@ -39,8 +39,8 @@ require('dayjs/locale/ja');
 require('dayjs/locale/zh-cn');
 require('dayjs/locale/zh-tw');
 
-const simpleCrypto = new SimpleCrypto(SimpleCrypto.generateRandom);
-window.rootPassword = simpleCrypto.encrypt(config.rootPassword);
+// const simpleCrypto = new SimpleCrypto(SimpleCrypto.generateRandom);
+// window.rootPassword = simpleCrypto.encrypt(config.rootPassword);
 
 if ('scrollRestoration' in history) {
   history.scrollRestoration = 'manual';

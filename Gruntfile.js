@@ -101,8 +101,10 @@ module.exports = grunt => {
               args: (() => {
                 const result = [
                   path.join('node_modules', 'webpack', 'bin', 'webpack.js'),
-                  '--env.mode=development',
-                  '--env.buildFolder=<%= config.buildFolder %>'
+                  '--env',
+                  'development',
+                  '--node-env',
+                  'buildFolder=<%= config.buildFolder %>'
                 ];
                 if (grunt.option('analyze')) {
                   result.push('--env.analyzeBuild=true');
