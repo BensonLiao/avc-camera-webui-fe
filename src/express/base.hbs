@@ -9,12 +9,12 @@
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
       }).join(''));
     }
-    window.currentLanguageCode = '{{{ languageCode }}}';
-    window.config = JSON.parse(base64DecodeUnicode('{{ config }}'));
-    window.user = JSON.parse(base64DecodeUnicode('{{ user }}'));
-    window.cameraName = JSON.parse(base64DecodeUnicode('{{ cameraName }}'));
-    window.isNoBrand = JSON.parse(base64DecodeUnicode('{{ skuID }}')) === 'nobrand';
-    window.error = JSON.parse(base64DecodeUnicode('{{ error }}'));
+    window.currentLanguageCode = '{{ languageCode }}';
+    window.config = JSON.parse(base64DecodeUnicode('{{ archive config }}'));
+    window.user = JSON.parse(base64DecodeUnicode('{{ archive user }}'));
+    window.cameraName = JSON.parse(base64DecodeUnicode('{{ archive cameraName }}'));
+    window.isNoBrand = JSON.parse(base64DecodeUnicode('{{ archive skuID }}')) === 'nobrand';
+    window.error = JSON.parse(base64DecodeUnicode('{{ archive error }}'));
     window.isDebug = '{{ isDebug }}';
   </script>
 </head>
