@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --open",
-    "serve": "webpack && node backend/server.js",
     "build": "webpack",
+    "serve": "node backend/server.js",
+    "build-serve": "webpack && node backend/server.js",
     "analyze": "grunt build --analyze",
     "eslint": "node_modules/eslint/bin/eslint.js backend config src Gruntfile.js webpack.config.js",
     "stylelint": "node_modules/stylelint/bin/stylelint.js '**/*.scss'",
