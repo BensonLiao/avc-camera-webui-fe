@@ -6,6 +6,7 @@
   "scripts": {
     "start": "webpack serve --open",
     "build": "webpack",
+    "build-debug-hbs": "webpack --env isDebugHBSLoader",
     "serve": "node backend/server.js",
     "build-serve": "webpack && node backend/server.js",
     "analyze": "grunt build --analyze",

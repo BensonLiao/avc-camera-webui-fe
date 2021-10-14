@@ -174,6 +174,7 @@ module.exports = (env = {}) => {
   const isDisableMockServer = env.disablemockserver === 'true' || !isDebug;
   const isAnalyzeBuild = env.analyzeBuild === 'true' && !isDebug;
   const buildFolder = env.buildFolder || 'dist';
+  const isDebugHBSLoader = env.isDebugHBSLoader || false;
   // { amd?, bail?, cache?, context?, dependencies?, devServer?, devtool?, entry?, experiments?, externals?, externalsPresets?, externalsType?, ignoreWarnings?, infrastructureLogging?, loader?, mode?, module?, name?, node?, optimization?, output?, parallelism?, performance?, plugins?, profile?, recordsInputPath?, recordsOutputPath?, recordsPath?, resolve?, resolveLoader?, snapshot?, stats?, target?, watch?, watchOptions? }
 
   return {
@@ -266,7 +267,14 @@ module.exports = (env = {}) => {
         },
         {
           test: /\.(handlebars|hbs)$/,
-          use: ['handlebars-loader']
+          use: [
+            {
+              loader: 'handlebars-loader',
+              options: {
+                debug: isDebugHBSLoader
+              }
+            }
+          ]
         }
       ]
     },
