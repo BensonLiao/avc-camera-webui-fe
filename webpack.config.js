@@ -169,16 +169,16 @@ const packageInformation = require('./package.json');
 // };
 
 
-module.exports = (env = {}) => {
-  const isDebug = (env.mode || 'development') === 'development';
-  const isDisableMockServer = env.disablemockserver === 'true' || !isDebug;
-  const isAnalyzeBuild = env.analyzeBuild === 'true' && !isDebug;
-  const buildFolder = env.buildFolder || 'dist';
+module.exports = (env, argv) => {
+  const isDebug = (argv.mode || 'development') === 'development';
+  const isDisableMockServer = argv.disablemockserver || !isDebug;
+  const isAnalyzeBuild = argv.analyzeBuild && !isDebug;
+  const buildFolder = argv.buildFolder || 'dist';
   // { amd?, bail?, cache?, context?, dependencies?, devServer?, devtool?, entry?, experiments?, externals?, externalsPresets?, externalsType?, ignoreWarnings?, infrastructureLogging?, loader?, mode?, module?, name?, node?, optimization?, output?, parallelism?, performance?, plugins?, profile?, recordsInputPath?, recordsOutputPath?, recordsPath?, resolve?, resolveLoader?, snapshot?, stats?, target?, watch?, watchOptions? }
 
   return {
     target: 'web',
-    mode: env.mode || 'development',
+    mode: argv.mode || 'development',
     entry: {
       web: path.resolve(__dirname, 'src', 'web', 'index.js')
     },
@@ -309,7 +309,7 @@ module.exports = (env = {}) => {
         }),
         new webpack.ProvidePlugin({$: 'jquery'}),
         new webpack.DefinePlugin({
-          'process.env.NODE_ENV': JSON.stringify(env.mode || 'development'),
+          'process.env.NODE_ENV': JSON.stringify(argv.mode || 'development'),
           'process.env.VERSION': JSON.stringify(packageInformation.version)
         }),
         new CopyWebpackPlugin({
@@ -322,12 +322,12 @@ module.exports = (env = {}) => {
       if (isDisableMockServer) {
         result.push(new webpack.IgnorePlugin({resourceRegExp: /.*dev\/.*$/}));
       }
+      
+      if (isAnalyzeBuild) {
+        result.push(new BundleAnalyzerPlugin());
+      }
 
       if (!isDebug) {
-        if (isAnalyzeBuild) {
-          result.push(new BundleAnalyzerPlugin());
-        }
-
         result.push(
           new ImageminPlugin({
             test: /\.png$/i,
@@ -336,11 +336,7 @@ module.exports = (env = {}) => {
         );
         result.push(
           new CompressionWebpackPlugin({
-            filename: '[path]',
-            algorithm: 'gzip',
-            test: /\.(js|css|svg)$/,
-            threshold: 0,
-            minRatio: 1
+            test: /\.(js|css|svg)$/
           })
         );
       }
