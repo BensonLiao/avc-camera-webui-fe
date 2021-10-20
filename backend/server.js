@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const handlebars = require('handlebars');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
+const open = require('open');
 
 const errors = require('./models/errors');
 const webRouter = require('./routers/web-router');
@@ -92,8 +93,19 @@ app.use((error, req, res, _) => {
   }
 });
 
-// Launch server
-server.listen(config.expressServer.port, config.expressServer.host, () => {
-  const {address, port} = server.address();
-  console.log(`Server listening at http://${address}:${port}`);
-});
+// Launch server and open browser on demand
+server.listen(
+  config.expressServer.port, config.expressServer.host,
+  async () => {
+    const {address, port} = server.address();
+    console.log(`Server listening at http://${address}:${port}.`);
+    if (process.env.OPEN && process.env.OPEN === '1') {
+      try {
+        await open(`http://${address}:${port}`);
+      }
+      catch {
+        console.warn(`Unable to open http://${address}:${port}.`);
+      }
+    }
+  }
+);
