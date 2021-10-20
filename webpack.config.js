@@ -13,9 +13,9 @@ const packageInformation = require('./package.json');
 module.exports = (env, argv = {}) => {
   const mode = argv.mode || 'development';
   const isDebug = mode === 'development';
-  const isDisableMockServer = argv.disablemockserver || !isDebug;
-  const isAnalyzeBuild = argv.analyzeBuild && !isDebug;
-  const buildFolder = argv.buildFolder || 'dist';
+  const isDisableMockServer = env.disablemockserver || !isDebug;
+  const isAnalyzeBuild = env.analyzeBuild && !isDebug;
+  const buildFolder = env.buildFolder || 'dist';
 
   return {
     target: 'web',
