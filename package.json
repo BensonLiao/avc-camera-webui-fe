@@ -7,7 +7,6 @@
     "start": "webpack serve --open",
     "build": "webpack --mode=production",
     "build-dev": "webpack",
-    "build-debug-hbs": "webpack --env isDebugHBSLoader",
     "serve": "node backend/server.js",
     "serve-open": "OPEN=1 node backend/server.js",
     "build-serve": "webpack && node backend/server.js",
