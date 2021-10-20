@@ -13,7 +13,12 @@ const packageInformation = require('./package.json');
 module.exports = (env, argv = {}) => {
   const mode = argv.mode || 'development';
   const isDebug = mode === 'development';
+  // This option were used to remove mock BE env,
+  // so we can run dev FE together with real BE env.
+  // But for webpack v5 + webpack-dev-middleware env,
+  // it still needs some effort to make it work.
   const isDisableMockServer = env.disablemockserver || !isDebug;
+
   const isAnalyzeBuild = env.analyzeBuild && !isDebug;
   const buildFolder = env.buildFolder || 'dist';
 
