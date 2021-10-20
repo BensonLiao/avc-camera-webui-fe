@@ -169,7 +169,7 @@ const packageInformation = require('./package.json');
 // };
 
 
-module.exports = (env, argv) => {
+module.exports = (env, argv = {}) => {
   const mode = argv.mode || 'development';
   const isDebug = mode === 'development';
   const isDisableMockServer = argv.disablemockserver || !isDebug;
@@ -195,7 +195,7 @@ module.exports = (env, argv) => {
       //   'Access-Control-Allow-Methods': 'GET'
       // },
       // proxy: {'/': `http://${config.webpackDevServer.host}:${config.expressServer.port}/`},
-      // open: true,
+      open: true,
       // client: {
       //   overlay: true // show only compiler errors as a full-screen overlay
       // }
