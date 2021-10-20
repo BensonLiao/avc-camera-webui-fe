@@ -170,7 +170,8 @@ const packageInformation = require('./package.json');
 
 
 module.exports = (env, argv) => {
-  const isDebug = (argv.mode || 'development') === 'development';
+  const mode = argv.mode || 'development';
+  const isDebug = mode === 'development';
   const isDisableMockServer = argv.disablemockserver || !isDebug;
   const isAnalyzeBuild = argv.analyzeBuild && !isDebug;
   const buildFolder = argv.buildFolder || 'dist';
@@ -178,7 +179,7 @@ module.exports = (env, argv) => {
 
   return {
     target: 'web',
-    mode: argv.mode || 'development',
+    mode: mode,
     entry: {
       web: path.resolve(__dirname, 'src', 'web', 'index.js')
     },
@@ -309,7 +310,7 @@ module.exports = (env, argv) => {
         }),
         new webpack.ProvidePlugin({$: 'jquery'}),
         new webpack.DefinePlugin({
-          'process.env.NODE_ENV': JSON.stringify(argv.mode || 'development'),
+          'process.env.NODE_ENV': JSON.stringify(mode),
           'process.env.VERSION': JSON.stringify(packageInformation.version)
         }),
         new CopyWebpackPlugin({
