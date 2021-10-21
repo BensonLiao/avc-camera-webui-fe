@@ -10,7 +10,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const webpack = require('webpack');
 const packageInformation = require('./package.json');
 
-module.exports = (env, argv = {}) => {
+module.exports = (env = {}, argv = {}) => {
   const mode = argv.mode || 'development';
   const isDebug = mode === 'development';
   // This option were used to remove mock BE env,
