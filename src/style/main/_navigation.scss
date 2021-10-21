@@ -56,7 +56,7 @@ nav.navbar.fixed-top {
 }
 
 .left-navigation {
-  @extend .hidden-scrollbar;
+  @extend .hidden-scrollbar !optional;
 
   padding-top: $top-navigation-height;
   width: $left-navigation-width;
@@ -110,7 +110,7 @@ nav.navbar.fixed-top {
 }
 
 .left-menu {
-  @extend .hidden-scrollbar;
+  @extend .hidden-scrollbar !optional;
 
   padding-top: $top-navigation-height;
   margin-left: $left-navigation-width;
@@ -178,7 +178,7 @@ nav.navbar.fixed-top {
       }
 
       .btn-delete {
-        @extend .transition;
+        @extend .transition !optional;
 
         visibility: hidden;
         opacity: 0;
@@ -298,11 +298,11 @@ nav.navbar.fixed-top {
 
   .nav {
     .accordion {
-      @extend .w-100, .text-truncate;
+      @extend .w-100, .text-truncate !optional;
     }
 
     a.nav-link {
-      @extend .w-100, .text-truncate;
+      @extend .w-100, .text-truncate !optional;
 
       font-size: 20px;
       line-height: 40px;
@@ -311,7 +311,7 @@ nav.navbar.fixed-top {
       cursor: pointer;
 
       i {
-        @extend .transition-transform;
+        @extend .transition-transform !optional;
       }
 
       &.users-nav:hover {

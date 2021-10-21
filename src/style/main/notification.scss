@@ -91,7 +91,7 @@
       margin-bottom: 0;
 
       .icons .icon {
-        @extend .btn-star;
+        @extend .btn-star !optional;
 
         background-color: #fff;
         border: 1px solid #ccc;

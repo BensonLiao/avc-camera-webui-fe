@@ -56,7 +56,7 @@ html {
   // We use another approach to achieve that with more browser compatibility.
   // ref: https://bugzilla.mozilla.org/show_bug.cgi?id=1521631#c13
   // note. Also we need to define on html to affect more browsers (e.g. on body won't works on FireFox)
-  @extend .hidden-scrollbar;
+  @extend .hidden-scrollbar !optional;
 }
 
 body {
@@ -488,7 +488,7 @@ body {
   }
 
   .datepicker {
-    @extend .shadow-sm;
+    @extend .shadow-sm !optional;
 
     position: absolute;
     width: 304px;
@@ -538,7 +538,7 @@ body {
 
           &.active {
             a {
-              @extend .rounded-circle;
+              @extend .rounded-circle !optional;
 
               color: #fff;
               display: inline-block;
@@ -659,7 +659,7 @@ $table-body-cell: 'tbody tr td';
 
     #{$table-head-cell},
     #{$table-body-cell} {
-      @extend .align-middle;
+      @extend .align-middle !optional;
 
       padding: #{$table-head-cell-padding};
       color: #666;

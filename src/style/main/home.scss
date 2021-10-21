@@ -84,7 +84,7 @@
           margin-right: 16px;
           color: #ccc;
 
-          @extend .transition-transform;
+          @extend .transition-transform !optional;
         }
 
         .tip {

@@ -6,7 +6,7 @@
   #{$table-wrapper} {
     #{$table} {
       #{$table-body-cell} {
-        @extend .text-truncate;
+        @extend .text-truncate !optional;
       }
     }
   }

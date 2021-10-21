@@ -30,14 +30,14 @@
     }
 
     .quantity {
-      @extend .text-primary;
+      @extend .text-primary !optional;
 
       font-weight: bold;
       font-size: 28px;
     }
 
     .description {
-      @extend .text-muted;
+      @extend .text-muted !optional;
 
       font-size: 16px;
     }
@@ -51,7 +51,7 @@
       }
 
       #{$table-body-cell} {
-        @extend .text-truncate;
+        @extend .text-truncate !optional;
       }
     }
   }

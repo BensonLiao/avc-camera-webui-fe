@@ -257,7 +257,7 @@ label.btn {
       left: -($switch-height - 2px);
       width: $switch-height;
 
-      @extend .text-center;
+      @extend .text-center !optional;
     }
 
     span + span {
@@ -271,7 +271,7 @@ label.btn {
       left: -2px;
       width: $switch-height;
 
-      @extend .text-center;
+      @extend .text-center !optional;
     }
 
     &::after {
@@ -309,7 +309,7 @@ label.btn {
       left: -($switch-height - 2px);
       width: $switch-height;
 
-      @extend .text-center;
+      @extend .text-center !optional;
     }
 
     span + span {
@@ -323,7 +323,7 @@ label.btn {
       left: -2px;
       width: $switch-height;
 
-      @extend .text-center;
+      @extend .text-center !optional;
     }
 
     &::after {
