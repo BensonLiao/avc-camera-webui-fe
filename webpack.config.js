@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const webpack = require('webpack');
@@ -25,16 +25,10 @@ module.exports = (env = {}, argv = {}) => {
   return {
     target: 'web',
     mode: mode,
-    entry: {
-      web: path.resolve(__dirname, 'src', 'web', 'index.js')
-    },
+    entry: {web: path.resolve(__dirname, 'src', 'web', 'index.js')},
     devtool: 'inline-source-map',
-    devServer: {
-      static: `./${buildFolder}`
-    },
-    resolve: {
-      extensions: ['.js']
-    },
+    devServer: {static: `./${buildFolder}`},
+    resolve: {extensions: ['.js']},
     output: {
       path: path.resolve(__dirname, buildFolder),
       publicPath: isDebug ?
@@ -79,7 +73,7 @@ module.exports = (env = {}, argv = {}) => {
             // Translates CSS into CommonJS
             'css-loader',
             // Compiles Sass to CSS
-            'sass-loader',
+            'sass-loader'
           ]
         },
         {
@@ -107,8 +101,8 @@ module.exports = (env = {}, argv = {}) => {
       minimizer: [
         // For webpack@5 you can use the `...` syntax to extend existing minimizers (i.e. `terser-webpack-plugin`), uncomment the next line
         // `...`,
-        new CssMinimizerPlugin(),
-      ],
+        new CssMinimizerPlugin()
+      ]
     },
     plugins: (() => {
       const result = [
@@ -148,7 +142,7 @@ module.exports = (env = {}, argv = {}) => {
       if (isDisableMockServer) {
         result.push(new webpack.IgnorePlugin({resourceRegExp: /.*dev\/.*$/}));
       }
-      
+
       if (isAnalyzeBuild) {
         result.push(new BundleAnalyzerPlugin());
       }
@@ -161,9 +155,7 @@ module.exports = (env = {}, argv = {}) => {
           })
         );
         result.push(
-          new CompressionWebpackPlugin({
-            test: /\.(js|css|svg)$/
-          })
+          new CompressionWebpackPlugin({test: /\.(js|css|svg)$/})
         );
       }
 
