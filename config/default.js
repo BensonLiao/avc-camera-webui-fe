@@ -4,6 +4,10 @@ module.exports = {
     host: '0.0.0.0',
     port: 8001
   },
+  expressDevServer: {
+    host: 'localhost',
+    port: 8001
+  },
   webpackDevServer: {
     host: 'localhost',
     port: 8002

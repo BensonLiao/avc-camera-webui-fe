@@ -16,6 +16,8 @@ const baseHandler = require('./handlers/base-handler');
 
 const app = express();
 const server = http.createServer(app);
+// To integarte with webpack-dev-middleware, use another config to serve at localhost when in dev mode
+const serverConfig = config.isDebug ? config.expressDevServer : config.expressServer;
 
 const webpackConfig = require('../webpack.config.js')();
 const compiler = webpack(webpackConfig);
@@ -24,7 +26,8 @@ const compiler = webpack(webpackConfig);
 // configuration file as a base.
 app.use(
   webpackDevMiddleware(compiler, {
-    publicPath: webpackConfig.output.publicPath,
+    writeToDisk: true,
+    publicPath: webpackConfig.output.publicPath
   })
 );
 
@@ -95,15 +98,13 @@ app.use((error, req, res, _) => {
 
 // Launch server and open browser on demand
 server.listen(
-  config.expressServer.port, config.expressServer.host,
-  async () => {
+  serverConfig.port, serverConfig.host, async () => {
     const {address, port} = server.address();
     console.log(`Server listening at http://${address}:${port}.`);
     if (process.env.OPEN && process.env.OPEN === '1') {
       try {
         await open(`http://${address}:${port}`);
-      }
-      catch {
+      } catch {
         console.warn(`Unable to open http://${address}:${port}.`);
       }
     }

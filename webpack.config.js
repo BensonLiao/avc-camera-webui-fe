@@ -32,7 +32,7 @@ module.exports = (env = {}, argv = {}) => {
     output: {
       path: path.resolve(__dirname, buildFolder),
       publicPath: isDebug ?
-        `//${config.expressServer.host}:${config.expressServer.port}/` :
+        `//${config.expressDevServer.host}:${config.expressDevServer.port}/` :
         '/assets/',
       // filename: '[name].js', // Default value in v5
       chunkFilename: '[name].[contenthash].js',
