@@ -36,7 +36,7 @@ module.exports = (env = {}, argv = {}) => {
         '/assets/',
       // filename: '[name].js', // Default value in v5
       chunkFilename: '[name].[contenthash].js',
-      assetModuleFilename: 'resources/[name].[ext]',
+      assetModuleFilename: 'resources/[name][ext]',
       clean: true
     },
     module: {
