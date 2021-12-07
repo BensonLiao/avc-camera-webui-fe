@@ -21,15 +21,14 @@ const serverConfig = config.isDebug ? config.expressDevServer : config.expressSe
 
 const webpackConfig = require('../webpack.config.js')();
 const compiler = webpack(webpackConfig);
+const webpackDevInstance = webpackDevMiddleware(compiler, {
+  writeToDisk: true,
+  publicPath: webpackConfig.output.publicPath
+});
 
 // Tell express to use the webpack-dev-middleware and use the webpack.config.js
 // configuration file as a base.
-app.use(
-  webpackDevMiddleware(compiler, {
-    writeToDisk: true,
-    publicPath: webpackConfig.output.publicPath
-  })
-);
+app.use(webpackDevInstance);
 
 // Setup handlebars
 const hbs = expressHandlebars.create({
@@ -98,15 +97,17 @@ app.use((error, req, res, _) => {
 
 // Launch server and open browser on demand
 server.listen(
-  serverConfig.port, serverConfig.host, async () => {
+  serverConfig.port, serverConfig.host, () => {
     const {address, port} = server.address();
     console.log(`Server listening at http://${address}:${port}.`);
     if (process.env.OPEN && process.env.OPEN === '1') {
-      try {
-        await open(`http://${address}:${port}`);
-      } catch {
-        console.warn(`Unable to open http://${address}:${port}.`);
-      }
+      webpackDevInstance.waitUntilValid(async () => {
+        try {
+          await open(`http://${address}:${port}`);
+        } catch {
+          console.warn(`Unable to open http://${address}:${port}.`);
+        }
+      });
     }
   }
 );
