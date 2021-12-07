@@ -26,8 +26,7 @@ const webpackDevInstance = webpackDevMiddleware(compiler, {
   publicPath: webpackConfig.output.publicPath
 });
 
-// Tell express to use the webpack-dev-middleware and use the webpack.config.js
-// configuration file as a base.
+// Tell express to serve files emitted from webpack with the webpack.config.js configuration file.
 app.use(webpackDevInstance);
 
 // Setup handlebars
@@ -95,7 +94,7 @@ app.use((error, req, res, _) => {
   }
 });
 
-// Launch server and open browser on demand
+// Launch server and open browser on demand after webpack bundle finished
 server.listen(
   serverConfig.port, serverConfig.host, () => {
     const {address, port} = server.address();
